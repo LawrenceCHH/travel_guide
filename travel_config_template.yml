@@ -1,0 +1,35 @@
+# ✈️ AI 旅遊規劃系統本地設定檔 (隱私保護)
+# 請在此填入您的旅程基本偏好，Agent 會自動讀取並上網爬取最新資訊。
+
+# 出發與目的地配置
+departure_country: "台灣"
+departure_airport: "桃園國際機場 (TPE)"
+destination: "韓國首爾"
+arrival_airport: "仁川國際機場 (ICN)"
+airline: "長榮航空 (EVA Air)"            # Agent 將自動查詢此航空公司的行李規定
+
+# 查詢時效與日期
+target_year: "2025-2026"                 # 限定 Agent 檢索資訊的年份區間
+travel_dates:
+  start_date: "2026-08-10"
+  end_date: "2026-08-14"
+
+# 通訊與語言偏好
+telecom_carrier: "中華電信"               # Agent 將自動查詢此電信商的漫遊方案
+language: "繁體中文 (zh-TW)"              # 產出的規劃書語言
+
+# 同伴資訊 (Agent 將據此優化景點友善度)
+companions:
+  total_count: 3
+  relationship_type: "elderly_and_family"
+
+# 特殊交代與個人偏好 (請以多行文字自由撰寫)
+preferences:
+  hotel: "明洞九樹酒店 (Nine Tree Hotel Myeongdong)"
+  duration_days: 5
+  notes: |
+    1. 希望多安排美食行程，以半天為單位安排。
+    2. 有長輩同行，步調要放慢，避開大斜坡或長樓梯景點。
+    3. 保險需要海外突發疾病醫療險，不用租車車險。
+    4. 交通接駁優先推薦機場快線或計程車。
+    5. 支付方式偏好信用卡與當地感應支付。
