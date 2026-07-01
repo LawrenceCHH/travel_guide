@@ -160,4 +160,4 @@
 
 # Output
 儲存原始規劃書為 `travel_{目的地}.md`。
-儲存風格修飾版為 `travel_edited.markdown`。
+儲存風格修飾版為 `travel_{目的地}_edited.md`。

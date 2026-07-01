@@ -112,4 +112,4 @@
 
 # Output
 直接修改並儲存原 `travel_{目的地}.md`。
-重新寫入並覆寫更新風格修飾後的 `travel_edited.markdown`。
+重新寫入並覆寫更新風格修飾後的 `travel_{目的地}_edited.md`。

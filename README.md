@@ -21,11 +21,11 @@
 
 - 🎯 **[prompt_generate_trip.md](file:///home/lawrencechh/j/travel_guide/prompt_generate_trip.md)**:
   首次生成專屬規劃書的 Agent Prompt 指令。
-  *(內含 **「🤖 多代理人內部協作工作流」**。在查證數據後，先輸出帶有 DYNAMIC 標籤的原始規劃書 `travel_{目的地}.md`；接著指派 **【資深編輯】** 依據設定檔風格潤色全文語氣，輸出最終無標籤、給旅客直接閱讀的精修版 **`travel_edited.markdown`**。)*
+  *(內含 **「🤖 多代理人內部協作工作流」**。在查證數據後，先輸出帶有 DYNAMIC 標籤的原始規劃書 `travel_{目的地}.md`；接著指派 **【資深編輯】** 依據設定檔風格潤色全文語氣，輸出最終無標籤、給旅客直接閱讀的精修版 **`travel_{目的地}_edited.md`**。)*
 
 - 🔄 **[prompt_update_trip.md](file:///home/lawrencechh/j/travel_guide/prompt_update_trip.md)**:
   增量維護已生成規劃書的 Agent Prompt 指令。
-  *(增量更新後，同樣會自動啟動 **【資深編輯】** 重新潤色，並同步更新覆寫精修版 **`travel_edited.markdown`**。)*
+  *(增量更新後，同樣會自動啟動 **【資深編輯】** 重新潤色，並同步更新覆寫精修版 **`travel_{目的地}_edited.md`**。)*
 
 ---
 
@@ -39,10 +39,10 @@
 #### 情境 A：第一次針對草稿進行完整補全與驗證
 將 [prompt_generate_trip.md](file:///home/lawrencechh/j/travel_guide/prompt_generate_trip.md) 的內容作為 Prompt 指令提供給您的 AI Agent。執行完成後，您會獲得兩個檔案：
 1. **`travel_{目的地}.md`**：保留動態標籤的原始規劃書（用於日後更新）。
-2. **`travel_edited.markdown`**：精修寫作風格後的最終旅遊書（用於直接閱讀）。
+2. **`travel_{目的地}_edited.md`**：精修寫作風格後的最終旅遊書（用於直接閱讀）。
 
 #### 情境 B：出發前一週進行資訊更新
-將 [prompt_update_trip.md](file:///home/lawrencechh/j/travel_guide/prompt_update_trip.md) 提供給 AI Agent，它將針對 `travel_{目的地}.md` 進行局部修正，並自動重新生成風格修飾版 `travel_edited.markdown`。
+將 [prompt_update_trip.md](file:///home/lawrencechh/j/travel_guide/prompt_update_trip.md) 提供給 AI Agent，它將針對 `travel_{目的地}.md` 進行局部修正，並自動重新生成風格修飾版 `travel_{目的地}_edited.md`。
 
 ### 步驟 3：手動貼上固定心法
 規劃書生成後，您可以直接將 [travel_general_mindset.md](file:///home/lawrencechh/j/travel_guide/travel_general_mindset.md) 內您有需要的固定心法（如行李打包清單、索賠黃金清單）複製並合併到產出的規畫書中，即完成您最完美的旅遊指南！
