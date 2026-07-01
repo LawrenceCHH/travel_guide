@@ -10,6 +10,9 @@
   本地設定檔（YAML 格式）。包含您的出發地、目的地、起訖機場、航空公司、旅遊日期、電信商、同伴資訊、以及備註偏好。
   *(此檔案已自動加入 [.gitignore](file:///home/lawrencechh/j/travel_guide/.gitignore)，確保您的行程隱私不被推上 Repository。)*
 
+- ⚙️ **[travel_config_template.yml](file:///home/lawrencechh/j/travel_guide/travel_config_template.yml)**:
+  設定檔範本。提供給使用者複製並修改為 `travel_config.yml` 使用，內含豐富的參數說明與 `notes` 自訂需求範例（包含如何撰寫自訂景點、同伴無障礙、保險與特定網頁搜尋來源偏好等）。
+
 - 📝 **[travel_template.md](file:///home/lawrencechh/j/travel_guide/travel_template.md)**:
   動態欄位模板。包含行前、機場、在地、緊急四大部分，共 11 個需要 Agent 動態爬取並更新的區塊。
 
@@ -18,19 +21,20 @@
 
 - 🎯 **[prompt_generate_trip.md](file:///home/lawrencechh/j/travel_guide/prompt_generate_trip.md)**:
   首次生成專屬規劃書的 Agent Prompt 指令。
-  *(內含 **「🤖 多代理人內部協作工作流」**。強制 Agent 在內部思維中模擬**【資深嚮導】**、**【資深編輯】**與**【資訊查證員】**的角色進行挑錯討論與自我修正，再輸出最終結果。)*
+  *(內含 **「🤖 多代理人內部協作工作流」** 與 **「智慧自主檢索與備註優先篩選規則」**。強制 Agent 主動進行全球熱門網頁與官方機構的關聯推導，且當使用者在備註 notes 中以自然語言要求特定搜尋來源時，進行優先篩選覆寫。)*
 
 - 🔄 **[prompt_update_trip.md](file:///home/lawrencechh/j/travel_guide/prompt_update_trip.md)**:
   增量維護已生成規劃書的 Agent Prompt 指令。
-  *(同樣內含 **「🤖 多代理人內部協作工作流」**，引導 Agent 在出發前以同樣的嚴格標準自我查證並精修更新。)*
+  *(同樣內含多代理人內部協作工作流與智慧自主檢索規則，引導 Agent 在出發前以同樣的嚴格標準自我查證並精修更新。)*
 
 ---
 
 ## 🚀 如何使用這套系統
 
 ### 步驟 1：配置您的本地設定檔
-1. 開啟 [travel_config.yml](file:///home/lawrencechh/j/travel_guide/travel_config.yml)，填入您這次旅行的基礎資訊與同伴年齡、特殊備註偏好。
-2. 任何特定偏好（例如：保險公司限額、餐飲口味、叫車優先順序），請使用 YAML 的多行語法 `notes: |` 以自然語言編寫在備註中。
+1. 開啟 [travel_config.yml](file:///home/lawrencechh/j/travel_guide/travel_config.yml) (或複製自 [travel_config_template.yml](file:///home/lawrencechh/j/travel_guide/travel_config_template.yml))，填入您這次旅行的基礎資訊。
+2. 本專案採**「零配置開關」**設計。網頁檢索預設會自主推導目的地官方網站並搜尋全球熱門資訊。
+3. 任何特定偏好（例如：希望優先找台灣部落客食記、保險公司限額、長輩步調與無障礙需求、指名必去景點），請統一使用 YAML 的多行語法 `notes: |` 以自然語言直接編寫在備註中即可，Agent 會智慧識別並優先覆寫。
 
 ### 步驟 2：執行 Agent
 #### 情境 A：第一次針對草稿進行完整補全與驗證

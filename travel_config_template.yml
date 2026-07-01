@@ -1,35 +1,39 @@
-# ✈️ AI 旅遊規劃系統本地設定檔 (隱私保護)
-# 請在此填入您的旅程基本偏好，Agent 會自動讀取並上網爬取最新資訊。
+# ✈️ AI 旅遊規劃系統設定檔範本 (travel_config_template.yml)
+# 使用方法：請複製此檔案並命名為 `travel_config.yml`，然後依據您的實際旅程修改內容。
 
 # 出發與目的地配置
 departure_country: "台灣"
-departure_airport: "桃園國際機場 (TPE)"
-destination: "韓國首爾"
-arrival_airport: "仁川國際機場 (ICN)"
-airline: "長榮航空 (EVA Air)"            # Agent 將自動查詢此航空公司的行李規定
+departure_airport: "臺灣桃園國際機場 (TPE) T1"
+destination: "日本東京"
+arrival_airport: "成田國際機場 (NRT) T2"
+airline: "星宇航空 (STARLUX Airlines)"   # Agent 將自動上網爬取此航空公司的最新手提與託運行李規定
 
 # 查詢時效與日期
-target_year: "2025-2026"                 # 限定 Agent 檢索資訊的年份區間
+target_year: "2026"                      # 限定 Agent 檢索該年份的最新規定與票價
 travel_dates:
-  start_date: "2026-08-10"
-  end_date: "2026-08-14"
+  start_date: "2026-10-15"
+  end_date: "2026-10-19"
 
 # 通訊與語言偏好
-telecom_carrier: "中華電信"               # Agent 將自動查詢此電信商的漫遊方案
-language: "繁體中文 (zh-TW)"              # 產出的規劃書語言
+telecom_carrier: "中華電信"               # Agent 將自動查詢此電信商針對目的地的漫遊資費與方案
+language: "繁體中文 (zh-TW)"              # 最終產出的規劃書語言
 
-# 同伴資訊 (Agent 將據此優化景點友善度)
+# 同伴資訊 (Agent 將據此優化景點友善度，如避開斜坡、推車電梯優先)
 companions:
   total_count: 3
-  relationship_type: "elderly_and_family"
+  relationship_type: "family_with_toddler" # 例如：帶幼兒同行 (幼兒/長輩/獨旅/蜜月等)
 
-# 特殊交代與個人偏好 (請以多行文字自由撰寫)
+# 特殊交代與個人偏好 (請以 YAML 多行文字 '|' 自由撰寫，Notes 內容對 Agent 具最高覆寫權限)
 preferences:
-  hotel: "明洞九樹酒店 (Nine Tree Hotel Myeongdong)"
+  hotel: "上野雷索爾飯店 (Hotel Resol Ueno)"
   duration_days: 5
   notes: |
-    1. 希望多安排美食行程，以半天為單位安排。
-    2. 有長輩同行，步調要放慢，避開大斜坡或長樓梯景點。
-    3. 保險需要海外突發疾病醫療險，不用租車車險。
-    4. 交通接駁優先推薦機場快線或計程車。
-    5. 支付方式偏好信用卡與當地感應支付。
+    【填寫範例 - 請依實際需求增減】
+    1. 同伴與步調：我們有帶 2 歲的幼兒，需要推嬰兒車。每日行程步調需極度緩慢，景點與地鐵移動必須「電梯優先」，並避開需要長距離步行的陡坡與長樓梯。
+    2. 指名必去景點與美食（重要）：這一次我們指名要去「東京迪士尼樂園」、「淺草寺」與吃「利久牛舌」。請 Agent 務必以這三個地標為核心去串聯與規劃行程，並幫忙規劃周邊無障礙的歇腳處（如特色親子咖啡廳）與接駁交通。
+    3. 交通接駁偏好：從成田機場到上野，優先推薦 Skyliner 機場快線。市區內移動以地鐵為主，若地鐵無障礙設施不便，請加註推薦計程車。
+    4. 支付方式偏好：主要使用信用卡與 Apple Pay，想知道 Suica (西瓜卡) 目前在當地的最新綁定與儲值規定。
+    5. 保險要求：需要投保海外突發疾病醫療險，且因為有在東京近郊自駕的打算，需要說明海外租車保險（CDW/NOC）的理賠防坑注意。
+    6. 網頁搜尋來源偏好：
+       - (A) 官方規定：入境快速通關（如 Visit Japan Web）與免稅規定，由 Agent 自主搜尋對應的日本官方網站最新公告。
+       - (B) 遊記與美食：偏好搜尋「台灣知名旅遊部落客（如：樂活的大方、波比看世界、Alina愛琳娜）」與「背包客棧」、「Klook / KKday 攻略」的最新繁體中文食記，以利篩選出符合台灣人口味的餐廳與帶嬰兒車的避雷經驗。
