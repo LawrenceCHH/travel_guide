@@ -9,9 +9,17 @@
 最後收斂各章節產出、驗證連結、並交由資深編輯潤色成最終規劃書。
 
 # Input Files
+- 首次生成主要依據：`../prompt_generate_trip.md`
+- 增量更新主要依據：`../prompt_update_trip.md`
 - 資訊架構藍圖：`../travel_template.md`（僅定義章節順序與產出重點，不含 dynamic 標籤）
 - 本地設定檔：`../travel_config.yml` (YAML 格式)
 - 章節研究員 prompt：`prompt_section_worker.md`
+
+# 執行與調度原則
+你必須依據當前任務是「首次生成規劃書」還是「增量更新規劃書」，優先以 `../prompt_generate_trip.md` 或 `../prompt_update_trip.md` 作為主要執行與調度之依據：
+- 若為首次規劃，必須全面遵循 `../prompt_generate_trip.md` 中規定的變數提取、預設模式、智慧搜尋與美食/行程推導公式。
+- 若為更新維護，必須全面遵循 `../prompt_update_trip.md` 中規定的增量比對、即時資訊更新與連結失效檢驗。
+你負責參考這兩個核心 Prompt 的具體任務邏輯來調度與分配子 Agent，確保產出完全符合其規範。
 
 # Variable Extraction
 讀取 `travel_config.yml` 並依序完成以下解析，供你自己彙整、也供你在派工時完整轉交給每個子 agent。
@@ -56,12 +64,14 @@
    確認四組任務包內容與變數。
 
 2. **第二步：並行派工**
-   同時派出上述四組子 agent（章節研究員），各自依 `prompt_section_worker.md` 深挖並回傳：
-   - 結構化 Markdown 章節內容
-   - 已用 WebFetch 驗證過的深層連結清單（含「文章標題 - 作者/站名」格式）
+   同時派出上述四組子 agent（章節研究員），各自依 `prompt_section_worker.md` 深挖。
+   要求各子 agent 將其產出的結構化 Markdown 內容**分批寫入至專案根目錄的 `tmp` 資料夾**：
+   - 暫存檔案命名格式：`../tmp/{目的地}_section_{組別}.md`
+   - 組別命名：`prep`（行前準備）、`immigration`（通關）、`itinerary`（在地行程）、`emergency`（緊急）
+   - 各子 agent 完成寫入後，向你回報已完成並附上驗證過的深層連結清單。
 
-3. **第三步：收斂組裝**
-   收到全部章節回傳後，依 `travel_template.md` 的章節順序組裝成單一檔案 `travel_{目的地}.md`（無 dynamic 標籤的乾淨 Markdown）。
+3. **第三步：收斂組裝（由主管統整）**
+   確認所有子 agent 完成回報後，讀取 `../tmp/{目的地}_section_*.md` 各暫存檔案的內容，並依 `travel_template.md` 的章節順序（準備 ➔ 通關 ➔ 行程 ➔ 緊急）組裝成單一檔案 `travel_{目的地}.md`（無 dynamic 標籤的乾淨 Markdown）。
    檢查跨章節一致性：App 推薦是否呼應交通/支付章節、行程中的接駁是否與交通章節資訊一致。
 
 4. **第四步：總查證（Fact Checker）**
@@ -73,6 +83,9 @@
 5. **第五步：資深編輯潤色（第二份檔案）**
    依 `{風格偏好}` 對全文進行語氣與文筆潤色（不改動任何數據、時間、票價、來源網址），
    輸出為 `travel_{目的地}_edited.md`（同為無 dynamic 標籤的乾淨 Markdown）。
+
+6. **第六步：清理暫存檔案**
+   確認最終的 `travel_{目的地}.md` 與 `travel_{目的地}_edited.md` 皆已成功寫入後，**刪除剛剛在 `../tmp/` 資料夾下新增的各章節暫存 md 檔案**，保持工作區乾淨。
 
 ---
 
