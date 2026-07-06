@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>首爾秋日漫遊手帳</title>
+  <meta name="description" content="專為家庭與長輩、爛腳人同行特別優化之首爾秋日自助旅行手帳。零外部依賴、完全離線可用。">
+  <style>
+    /* ================= 設計系統 Design Tokens：侘寂綠 × 秋日暖色 ================= */
+    :root {
+      --primary: #659287;
+      --primary-hover: #4e736a;
+      --secondary: #88bda4;
+      --secondary-light: #e6f2dd;
+
+      --bg: #f4f8f1;
+      --surface: #ffffff;
+      --border: #b1d3b9;
+      --border-light: #e6f2dd;
+
+      --text-main: #2f4842;
+      --text-muted: #425c56;
+
+      --warning-bg: #fdfae6;
+      --warning-border: #d4a373;
+      --warning-text: #8c5e3c;
+
+      /* 秋日暖色（導引 / 強調，低飽和） */
+      --maple: #b56a43;
+      --maple-soft: #f4e6dc;
+      --ginkgo: #b8912e;
+      --ginkgo-soft: #f6eed6;
+      --wood: #7a5c43;
+      --wood-soft: #e7ddd0;
+
+      /* 分日主題色（僅作軟性色盤，不代表硬性分日） */
+      --day1: #b8912e;
+      --day1-soft: #f6eed6;
+      --day2: #b56a43;
+      --day2-soft: #f4e6dc;
+      --day3: #659287;
+      --day3-soft: #e6f2dd;
+      --day4: #6f8ba0;
+      --day4-soft: #e8eef1;
+
+      --paper: #efe9dd;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 24px;
+      --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 12px 30px -5px rgba(15, 23, 42, 0.06);
+
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-stack);
+      background-color: var(--paper);
+      color: var(--text-main);
+      line-height: 1.75;
+      font-size: 16px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 540px;
+      background-color: var(--bg);
+      min-height: 100vh;
+      box-shadow: var(--shadow-md);
+      border-left: 1px solid var(--border-light);
+      border-right: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding-bottom: 96px;
+    }
+
+    /* --- 頂部標題區（含銀杏/楓葉裝飾） --- */
+    .app-header {
+      position: relative;
+      background: linear-gradient(135deg, var(--primary) 0%, #527a70 100%);
+      color: #ffffff;
+      padding: 30px 24px 26px 24px;
+      border-bottom-left-radius: var(--radius-lg);
+      border-bottom-right-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .decor-leaf {
+      position: absolute;
+      opacity: 0.16;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .decor-leaf.leaf-1 { width: 92px; height: 92px; top: -18px; right: -14px; fill: #f6eed6; transform: rotate(12deg); }
+    .decor-leaf.leaf-2 { width: 60px; height: 60px; bottom: -10px; right: 58px; fill: #e9c9a8; transform: rotate(-18deg); }
+    .decor-leaf.leaf-3 { width: 46px; height: 46px; top: 18px; left: -8px; fill: #f6eed6; transform: rotate(-30deg); }
+
+    .app-title-area {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      z-index: 1;
+    }
+
+    .app-logo { width: 34px; height: 34px; fill: #ffffff; flex-shrink: 0; }
+
+    .app-title {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .app-subtitle {
+      position: relative;
+      z-index: 1;
+      font-size: 14px;
+      opacity: 0.95;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    .meta-chips { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .meta-chip {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* --- 頂部單層水平滑動導覽 (Sticky Navbar) --- */
+    .nav-container {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--bg);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .nav-menu-wrapper { position: relative; width: 100%; overflow: hidden; }
+
+    .nav-menu-wrapper::after {
+      content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 30px;
+      background: linear-gradient(to right, transparent, var(--bg)); pointer-events: none;
+    }
+    .nav-menu-wrapper::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 20px;
+      background: linear-gradient(to left, transparent, var(--bg)); pointer-events: none; z-index: 2;
+    }
+
+    .nav-menu {
+      display: flex; overflow-x: auto; scroll-behavior: smooth;
+      padding: 4px 24px; gap: 10px; scrollbar-width: none;
+    }
+    .nav-menu::-webkit-scrollbar { display: none; }
+
+    .nav-link {
+      white-space: nowrap; padding: 8px 16px; background-color: var(--surface);
+      border: 1px solid var(--border-light); color: var(--text-muted);
+      border-radius: 24px; font-size: 14px; font-weight: 600; cursor: pointer;
+      transition: all 0.25s ease; display: flex; align-items: center; gap: 6px;
+      text-decoration: none; box-shadow: var(--shadow-sm); min-height: 40px;
+    }
+    .nav-link svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .nav-link.active { background-color: var(--primary); color: #ffffff; border-color: var(--primary); }
+
+    /* --- 主要內容區 --- */
+    .content-area { padding: 24px 20px; flex-grow: 1; }
+    .content-section { display: none; }
+    .content-section.active { display: block; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .section-title {
+      font-size: 21px; font-weight: 800; color: var(--text-main);
+      margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+      border-left: 4px solid var(--primary); padding-left: 10px;
+    }
+    .section-title svg { width: 20px; height: 20px; fill: var(--primary); flex-shrink: 0; }
+    .section-sub { font-size: 14px; color: var(--text-muted); margin: -10px 0 18px 0; }
+
+    /* --- 無壓力定調文案 --- */
+    .soft-tagline {
+      background-color: var(--secondary-light);
+      border-left: 4px solid var(--secondary);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.65;
+    }
+
+    /* --- 總覽：景點主題導覽畫廊 --- */
+    .gallery-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px;
+    }
+    .gallery-card {
+      background: var(--surface); border: 1px solid var(--border-light);
+      border-top: 4px solid var(--primary); border-radius: var(--radius-md);
+      padding: 14px 14px 16px; text-align: left; cursor: pointer;
+      box-shadow: var(--shadow-sm); font-family: inherit; color: inherit;
+      display: flex; flex-direction: column; gap: 8px; min-height: 128px;
+    }
+    .gallery-card-name { font-size: 15px; font-weight: 800; color: var(--text-main); }
+    .gallery-card-theme { font-size: 13px; color: var(--text-muted); line-height: 1.5; flex-grow: 1; }
+    .gallery-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
+
+    /* --- 行前提醒膠囊 / 一鍵緊急 --- */
+    .prep-pill-row { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .prep-pill {
+      display: flex; align-items: center; gap: 10px; width: 100%;
+      background-color: var(--surface); border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm); padding: 12px 14px; font-size: 14px;
+      font-weight: 600; color: var(--text-main); cursor: pointer; text-align: left;
+      font-family: inherit; min-height: 44px;
+    }
+    .prep-pill svg { width: 18px; height: 18px; fill: var(--maple); flex-shrink: 0; }
+    .prep-pill.gk svg { fill: var(--ginkgo); }
+    .prep-pill.pm svg { fill: var(--primary); }
+
+    .emergency-cta {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; background-color: var(--primary); color: #fff; border: none;
+      border-radius: var(--radius-md); padding: 14px; font-size: 16px; font-weight: 800;
+      cursor: pointer; min-height: 48px; box-shadow: var(--shadow-sm);
+    }
+    .emergency-cta svg { width: 20px; height: 20px; fill: #fff; }
+
+    /* --- 摺疊詳解卡片（行前準備 / 實用） --- */
+    .accordion-card {
+      background: var(--surface); border: 1px solid var(--border-light);
+      border-radius: var(--radius-md); margin-bottom: 18px; overflow: hidden;
+      box-shadow: var(--shadow-sm); transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .accordion-card[open] { border-color: var(--border); box-shadow: 0 6px 18px rgba(101, 146, 135, 0.08); }
+    .accordion-summary {
+      padding: 18px 20px; font-weight: 700; font-size: 17px; color: var(--text-main);
+      cursor: pointer; list-style: none; display: flex; justify-content: space-between;
+      align-items: center; user-select: none; min-height: 44px;
+    }
+    .accordion-summary::-webkit-details-marker { display: none; }
+    .summary-left { display: flex; align-items: center; gap: 10px; }
+    .summary-icon { width: 20px; height: 20px; fill: var(--primary); flex-shrink: 0; }
+    .summary-arrow {
+      width: 18px; height: 18px; fill: none; stroke: var(--text-muted);
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      transition: transform 0.25s ease; flex-shrink: 0;
+    }
+    .accordion-card[open] .summary-arrow { transform: rotate(180deg); }
+    .accordion-content { padding: 20px; border-top: 1px solid var(--border-light); font-size: 16px; color: var(--text-main); }
+    .accordion-content p { margin-bottom: 14px; }
+    .accordion-content p:last-child { margin-bottom: 0; }
+    .nested-list { margin-left: 18px; margin-bottom: 14px; }
+    .nested-list li { margin-bottom: 10px; }
+
+    /* --- 警示框 --- */
+    .alert-box { padding: 18px 20px; border-radius: var(--radius-md); margin: 18px 0; font-size: 15px; line-height: 1.65; }
+    .alert-warning { background-color: var(--warning-bg); border: 1.5px solid var(--warning-border); color: var(--warning-text); }
+    .alert-warning h4 { color: #724c30; font-size: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .alert-important { background-color: var(--secondary-light); border: 1.5px solid var(--border); color: var(--text-main); }
+    .alert-important h4 { color: var(--text-main); font-size: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+
+    /* --- 景點漫遊：地名快速跳轉 chip --- */
+    .anchor-chip-row {
+      display: flex; overflow-x: auto; gap: 8px; margin-bottom: 20px;
+      padding-bottom: 6px; scrollbar-width: none;
+    }
+    .anchor-chip-row::-webkit-scrollbar { display: none; }
+    .anchor-chip {
+      white-space: nowrap; padding: 8px 14px; background-color: var(--surface);
+      border: 1px solid var(--border); color: var(--text-muted); border-radius: 14px;
+      font-size: 13px; font-weight: 700; cursor: pointer; min-height: 36px;
+      display: flex; align-items: center;
+    }
+
+    /* --- 景點主題章節卡（永遠可見，非互斥收合） --- */
+    .spot-card {
+      background-color: var(--surface); border-radius: var(--radius-md);
+      padding: 22px 20px; margin-bottom: 24px; border: 1px solid var(--border-light);
+      border-left: 5px solid var(--primary); box-shadow: var(--shadow-sm); scroll-margin-top: 100px;
+    }
+    .day-label {
+      display: inline-flex; align-items: center; padding: 3px 11px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; margin-bottom: 12px; opacity: 0.9;
+    }
+    .spot-title { font-size: 19px; font-weight: 800; color: var(--text-main); margin-bottom: 12px; }
+
+    /* --- 友善度徽章：第一級、放大、單一星星元件 --- */
+    .friendly-badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
+      border-radius: 22px; font-size: 14px; font-weight: 800; margin-bottom: 16px;
+    }
+    .friendly-badge.flat { background-color: var(--secondary-light); color: var(--primary-hover); }
+    .friendly-badge.slope { background-color: var(--ginkgo-soft); color: var(--ginkgo); }
+    .friendly-badge.steps { background-color: var(--maple-soft); color: var(--maple); }
+    .friendly-badge svg.foot-icon { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+
+    .stars { display: inline-flex; align-items: center; gap: 3px; font-weight: 800; font-size: 13px; color: inherit; }
+    .stars svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+
+    .area-desc { font-size: 16px; color: var(--text-main); margin-bottom: 14px; }
+
+    .pill-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+    .pill {
+      display: flex; align-items: flex-start; gap: 8px; background-color: var(--bg);
+      border: 1px solid var(--border-light); border-radius: var(--radius-sm);
+      padding: 9px 12px; font-size: 13px; color: var(--text-muted); font-weight: 600;
+    }
+    .pill svg { width: 16px; height: 16px; fill: var(--text-muted); flex-shrink: 0; margin-top: 2px; }
+
+    .info-subcard {
+      background-color: var(--secondary-light); border-radius: var(--radius-sm);
+      padding: 14px; margin-top: 14px; border-left: 4px solid var(--secondary); font-size: 15px;
+    }
+    .info-subcard-title { font-weight: 700; margin-bottom: 6px; color: var(--text-main); display: flex; align-items: center; gap: 6px; }
+    .info-subcard-title svg { width: 16px; height: 16px; fill: var(--primary); flex-shrink: 0; }
+
+    /* --- 美食折疊清單（details，預設收合，非互斥） --- */
+    .food-section-title {
+      font-size: 17px; font-weight: 800; color: var(--text-main); margin: 22px 0 12px 0;
+      display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border-light); padding-bottom: 8px;
+    }
+    .food-section-title svg { width: 18px; height: 18px; fill: var(--primary); flex-shrink: 0; }
+
+    .food-item {
+      background-color: var(--surface); border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm); margin-bottom: 10px; overflow: hidden; scroll-margin-top: 100px;
+    }
+    .food-item[open] { border-color: var(--border); }
+    .food-item-summary {
+      list-style: none; cursor: pointer; padding: 12px 14px; display: flex;
+      align-items: center; justify-content: space-between; gap: 8px; min-height: 44px;
+    }
+    .food-item-summary::-webkit-details-marker { display: none; }
+    .food-item-summary-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
+    .food-item-name { font-weight: 700; font-size: 14.5px; color: var(--text-main); }
+    .food-chip { font-size: 11px; padding: 3px 9px; border-radius: 10px; font-weight: 700; white-space: nowrap; }
+    .chip-meal { background-color: var(--secondary-light); color: var(--primary-hover); }
+    .chip-snack { background-color: var(--ginkgo-soft); color: var(--ginkgo); }
+    .chip-cafe { background-color: var(--wood-soft); color: var(--wood); }
+    .chip-gift { background-color: var(--maple-soft); color: var(--maple); }
+    .food-item-stars { color: var(--ginkgo); flex-shrink: 0; }
+    .food-item-arrow {
+      width: 16px; height: 16px; fill: none; stroke: var(--text-muted); stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s ease; flex-shrink: 0;
+    }
+    .food-item[open] .food-item-arrow { transform: rotate(180deg); }
+    .food-item-body { padding: 4px 14px 16px; font-size: 14.5px; color: var(--text-main); line-height: 1.65; border-top: 1px solid var(--border-light); }
+    .food-item-row { margin: 10px 0 0; }
+    .food-item-row strong { color: var(--text-main); }
+    .food-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .action-btn {
+      display: inline-flex; align-items: center; gap: 4px; padding: 7px 14px; border-radius: 6px;
+      font-size: 13px; font-weight: 600; text-decoration: none; min-height: 32px;
+    }
+    .btn-naver { background-color: #03cf5d; color: #ffffff; }
+    .btn-kakao { background-color: #fee500; color: #191919; }
+    .btn-ref { background-color: var(--bg); border: 1px solid var(--border); color: var(--text-main); }
+
+    /* --- 美食總覽：分區快速跳轉索引 --- */
+    .food-index-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .food-index-group { margin-bottom: 14px; }
+    .food-index-btn {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%;
+      background-color: var(--surface); border: 1px solid var(--border-light); border-left: 4px solid var(--primary);
+      border-radius: var(--radius-sm); padding: 14px 16px; font-size: 15px; font-weight: 700;
+      color: var(--text-main); cursor: pointer; font-family: inherit; min-height: 44px;
+    }
+    .food-index-btn small { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
+    .food-index-btn svg { width: 18px; height: 18px; fill: var(--text-muted); flex-shrink: 0; }
+
+    /* --- 接駁交通方案卡片 --- */
+    .transport-card {
+      background-color: var(--surface); border: 1px solid var(--border-light); border-radius: var(--radius-md);
+      margin-bottom: 18px; padding: 20px; box-shadow: var(--shadow-sm);
+    }
+    .transport-card-header {
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid var(--border-light); padding-bottom: 12px; margin-bottom: 12px; flex-wrap: wrap; gap: 6px;
+    }
+    .transport-title { font-weight: 800; font-size: 16.5px; color: var(--text-main); }
+    .transport-badge { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+    .transport-badge .stars { color: var(--ginkgo); }
+    .transport-badge small { font-size: 11px; color: var(--text-muted); font-weight: 700; }
+    .transport-detail-row { display: flex; margin-bottom: 8px; font-size: 15px; flex-wrap: wrap; }
+    .transport-detail-label { font-weight: 700; width: 90px; color: var(--text-muted); flex-shrink: 0; }
+    .transport-detail-value { color: var(--text-main); }
+    .transport-comment {
+      margin-top: 12px; background-color: var(--secondary-light); padding: 12px;
+      border-radius: var(--radius-sm); font-size: 14px; color: var(--text-main); border-left: 3px solid var(--secondary);
+    }
+
+    /* --- 機場通關垂直時間軸 Stepper --- */
+    .stepper { position: relative; padding-left: 24px; margin-top: 20px; }
+    .stepper::before { content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background-color: var(--border); }
+    .step-item { position: relative; margin-bottom: 28px; }
+    .step-item:last-child { margin-bottom: 0; }
+    .step-node {
+      position: absolute; left: -24px; top: 4px; width: 16px; height: 16px; border-radius: 50%;
+      background-color: var(--surface); border: 3px solid var(--primary); z-index: 2;
+    }
+    .step-item.active .step-node { background-color: var(--primary); }
+    .step-title { font-weight: 800; font-size: 17px; color: var(--text-main); margin-bottom: 8px; }
+    .step-content { font-size: 15px; color: var(--text-main); }
+
+    /* --- 實用 App 卡片 --- */
+    .app-grid { display: flex; flex-direction: column; gap: 14px; }
+    .app-card {
+      background-color: var(--surface); border-radius: var(--radius-md); border: 1px solid var(--border-light);
+      padding: 18px; display: flex; gap: 14px; box-shadow: var(--shadow-sm);
+    }
+    .app-icon-wrapper {
+      width: 46px; height: 46px; background-color: var(--secondary-light); border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .app-icon { width: 26px; height: 26px; fill: var(--primary); }
+    .app-info h4 { font-size: 16px; font-weight: 800; color: var(--text-main); margin-bottom: 6px; }
+    .app-info p { font-size: 14px; color: var(--text-muted); line-height: 1.55; }
+
+    /* --- 緊急應變卡片 --- */
+    .emergency-card {
+      background-color: var(--surface); border: 1.5px solid var(--border-light); border-left: 5px solid var(--maple);
+      border-radius: var(--radius-md); padding: 20px; margin-bottom: 18px; box-shadow: var(--shadow-sm);
+    }
+    .emergency-card h3 { font-size: 17px; font-weight: 800; color: var(--text-main); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .emergency-card h3 svg { width: 19px; height: 19px; fill: var(--maple); flex-shrink: 0; }
+    .emergency-card p { font-size: 15px; margin-bottom: 12px; }
+    .emergency-card p:last-child { margin-bottom: 0; }
+    .emergency-card a.link-styled { font-size: 16px; }
+
+    /* --- 底部持久快捷列 --- */
+    .bottom-bar {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 540px; display: flex; background-color: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      border-top: 1px solid var(--border-light); box-shadow: 0 -4px 16px rgba(15,23,42,0.06); z-index: 200;
+    }
+    .bottom-bar-btn {
+      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; padding: 10px 4px; background: none; border: none; cursor: pointer;
+      color: var(--text-muted); font-size: 11px; font-weight: 700; font-family: inherit; min-height: 56px;
+    }
+    .bottom-bar-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .bottom-bar-btn.emphasis { color: var(--primary-hover); }
+
+    .link-styled { color: var(--primary); text-decoration: none; font-weight: 600; border-bottom: 1px dashed var(--primary); }
+    .link-styled:hover { color: var(--primary-hover); }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- 頂部標題區（主視覺頁首） -->
+    <header class="app-header">
+      <svg class="decor-leaf leaf-1" viewBox="0 0 24 24"><path d="M12 2c-2.2 3-6.5 5.2-6.5 10.4C5.5 16 8 18.6 12 21c4-2.4 6.5-5 6.5-8.6C18.5 7.2 14.2 5 12 2z"/></svg>
+      <svg class="decor-leaf leaf-2" viewBox="0 0 24 24"><path d="M12 2c-2.2 3-6.5 5.2-6.5 10.4C5.5 16 8 18.6 12 21c4-2.4 6.5-5 6.5-8.6C18.5 7.2 14.2 5 12 2z"/></svg>
+      <svg class="decor-leaf leaf-3" viewBox="0 0 24 24"><path d="M12 2c-2.2 3-6.5 5.2-6.5 10.4C5.5 16 8 18.6 12 21c4-2.4 6.5-5 6.5-8.6C18.5 7.2 14.2 5 12 2z"/></svg>
+      <div class="app-title-area">
+        <svg class="app-logo" viewBox="0 0 24 24"><path d="M12 2c-2.2 3-6.5 5.2-6.5 10.4C5.5 16 8 18.6 12 21c4-2.4 6.5-5 6.5-8.6C18.5 7.2 14.2 5 12 2z"/></svg>
+        <h1 class="app-title">首爾秋日漫遊手帳</h1>
+      </div>
+      <div class="app-subtitle">臺灣桃園 (TPE) ➔ 韓國仁川 (ICN) T2 | 4人家族同行</div>
+      <div class="meta-chips">
+        <span class="meta-chip">
+          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+          2026-10-15 ~ 10-18 (4天3夜)
+        </span>
+        <span class="meta-chip">最後更新: 2026-07-05</span>
+      </div>
+    </header>
+
+    <!-- 頂部單層水平滑動導覽 -->
+    <nav class="nav-container">
+      <div class="nav-menu-wrapper">
+        <div class="nav-menu">
+          <a href="#" class="nav-link active" onclick="switchSection(event, 'overview')">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 3l9 8h-3v9h-5v-6h-2v6H6v-9H3l9-8z"/></svg>
+            總覽
+          </a>
+          <a href="#" class="nav-link" onclick="switchSection(event, 'preparation')">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 15l-4-4 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z"/></svg>
+            行前
+          </a>
+          <a href="#" class="nav-link" onclick="switchSection(event, 'airport')">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+            通關
+          </a>
+          <a href="#" class="nav-link" onclick="switchSection(event, 'spots')">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            景點漫遊
+          </a>
+          <a href="#" class="nav-link" onclick="switchSection(event, 'food')">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+            美食
+          </a>
+          <a href="#" class="nav-link" onclick="switchSection(event, 'useful')">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+            實用
+          </a>
+          <a href="#" class="nav-link" onclick="switchSection(event, 'emergency')">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
+            緊急
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 主要內容區 -->
+    <main class="content-area">
+
+      <!-- ================= SECTION: 總覽 ================= -->
+      <section id="section-overview" class="content-section active">
+        <h2 class="section-title">
+          <svg viewBox="0 0 24 24"><path d="M12 3l9 8h-3v9h-5v-6h-2v6H6v-9H3l9-8z"/></svg>
+          總覽
+        </h2>
+
+        <div class="soft-tagline">順序與停留時間都可依當天體力與心情彈性調整，不趕行程——每一站都有歇腳處，累了就坐下來喝杯茶。</div>
+
+        <div class="gallery-grid">
+          <button class="gallery-card" onclick="jumpToSpot('spot-buffer')" style="border-top-color: var(--day1);">
+            <span class="gallery-card-name">首日緩衝</span>
+            <span class="gallery-card-theme">紅眼降落後的從容補眠</span>
+            <span class="gallery-card-foot"><span class="day-label" style="background-color: var(--day1-soft); color: var(--day1);">Day1・可彈性</span></span>
+          </button>
+          <button class="gallery-card" onclick="jumpToSpot('spot-deoksugung')" style="border-top-color: var(--day1);">
+            <span class="gallery-card-name">德壽宮</span>
+            <span class="gallery-card-theme">金黃銀杏石牆路散步</span>
+            <span class="gallery-card-foot"><span class="day-label" style="background-color: var(--day1-soft); color: var(--day1);">Day1・可彈性</span></span>
+          </button>
+          <button class="gallery-card" onclick="jumpToSpot('spot-gyeongbok')" style="border-top-color: var(--day2);">
+            <span class="gallery-card-name">景福宮・三清洞</span>
+            <span class="gallery-card-theme">平地銀杏與三清洞紅楓散策</span>
+            <span class="gallery-card-foot"><span class="day-label" style="background-color: var(--day2-soft); color: var(--day2);">Day2・可彈性</span></span>
+          </button>
+          <button class="gallery-card" onclick="jumpToSpot('spot-insadong')" style="border-top-color: var(--day2);">
+            <span class="gallery-card-name">仁寺洞</span>
+            <span class="gallery-card-theme">傳統茶院與工藝老街</span>
+            <span class="gallery-card-foot"><span class="day-label" style="background-color: var(--day2-soft); color: var(--day2);">Day2・可彈性</span></span>
+          </button>
+          <button class="gallery-card" onclick="jumpToSpot('spot-seoulforest')" style="border-top-color: var(--day3);">
+            <span class="gallery-card-name">首爾林</span>
+            <span class="gallery-card-theme">金黃銀杏隧道漫步</span>
+            <span class="gallery-card-foot"><span class="day-label" style="background-color: var(--day3-soft); color: var(--day3);">Day3・可彈性</span></span>
+          </button>
+          <button class="gallery-card" onclick="jumpToSpot('spot-seongsu')" style="border-top-color: var(--day3);">
+            <span class="gallery-card-name">聖水洞</span>
+            <span class="gallery-card-theme">工業風選物與藝廊咖啡廳</span>
+            <span class="gallery-card-foot"><span class="day-label" style="background-color: var(--day3-soft); color: var(--day3);">Day3・可彈性</span></span>
+          </button>
+          <button class="gallery-card" onclick="jumpToSpot('spot-seoulstation')" style="border-top-color: var(--day4); grid-column: span 2;">
+            <span class="gallery-card-name">首爾車站</span>
+            <span class="gallery-card-theme">樂天超市採購與百年老店牛骨湯</span>
+            <span class="gallery-card-foot"><span class="day-label" style="background-color: var(--day4-soft); color: var(--day4);">Day4・可彈性</span></span>
+          </button>
+        </div>
+
+        <div class="prep-pill-row">
+          <button class="prep-pill mp" onclick="switchSection(null, 'preparation')">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            暖暖包出境時只能手提，不可託運
+          </button>
+          <button class="prep-pill mp" onclick="switchSection(null, 'preparation')">
+            <svg viewBox="0 0 24 24"><path d="M20 8h-3V6c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-9c0-1.1-.9-2-2-2zM9 6h6v2H9V6z"/></svg>
+            去程真航空託運行李限重 15 公斤
+          </button>
+          <button class="prep-pill pm" onclick="switchSection(null, 'airport')">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 15l-4-4 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z"/></svg>
+            入境用 e-Arrival／出境用 SmartPass
+          </button>
+        </div>
+
+        <button class="emergency-cta" onclick="switchSection(null, 'emergency')">
+          <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
+          一鍵前往緊急聯絡頁
+        </button>
+      </section>
+
+      <!-- ================= SECTION: 行前準備 ================= -->
+      <section id="section-preparation" class="content-section">
+        <h2 class="section-title">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 15l-4-4 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z"/></svg>
+          行前準備 (出發前必辦)
+        </h2>
+
+        <details class="accordion-card" name="prep-group" open>
+          <summary class="accordion-summary">
+            <div class="summary-left">
+              <svg class="summary-icon" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 15l-4-4 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z"/></svg>
+              <span>1. 旅遊相關保險</span>
+            </div>
+            <svg class="summary-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="accordion-content">
+            <p>為了讓全家人出遊更無後顧之憂，特別是針對行程步調較慢、需要防範氣溫變化的爛腳人成員，強烈建議投保包含<strong>「海外突發疾病醫療險（含門診、急診、住院實支實付）」</strong>與<strong>「海外緊急救助服務」</strong>的完整旅平險方案：</p>
+
+            <p><strong>人氣險種與比較平台推薦</strong></p>
+            <ul class="nested-list">
+              <li><strong>推薦方案</strong>：<a href="https://www.fubon.com/insurance/b2c/content/prod_travel/index1.html" class="link-styled" target="_blank">富邦2026國外旅遊不便險</a> 或 <a href="https://www.cathay-ins.com.tw/" class="link-styled" target="_blank">國泰產險海外旅遊保險</a>。這兩家在 2026 年皆提供包含法定傳染病（流感、新冠等）的海外突發疾病醫療實支實付，保障非常齊全。</li>
+              <li><strong>快速比價與投保管道</strong>：
+                <ul style="margin-left: 20px; margin-top: 4px;">
+                  <li><a href="https://www.fubon.com/insurance/b2c/content/prod_travel/index1.html" class="link-styled" target="_blank">富邦產險線上投保 ↗</a></li>
+                  <li><a href="https://www.cathay-ins.com.tw/" class="link-styled" target="_blank">國泰產險試算投保頁面 ↗</a></li>
+                  <li><a href="https://www.einsure.com.tw/" class="link-styled" target="_blank">易安網保險比較平台 ↗</a></li>
+                </ul>
+              </li>
+            </ul>
+
+            <p><strong>保額與理賠必知要點</strong></p>
+            <ul class="nested-list">
+              <li><strong>醫療保額建議</strong>：韓國醫療費用對外籍人士相對高昂。為了給爛腳人成員最穩妥的保障，疾病醫療保額建議規劃 <strong>NT$100 萬以上</strong>，並務必確認包含門診與急診。</li>
+              <li><strong>不便險新制 (2026年4月上路)</strong>：班機延誤理賠統一規定「延誤滿 4 小時以上」才可申請定額理賠。同時，每位旅客在同一個旅程期間，全台最多只能投保 2 張「定額給付型」不便險（且同一家產險公司只能投保 1 張），系統會透過公會平台進行即時連線審核。單次理賠上限為 6,000 元（部分累進式給付單趟最高可達 1.2 萬元，保險期間內最高給付 2 次，合計最高理賠 2.4 萬元）。</li>
+              <li><strong>行李損失與延誤</strong>：行李延誤滿 6 小時以上即可理賠定額，2026 新制上限已調升為 6,000 元；若行李在託運中遺失或損壞，可憑折舊收據申請理賠。</li>
+              <li><strong>申請理賠三寶</strong>：航空公司開立的「航班延誤/取消證明」、登機證正本、行李吊牌、損壞照片及購買生活日用品的發票收據。</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="accordion-card" name="prep-group">
+          <summary class="accordion-summary">
+            <div class="summary-left">
+              <svg class="summary-icon" viewBox="0 0 24 24"><path d="M12.01 21.49L23.64 7c-.45-.34-4.93-4-11.64-4C5.28 3 .81 6.66.36 7l11.63 14.49.01.01.01-.01z"/></svg>
+              <span>2. 網路與漫遊方案評估</span>
+            </div>
+            <svg class="summary-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="accordion-content">
+            <p>為了讓大家在首爾街頭隨時能查地圖、傳照片，特別為不同成員的使用習慣做評估，並針對主辦人的<strong>【中華電信】</strong>門號整理了最便利的免換卡漫遊方案：</p>
+
+            <p><strong>主流網路方案大比拼</strong></p>
+            <ul class="nested-list">
+              <li><strong>eSIM (電子 SIM 卡)</strong>：
+                <br><em>優點</em>：免換實體卡，掃描 QR Code 就能開通。可以同時保留台灣實體 SIM 卡，出門在外照樣收銀行 OTP 簡訊。
+                <br><em>費用</em>：4 天每日 1GB 約 NT$180 - 250。
+              </li>
+              <li><strong>實體 SIM 卡</strong>：
+                <br>- 價格親民，訊號穩定。但要拆換卡，容易弄丟台灣原本的卡，且收不到台灣簡訊。
+                <br>- 4 天吃到飽約 NT$250 - 350。
+              </li>
+              <li><strong>WiFi 分享器</strong>：
+                <br>- 一台機器多人分享，對長輩最友善。但需多背機器與行動電源，且大家不能走散。
+                <br>- 每日約 NT$80 - 120。
+              </li>
+            </ul>
+
+            <p><strong>中華電信專屬韓國漫遊方案</strong></p>
+            <p>原機原號直接開通，免換卡、免租機，最適合需要隨時接收台灣簡訊的成員：</p>
+            <ul class="nested-list">
+              <li><strong>推薦一：韓國日租型</strong>：每日優惠價 <strong>NT$99</strong> 吃到飽。適合高流量使用者，4 天合計 NT$396。</li>
+              <li><strong>推薦二：韓國超值型 (定量型，8天)</strong>：2026 加量不加價！提供 <strong>10GB</strong> (NT$588) 或 <strong>15GB</strong> (NT$788)。中輕度流量 4 天絕對用不完。</li>
+              <li><strong>申辦管道</strong>：透過 <a href="https://www.cht.com.tw/home/campaign/roamingplan/index" class="link-styled" target="_blank">中華電信國際漫遊官網</a> 或 「中華電信 APP」辦理，或直撥 <code>123</code> 提前預約。</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="accordion-card" name="prep-group">
+          <summary class="accordion-summary">
+            <div class="summary-left">
+              <svg class="summary-icon" viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+              <span>3. 支付工具與匯率評估</span>
+            </div>
+            <svg class="summary-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="accordion-content">
+            <p>首爾已經高度邁入「無現金社會」，除了傳統小吃攤外，幾乎所有店家都接受感應或刷卡：</p>
+
+            <p><strong>換匯與支付指南</strong></p>
+            <ul class="nested-list">
+              <li><strong>即時匯率</strong>：台幣 (TWD) 兌韓元 (KRW) 約在 <strong>1:47 至 1:48</strong> 之間，匯率非常漂亮！</li>
+              <li><strong>換匯攻略</strong>：出發前線上結匯少量韓元（4人備約 20-30 萬韓元地鐵儲值與小吃）。抵達後，帶台幣千元鈔到明洞換錢所，或利用 <strong>WOWPASS 自助機台</strong> 儲值，匯率最佳。</li>
+              <li><strong>神卡推薦</strong>：富邦 J 卡、玉山 Unicard、國泰 CUBE 卡，海外實體消費享有 1.5% - 3% 回饋。請堅持以<strong>「韓元 (KRW)」</strong>結帳以防 DCC 匯差。 Apple Pay 於大型百貨與超商已廣泛支援。</li>
+              <li><strong>氣候同行卡 (Climate Card)</strong>：首爾地鐵/公車無限搭乘。實體卡 3,000 韓元。
+                <br>短期券價格：<strong>1日券(5,000 韓元)</strong>、<strong>2日(8,000)</strong>、<strong>3日(10,000)</strong>、<strong>5日(15,000)</strong>、<strong>7日(20,000 韓元)</strong>。
+                <br><small style="color: var(--text-muted);">*注意：不含新盆唐線、機場巴士與京畿道公車。在仁川機場站指定車站可「出站」，但不可在這些首爾市外車站「進站」。</small>
+              </li>
+            </ul>
+
+            <div class="alert-important">
+              <h4>WOWPASS 實操步驟 (Step-by-Step)</h4>
+              <ol style="margin-left: 20px;">
+                <li><strong>機台購買與開卡</strong>：明洞等主要地鐵站尋找黃色機台，選擇「發行新卡」，掃描中華民國護照，放入台幣現鈔吐出實體卡。<strong>請務必將新卡再次插入機台卡槽一次以完成啟用！</strong></li>
+                <li><strong>綁定 App</strong>：下載 WOWPASS App，註冊後掃描卡片背面的條碼，即時掌握明細與餘額。</li>
+                <li><strong>卡片儲值</strong>：
+                  <br>- <strong>一般消費餘額</strong>：可於機台放入外幣/韓元現鈔，或透過 App 信用卡線上刷卡儲值。
+                  <br>- <strong>T-Money 交通卡餘額</strong>：WOWPASS 一般餘額與交通卡餘額是<strong>獨立分開的</strong>。<strong>交通卡無法用 App 扣款儲值！</strong>必須準備<strong>「韓元現金」</strong>至地鐵站售票機或便利超商儲值。
+                </li>
+                <li><strong>資金提領</strong>：於市區機台插入卡片，選擇「提領現金」，在 App 輸入驗證碼。每次手續費 1,000 韓元，單次提領上限 10 萬韓元。（仁川機場不提供提領服務）。</li>
+              </ol>
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion-card" name="prep-group">
+          <summary class="accordion-summary">
+            <div class="summary-left">
+              <svg class="summary-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              <span>4. 最新違禁品與行李規定</span>
+            </div>
+            <svg class="summary-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="accordion-content">
+            <div class="alert-warning">
+              <h4>關鍵行李限重提醒：去回程航司限重差很大！</h4>
+              <p>• <strong>去程 (真航空)</strong>：免費託運行李限重為 <strong>15 公斤</strong> (限 1 件)。
+              <br>• <strong>回程 (大韓航空)</strong>：免費託運行李限重為 <strong>23 公斤</strong> (限 1 件)。</p>
+              <p><strong>打包小訣竅：</strong>
+              <br>去程請將重量控制在 <strong>10–12 公斤</strong>，預留購物空間。可多利用隨身手提行李（兩家航空均提供 10 公斤免費額度）。去程若預估超重，建議提早於真航空官網線上加購（比現場超重費便宜）。</p>
+            </div>
+
+            <p><strong>2026 最新飛安與違禁品規定</strong></p>
+            <ul class="nested-list">
+              <li><strong>行動電源與備用鋰電池</strong>：<strong>嚴禁託運！</strong>必須隨身手提。單個能量不得超過 100Wh，且須有容量標示。</li>
+              <li><strong>暖暖包限制 (2026 最新特別法規)</strong>：
+                <br>• <strong>一次性拋棄式暖暖包</strong>：台灣出發時未拆封可少量託運或隨身；<strong>但從韓國（仁川機場）出境返台時，一律「禁止託運」，必須全部放入隨身手提行李攜帶上機！</strong>已發熱的建議直接丟棄。
+                <br>• <strong>充電式暖暖包</strong>：內含鋰電池，視同行動電源，<strong>絕對禁止託運！</strong>必須隨身攜帶，且航程中禁止使用與充電。
+              </li>
+              <li><strong>液體/膠狀物</strong>：隨身攜帶單件不可超過 <strong>100 毫升</strong>，需全部裝入一公升透明夾鏈袋（限帶一個）。</li>
+              <li><strong>管制藥品</strong>：日本 EVE 系列止痛藥含有丙烯異丙乙酸尿成分，在韓國列為管制藥物，<strong>禁止攜帶入境</strong>。</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- ================= SECTION: 機場通關 ================= -->
+      <section id="section-airport" class="content-section">
+        <h2 class="section-title">
+          <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+          機場與通關實操
+        </h2>
+
+        <div class="alert-important">
+          <h4>入境與出境系統區分說明</h4>
+          <p>• <strong>入境韓國（第1天抵達）</strong>：使用 <strong>e-Arrival Card (電子入境卡)</strong>。入境通道不適用 SmartPass，不能刷臉入境。
+          <br>• <strong>出境韓國（第4天返台）</strong>：使用 <strong>SmartPass (智慧通道)</strong>。可提前註冊，在安檢與登機門刷臉快速通關，對長輩極為友善。</p>
+        </div>
+
+        <div class="stepper">
+
+          <div class="step-item active">
+            <div class="step-node"></div>
+            <div class="step-title">Step 1：出發前 1-3 天（線上申報與註冊）</div>
+            <div class="step-content">
+              <p>1. <strong>填寫電子入境卡 (e-Arrival Card)</strong>：出發前 72 小時內，前往 <a href="https://www.e-arrivalcard.go.kr/portal/main/index.do" class="link-styled" target="_blank">韓國電子入境卡官網 ↗</a> 申報個人資料、航班與飯店地址。填妥後會生成 <strong>e-Arrival Card QR Code</strong>，<strong>請務必截圖存於手機</strong>。
+              <br><small style="color: var(--text-muted);">*註：台灣旅客免申請 K-ETA 優惠已延長至 2026 年 12 月 31 日，因此僅需填寫 e-Arrival Card 即可。</small></p>
+              <p style="margin-top: 6px;">2. <strong>註冊 SmartPass (供出境返台使用)</strong>：下載「ICN SmartPass」手機 App，掃描護照並進行 NFC 晶片讀取、臉部特徵註冊，並綁定回程大韓航空機票。成功後效期為 5 年。</p>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-node"></div>
+            <div class="step-title">Step 2: 桃園機場 T1 出發（凌晨 22:30 抵達櫃台）</div>
+            <div class="step-content">
+              <p>前往第一航廈真航空櫃台報到，領取紙本登機證並辦理託運（確保行李 &le; 15kg）。隨身攜帶行動電源、暖暖包與 100ml 以內液體透明袋。使用自動查驗通關 (e-Gate) 快速出境。</p>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-node"></div>
+            <div class="step-title">Step 3: 機上飛行與降落 (01:25 - 05:00)</div>
+            <div class="step-content">
+              <p>航程約 2.5 小時，請長輩備好頸枕與耳塞休息。若已線上申報 e-Arrival Card 且無申報物品，在飛機上<strong>無須填寫任何紙本單據</strong>。</p>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-node"></div>
+            <div class="step-title">Step 4: 抵達仁川機場 T2 與入境 (清晨 05:00)</div>
+            <div class="step-content">
+              <p>1. <strong>健康檢疫 (Quarantine)</strong>：通過紅外線體溫感應器，無症狀者免填 Q-Code，直接通過。
+              <br>2. <strong>入境查驗 (Immigration)</strong>：排隊至外國人通道，向審查官出示護照，並<strong>掃描手機中的 e-Arrival Card QR Code</strong>，配合臉部拍照與指紋感應。
+              <br>3. <strong>行李提取與海關</strong>：領完行李後，若無申報物品，直接走「無申報通道」出關。</p>
+              <div class="info-subcard">
+                <div class="info-subcard-title">
+                  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                  晨間休息與防雷緩衝方案
+                </div>
+                <p style="font-size: 14px; margin-bottom: 0;">05:00 抵達極早，飯店下午才能 Check-in。建議直接前往 <strong>T2 B1 交通中心的膠囊旅館 Darakhyu (閣樓休)</strong> 休息 3-4 小時平躺補眠（需提前預約），或在 B1/1F 咖啡廳坐下歇息，平緩長輩體力。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-node"></div>
+            <div class="step-title">Step 5: 回程出境與 SmartPass 刷臉實操 (第四天 13:00)</div>
+            <div class="step-content">
+              <p>1. <strong>報到託運</strong>：於 13:00 抵達 T2，使用自助 Kiosk 報到機或大韓航空自助行李託運櫃台辦理（回程限重 23kg）。
+              <br>2. <strong>市區/機場退稅</strong>：至 T2 出境大廳 3 樓使用自動退稅機掃描退稅單。（2026最新：醫療美容已取消退稅）。
+              <br>3. <strong>SmartPass 快速安檢</strong>：尋找「SmartPass」專用安檢通道，對著相機人臉識別（刷臉）即可快速進入安全檢查區，省去排隊長站的時間，對爛腳人極其友善！</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= SECTION: 景點漫遊 ================= -->
+      <section id="section-spots" class="content-section">
+        <h2 class="section-title">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          景點漫遊
+        </h2>
+        <div class="soft-tagline">7 站各有各的秋日性格，由上而下自由捲動，想看哪站看哪站；順序與停留時間都可依體力彈性調整，不趕行程。</div>
+
+        <div class="anchor-chip-row">
+          <span class="anchor-chip" onclick="scrollToAnchor('spot-buffer')">首日緩衝</span>
+          <span class="anchor-chip" onclick="scrollToAnchor('spot-deoksugung')">德壽宮</span>
+          <span class="anchor-chip" onclick="scrollToAnchor('spot-gyeongbok')">景福宮・三清洞</span>
+          <span class="anchor-chip" onclick="scrollToAnchor('spot-insadong')">仁寺洞</span>
+          <span class="anchor-chip" onclick="scrollToAnchor('spot-seoulforest')">首爾林</span>
+          <span class="anchor-chip" onclick="scrollToAnchor('spot-seongsu')">聖水洞</span>
+          <span class="anchor-chip" onclick="scrollToAnchor('spot-seoulstation')">首爾站</span>
+        </div>
+
+        <!-- 1. 首日緩衝 -->
+        <div id="spot-buffer" class="spot-card" style="border-left-color: var(--day1);">
+          <span class="day-label" style="background-color: var(--day1-soft); color: var(--day1);">建議 Day1 清晨・可彈性</span>
+          <h3 class="spot-title">首日緩衝・紅眼降落後的從容補眠</h3>
+          <div class="friendly-badge flat">
+            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            平地・體力需求低
+            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>5.0</span>
+          </div>
+          <p class="area-desc">去程紅眼航班熬夜極度疲憊，而飯店通常下午 15:00 才能辦理入住。以下為您規劃三種晨間緩衝方案：</p>
+          <div class="nested-list" style="margin-left: 0;">
+            <p><strong>方案 A（最推薦！預算充足首選）</strong>
+            <br>• <strong>做法</strong>：提早預訂前一晚（10/14）的「新首爾飯店」房型。早上 07:30 抵達飯店後直接 Check-in 入住，全家躺在床上好好補眠至中午 12:00，徹底恢復體力。</p>
+
+            <p><strong>方案 B（機場休息 - Darakhyu 膠囊旅館）</strong>
+            <br>• <strong>做法</strong>：於仁川 T2 B1 預約 Darakhyu 膠囊旅館（需提前數月預訂）。
+            <br>• <strong>2026最新價格</strong>：Day Use（3小時）：Single 32,000 韓元起，Double 41,000 韓元起，Double+Shower 48,000 韓元起；Overnight（12小時）Single 69,000 韓元起。</p>
+
+            <p><strong>方案 C（市區體驗 - 東大門 SPAREX 24H 汗蒸幕）</strong>
+            <br>• <strong>做法</strong>：搭機場接駁至市區後，前往東大門 SPAREX 汗蒸幕。大行李寄存櫃台，洗漱後在公共大廳平躺補眠。
+            <br>• <strong>2026最新價格</strong>：日間門票 12,000 韓元，夜間（20:00 後）門票 14,000 - 15,000 韓元。</p>
+          </div>
+        </div>
+
+        <!-- 2. 德壽宮 -->
+        <div id="spot-deoksugung" class="spot-card" style="border-left-color: var(--day1);">
+          <span class="day-label" style="background-color: var(--day1-soft); color: var(--day1);">建議 Day1 下午・可彈性</span>
+          <h3 class="spot-title">德壽宮・金黃銀杏石牆路散步</h3>
+          <div class="friendly-badge flat">
+            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            平地
+            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>5.0</span>
+          </div>
+          <p class="area-desc">德壽宮石牆路地勢完全平坦，秋季銀杏會將道路染成金黃色。距離飯店僅 300 公尺，步行負擔極低，路面設有大量長椅。</p>
+
+          <div class="pill-row">
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>步行約 4 分鐘回飯店，或叫車前往明洞約 5 分鐘</span>
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：貞洞展望台 13 樓咖啡廳</span>
+          </div>
+
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
+              鄰近歇腳處：貞洞展望台
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">位於首爾市廳西小門廳舍 13 樓，有直達電梯。設有咖啡廳，可透過落地窗俯瞰整片德壽宮的楓紅與金黃銀杏全景。</p>
+          </div>
+          <div class="info-subcard" style="border-left-color: var(--primary);">
+            <div class="info-subcard-title" style="color: var(--primary-hover);">
+              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+              下一站移動
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">直接步行 4 分鐘返回新首爾飯店休息，或在路邊使用 Kakao T 叫計程車前往明洞商圈（車程約 5 分鐘）。</p>
+          </div>
+
+          <h4 class="food-section-title">
+            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+            本區推薦美食
+          </h4>
+          <div id="food-deoksugung">
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">1. 味成屋 (미성옥)</span><span class="food-chip chip-meal">正餐</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>雪濃湯小份 11k 韓元，大份 13k 韓元；白切牛肉盤大份 45k 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>韓牛雪濃湯 (설렁탕)</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>純牛骨慢熬湯頭，溫潤清淡完全不辣，無生食與內臟。上桌時不加鹽，長輩可依口味自行加鹽與青蔥，對熬夜後的腸胃無負擔。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/미성옥" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=미성옥" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/seolleongtang-miseongok" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">2. 滿足五香豬腳 (만족오향족발 市廳店)</span><span class="food-chip chip-meal">正餐</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.7</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>中份 38k 韓元，大份 43k 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>五香豬腳 (오향족발)</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>中藥燉煮，豬腳極致軟嫩且入口即化，肉質完全不辣。免去自行烤肉的麻煩與油煙，非常適合全家聚餐。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/만족오향족발 시청점" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=만족오향족발 시청점" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bobbytravel.tw/blog/post/manjok-ohyang-jokbal" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">3. 德壽宮 Liege Waffle (덕수궁 리에제와플)</span><span class="food-chip chip-snack">小吃</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>鬆餅約 3,900 - 6,500 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>藍莓奶油起司列日鬆餅、原味列日鬆餅</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>口感外酥內 Q 的比利時鬆餅，全家可人手一份坐在平坦石牆路的長椅上享用，不辣且老少咸宜。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/덕수궁 리에제와플" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=덕수궁  리에제와플" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/limburg-waffle-seoul" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">4. 珈琲島 (Gabaedo 市廳店)</span><span class="food-chip chip-cafe">咖啡廳</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>咖啡約 4.5k 韓元起，提拉米蘇約 7k 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>焙茶提拉米蘇、抹茶拿鐵</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>日式復古木質調寬敞空間，設有舒適沙發，極適合長輩在散步完後在此放鬆喝茶聊天。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/가배도 시청점" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=가배도 시청점" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/seoul-gabaedo-samcheongdong" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">5. BrickSand 明洞店 (브릭샌드 명동점)</span><span class="food-chip chip-gift">伴手禮</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>單顆約 2,000 - 3,000 韓元，8入禮盒約 19,000 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>黑巧克力磚塊費南雪 (Dark Brick)</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>積木造型費南雪，單顆獨立包裝，甜而不膩外酥內軟，適合作為散步途中補充糖分的不辣小點心。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/브릭샌드 명동점" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=브릭샌드 명동점" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/bricksand-seoul" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- 3. 景福宮/三清洞 -->
+        <div id="spot-gyeongbok" class="spot-card" style="border-left-color: var(--day2);">
+          <span class="day-label" style="background-color: var(--day2-soft); color: var(--day2);">建議 Day2 上午・可彈性</span>
+          <h3 class="spot-title">景福宮・三清洞・平地銀杏與紅楓散策</h3>
+          <div class="friendly-badge slope">
+            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            緩坡・碎石路段
+            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.0</span>
+          </div>
+          <div class="alert-warning">
+            <p><strong>爛腳人防雷提示</strong>：景福宮內多為碎石路，步行阻力較大且傷鞋，<strong>請務必讓長輩穿著高防震的慢跑鞋</strong>。建議避開北村韓屋村的陡峭陡坡，專注於平坦的宮內及三清洞石牆路一帶。</p>
+          </div>
+
+          <div class="pill-row">
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>三清洞路邊叫車前往仁寺洞約 10 分鐘（約 5,000 韓元）</span>
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：國立古宮博物館（免門票、有電梯）</span>
+          </div>
+
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
+              鄰近歇腳處：國立古宮博物館
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">位於景福宮旁，免門票。館內有直達電梯、大型沙發區與舒適冷暖氣，是極佳的避風歇腳點。</p>
+          </div>
+          <div class="info-subcard" style="border-left-color: var(--primary);">
+            <div class="info-subcard-title" style="color: var(--primary-hover);">
+              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+              下一站移動
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">在三清洞路邊使用 Kakao T 叫計程車前往仁寺洞商圈（車程約 10 分鐘，車資約 5,000 韓元）。</p>
+          </div>
+
+          <h4 class="food-section-title">
+            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+            本區推薦美食
+          </h4>
+          <div id="food-gyeongbok">
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">1. 黃生家刀削麵 (황생가칼국수)</span><span class="food-chip chip-meal">正餐</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>牛骨刀削麵 11k 韓元，手工餃子 11k 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>牛骨刀削麵 (사골칼국수)、手工王餃子</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>連續多年米其林必比登推薦。湯頭為濃郁溫潤的牛骨高湯，手工麵條滑順，餃子個頭大、調味清淡，不辣、無內臟，對長輩腸胃十分友善。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/황생가칼국수" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=황생가칼국수" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://chinese.visitseoul.net/eat/%E9%BB%83%E7%94%9F%E5%AE%B6%E5%88%80%E5%89%8A%E9%BA%B5_/15064" class="action-btn btn-ref" target="_blank">官方介紹 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">2. 土俗村參雞湯 (토속촌삼계탕)</span><span class="food-chip chip-meal">正餐</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>參雞湯 20k 韓元，山蔘參雞湯 26k 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>土俗村參雞湯</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>童子雞燉至骨肉分離，筷子輕撥即可食用。人蔘糯米湯溫潤補氣。目前已改為一般桌椅席，不需盤腿盤坐，長輩進餐更為舒適。完全不辣、不含內臟。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/토속촌삼계탕" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=토속촌삼계탕" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bobbytravel.tw/blog/post/tosokchon-samgyetang" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">3. Cafe Onion 安國店 (카페어니언 안국점)</span><span class="food-chip chip-cafe">咖啡廳</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>麵包約 4k - 8k 韓元，咖啡/茶約 5k - 7k 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>潘朵拉麵包 (Pandoro)、黃豆粉麵包</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>超寬敞的韓屋改建庭園咖啡廳，坐席平整，適合在散步景福宮累了時在此歇腳。麵包有多款不辣選擇。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/카페어니언 안국점" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=카페어니언 안국점" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/seoul-gabaedo-samcheongdong" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">4. 首爾第二家紅豆粥 (서울서둘째로잘하는집)</span><span class="food-chip chip-snack">小吃</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.3</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>招牌紅豆粥 9,000 - 10,000 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>傳統甜紅豆粥 (단팥죽)</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>三清洞數十年老店。紅豆粥燉煮得細緻滑順、甜而不膩且不辣，配上大栗子、年糕和銀杏，暖胃舒緩，長輩極愛。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/서울서둘째로잘하는집" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=서울서둘째로잘하는집" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/seoul-second-red-bean-porridge" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">5. London Bagel Museum 安國店</span><span class="food-chip chip-gift">伴手禮</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>單個貝果約 4,700 - 8,500 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>馬鈴薯起司貝果 (Potato Cheese Bagel)、招牌鹽味貝果</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>英倫復古風排隊貝果店。貝果口感Q彈有嚼勁，口味溫和有多款不辣選擇（如鹹香起司貝果），適合買來當隨身點心。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/런던 베이글 뮤지엄 안국점" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=런던 베이글 뮤지엄 안국점" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/london-bagel-museum-anguk" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- 4. 仁寺洞 -->
+        <div id="spot-insadong" class="spot-card" style="border-left-color: var(--day2);">
+          <span class="day-label" style="background-color: var(--day2-soft); color: var(--day2);">建議 Day2 下午・可彈性</span>
+          <h3 class="spot-title">仁寺洞・傳統茶院與工藝老街</h3>
+          <div class="friendly-badge slope">
+            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            緩坡・環形無階梯
+            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.0</span>
+          </div>
+          <p class="area-desc">仁寺洞是首爾著名的傳統文藝街區。整條主街道為平緩的步行區，兩側有古董工藝品店。著名的森吉街（Ssamzigil）大樓為環形無階梯緩坡設計，長輩散步上樓完全不費力。</p>
+
+          <div class="pill-row">
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>叫車返回飯店約 8-10 分鐘（約 6,000 韓元）</span>
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：耕仁美術館傳統茶院</span>
+          </div>
+
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
+              鄰近歇腳處：耕仁美術館傳統茶院
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">設於百年韓屋庭園內，有寬敞的木質茶座。可在此一邊悠閒品嚐傳統雙和茶或五味子茶，一邊觀賞秋意盎然的家庭庭園。</p>
+          </div>
+          <div class="info-subcard" style="border-left-color: var(--primary);">
+            <div class="info-subcard-title" style="color: var(--primary-hover);">
+              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+              下一站移動
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">直接使用 Kakao T 呼叫計程車返回新首爾飯店（車程約 8-10 分鐘，車資約 6,000 韓元）。</p>
+          </div>
+
+          <h4 class="food-section-title">
+            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+            本區推薦美食
+          </h4>
+          <div id="food-insadong">
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">1. 開城餃子宮 (개성만두궁)</span><span class="food-chip chip-meal">正餐</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>手工餃子湯 15k-17k 韓元，餃子火鍋每人約 20k-30k 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>開城手工餃子湯 (개성만두국)</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>連續多年必比登推薦。蔬菜與鮮肉手工製成大餃子，口味極其清淡甘甜、不油不辣，無內臟或生食，是適合長輩無負擔的佳餚。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/개성만두궁" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=개성만두궁" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/gaeseong-mandu-gung" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">2. 仁寺洞蒜泥包肉 (인사동마늘보쌈)</span><span class="food-chip chip-meal">正餐</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>小份 28k 韓元，中份 38k 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>蒜泥豬肉包菜 (마늘보쌈)</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>豬肉慢火熬煮至極為軟嫩好入口，淋上香濃蒜泥。避開泡菜的話為完全不辣且非生食內臟的純熟肉盤，口感軟Q。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/인사동마늘보쌈" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=인사동마늘보쌈" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/insa-garlic-bossam" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">3. Osulloc Tea House 仁寺洞店</span><span class="food-chip chip-cafe">咖啡廳</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>抹茶拿鐵約 6.5k 韓元，抹茶蛋糕/霜淇淋約 7k - 8.5k 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>抹茶霜淇淋、抹茶拿鐵、抹茶牛奶抹醬</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>濟州島茶品專賣。木質調空間安靜舒適，綠茶甜點茶飲香濃不甜膩，不油不辣。一樓亦可採購綠茶精緻禮盒。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/오설록 티하우스 인사동점" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=오설록  티하우스 인사동점" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/seoul-osulloc-tea-house" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">4. 仁寺洞黑糖餅 (인사동 꿀호떡)</span><span class="food-chip chip-snack">小吃</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.2</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>一個約 2,000 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>傳統黑糖堅果糖餅 (꿀호떡)</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>街頭超人氣小吃。金黃酥脆的餅皮內是融化的溫熱黑糖與碎堅果，香甜不辣，適合下午散步補充糖分。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/인사동 꿀호떡" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=인사동 꿀호떡" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/insa-hotteok" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">5. 仁寺洞麵疙瘩 (인사동수제비)</span><span class="food-chip chip-meal">正餐</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.3</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>麵疙瘩約 9,000 韓元，海鮮煎餅約 15,000 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>瓦罐麵疙瘩 (수제비)、海鮮煎餅</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>隱身韓屋的30年老店。瓦罐麵疙瘩湯頭以南瓜、牡蠣熬煮，鮮甜清爽完全不辣，麵疙瘩滑軟Q彈易咀嚼，對腸胃無負擔。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/인사동수제비" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=인사동수제비" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/insadong-sujebi" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- 5. 首爾林 -->
+        <div id="spot-seoulforest" class="spot-card" style="border-left-color: var(--day3);">
+          <span class="day-label" style="background-color: var(--day3-soft); color: var(--day3);">建議 Day3 上午・可彈性</span>
+          <h3 class="spot-title">首爾林・金黃銀杏隧道漫步</h3>
+          <div class="friendly-badge flat">
+            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            平地
+            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>5.0</span>
+          </div>
+          <p class="area-desc">首爾林是著名的都市森林，十月中旬金黃的銀杏落葉鋪滿步道，極其美麗。全區地勢完全平坦，鋪面平整無階梯，無障礙設施完善，設有大量木質靠背長椅，是本次行程最輕鬆的公園。</p>
+
+          <div class="pill-row">
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>步行 8-10 分鐘或叫車 3 分鐘到聖水洞</span>
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：昆蟲植物園溫室（暖和平坦）</span>
+          </div>
+
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
+              鄰近歇腳處：首爾林昆蟲植物園溫室
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">位於公園中心。溫室內暖和且平坦，設有長椅休息區。若秋季戶外風大偏涼，進入溫室內歇腳避風非常舒適。</p>
+          </div>
+          <div class="info-subcard" style="border-left-color: var(--primary);">
+            <div class="info-subcard-title" style="color: var(--primary-hover);">
+              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+              下一站移動
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">首爾林與聖水洞商圈相鄰，平路步行約 8-10 分鐘，或在出口直接使用 Kakao T 叫計程車（車程約 3 分鐘）。</p>
+          </div>
+
+          <h4 class="food-section-title">
+            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+            本區推薦美食
+          </h4>
+          <div id="food-seoulforest">
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">1. 奶奶的食譜 (할머니의 레시피)</span><span class="food-chip chip-meal">正餐</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>家庭定食約 12,000 - 18,000 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>烤魚定食、藥膳排骨湯</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>主打像祖母做的一樣溫暖的韓式家常菜，少鹽低油，口味清淡不辣。非內臟或生食，定食擺盤精緻，非常符合台灣長輩口味。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/할머니의레시피" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=할머니의레시피" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/grandma-recipe-seongsu" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">2. 大成肋排 (대성갈비)</span><span class="food-chip chip-meal">正餐</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>豬肋排 (200g) 17k 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>炭火烤豬肋排</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>聖水排骨街的炭烤名店。這裡提供店員全程桌邊代烤服務，全家無須動手，省力又可享用現烤熟肉，注意避開辣醬即可。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/대성갈비" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=대성갈비" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/daeseong-galbi-seongsu" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">3. 自然島鹽麵包 聖水店</span><span class="food-chip chip-snack">小吃</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>一袋4個 12,000 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>招牌海鹽麵包 (소금빵)</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>風靡首爾的排隊鹽麵包，剛出爐的底部酥脆、內裡蓬鬆散發濃郁奶油香，口感極佳，完全不辣不柴。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/자연도소금빵 성수점" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=자연도소금빵 성수점" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/jayeondo-salt-bread" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">4. Cafe Onion 聖水店</span><span class="food-chip chip-cafe">咖啡廳</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>麵包約 4k - 8k 韓元，咖啡/茶約 5k - 7k 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>潘朵拉麵包、紅豆奶油麵包</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>廢棄工廠改建的挑高廢墟風打卡咖啡廳，空間非常大且座位寬敞，麵包品項極為豐富且不辣，適合全家坐下喝茶聊天。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/카페어니언 성수점" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=카페어니언 성수점" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/cafe-onion-seongsu" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">5. Meal° 聖水本店 (밀도)</span><span class="food-chip chip-gift">伴手禮</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>招牌栗子立方吐司約 6,500 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>招牌栗子迷你立方吐司、起司迷你立方吐司</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>不加一滴水、純鮮奶與優質栗子製作的迷你立方吐司，質地極為棉密柔軟且奶香濃郁，非常適合牙口較弱的長輩。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/밀도 성수본점" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=밀도 성수본점" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/meal-seoul" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- 6. 聖水洞 -->
+        <div id="spot-seongsu" class="spot-card" style="border-left-color: var(--day3);">
+          <span class="day-label" style="background-color: var(--day3-soft); color: var(--day3);">建議 Day3 下午・可彈性</span>
+          <h3 class="spot-title">聖水洞・工業風選物與藝廊咖啡廳</h3>
+          <div class="friendly-badge steps">
+            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            部分店家有門檻/窄樓梯
+            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>3.0</span>
+          </div>
+          <div class="alert-warning">
+            <p><strong>爛腳人防雷提示</strong>：聖水洞人行道狹窄，部分由工廠改建的特色小店入口<strong>設有較高的門檻或窄陡樓梯</strong>。建議安排家庭長輩在空間平整開闊的大型藝廊咖啡廳（如大林倉庫）中歇腳喝飲料，年輕成員則在周邊選物店逛街採購。</p>
+          </div>
+
+          <div class="pill-row">
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>大林倉庫叫大型車返回飯店約 20 分鐘</span>
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：大林倉庫挑高沙發區</span>
+          </div>
+
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
+              鄰近歇腳處：大林倉庫 (Daelim Changgo)
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">工廠改建的超大型藝廊咖啡廳，內部挑高開闊，設有大量舒適的軟質沙發座位，是長輩在此放鬆等候的絕佳空間。</p>
+          </div>
+          <div class="info-subcard" style="border-left-color: var(--primary);">
+            <div class="info-subcard-title" style="color: var(--primary-hover);">
+              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+              下一站移動
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">直接於大林倉庫門口使用 Kakao T 呼叫大車 (Venti / Jumbo) 直達新首爾飯店休息，車程約 20 分鐘。</p>
+          </div>
+
+          <h4 class="food-section-title">
+            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+            本區推薦美食
+          </h4>
+          <div id="food-seongsu">
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">1. 聖水一隻雞 (성수닭한마리)</span><span class="food-chip chip-meal">正餐</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>一隻雞 (2人份) 28k 韓元，加點麵條 3k 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>蒜香清雞湯一隻雞 (닭한마리)</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>以整隻鮮雞加入大蒜、年糕與馬鈴薯慢燉，湯頭濃郁卻毫不辛辣。雞肉軟嫩鮮甜，沒有生食或內臟，吃完可加點麵條。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/성수닭한마리" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=성수닭한마리" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bobbytravel.tw/blog/post/dongdaemun-chicken" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">2. 傳聞中的聖水馬鈴薯排骨湯 (소문난성수감자탕)</span><span class="food-chip chip-meal">正餐</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>小份 27k 韓元，中份 34k 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>馬鈴薯排骨湯 (감자탕)</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>白鐘元推薦排隊名店。大骨熬煮至骨肉分離，肉質極其軟滑。若長輩不吃辣，可在點餐時用 Papago 要求不辣(清湯)版本，吃起來溫暖省力。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/소문난성수감자탕" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=소문난성수감자탕" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/seongsu-gamjatang" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">3. 大林倉庫 (Gallery CO:LUMN)</span><span class="food-chip chip-cafe">咖啡廳</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>咖啡飲品約 5.5k - 8k 韓元，烘焙點心 6k - 9k 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>草莓鮮奶油牛角麵包、冰美式咖啡</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>由紅磚老倉庫改建的挑高複合式藝廊咖啡廳，內部設有大量寬敞的舒適軟沙發。非常適合讓長輩在此吃精緻甜點休息，氛圍感極佳。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/대림창고" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=대림창고" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/daelim-warehouse-seoul" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">4. Point of View 聖水旗艦店</span><span class="food-chip chip-gift">伴手禮</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>質感文具小物約 3,000 韓元起，禮品約 20k 韓元以上。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>設計質感筆記本、原創特色鋼筆與紙鎮</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>共有三層樓的復古精緻文具選物店，陳列如藝術館般優雅。步調平緩舒適，適合全家一同挑選文創小物作為手寫伴手禮。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/포인트오브뷰 성수" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=포인트오브뷰 성수" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/point-of-view-seoul" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">5. 橋村炸雞 聖水店 (교촌치킨)</span><span class="food-chip chip-snack">小吃</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.7</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>蜂蜜原味炸雞約 19,000 - 23,000 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>蜂蜜原味炸雞 (허니콤보)、香蒜醬油炸雞</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>韓國炸雞天花板。蜂蜜炸雞外皮酥脆裹滿甜鹹蜂蜜醬，完全不辣、不含內臟。適合全家人在飯店或店內一同分食，體驗正宗韓式雞啤文化。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/교촌치킨 성수점" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=교촌치킨  성수점" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bobbytravel.tw/blog/post/kyochon-chicken" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- 7. 首爾車站 -->
+        <div id="spot-seoulstation" class="spot-card" style="border-left-color: var(--day4);">
+          <span class="day-label" style="background-color: var(--day4-soft); color: var(--day4);">建議 Day4 上午・可彈性</span>
+          <h3 class="spot-title">首爾車站・樂天超市採購與老店牛骨湯</h3>
+          <div class="friendly-badge flat">
+            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            室內平地・無障礙動線
+            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>5.0</span>
+          </div>
+          <div class="alert-warning">
+            <p><strong>爛腳人防雷提示</strong>：樂天超市採購人潮眾多，且打包裝箱區需要長時間站立整理。建議安排長輩在二樓的咖啡廳坐下歇腳等候，由年輕隨行成員處理手動封箱與打包事宜。</p>
+          </div>
+          <p class="area-desc">首爾站樂天超市是採購韓國泡麵、海苔、伴手禮零食的一站式首選。全室內平坦且無障礙動線良好，長輩可推著推車作為步行支撐，安全又省力。</p>
+
+          <div class="pill-row">
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>叫車返飯店取行李，再接 Klook 商務車前往機場（約 60-70 分鐘）</span>
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：Lotte Outlets 咖啡廳</span>
+          </div>
+
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
+              鄰近歇腳處：首爾站 Lotte Outlets 咖啡廳
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">樂天超市與 Lotte Outlets 相連，各樓層設有多間安靜舒適的咖啡廳與沙發座，方便長輩悠閒喝飲料等候。</p>
+          </div>
+          <div class="info-subcard" style="border-left-color: var(--primary);">
+            <div class="info-subcard-title" style="color: var(--primary-hover);">
+              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+              下一站移動
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">叫車返回飯店拿行李，隨後搭乘預約好的 Klook 大型商務車直接前往仁川機場 T2（車程約 60-70 分鐘）。</p>
+          </div>
+
+          <h4 class="food-section-title">
+            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+            本區推薦美食
+          </h4>
+          <div id="food-seoulstation">
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">1. 河東館 (하동관) 明洞本店</span><span class="food-chip chip-meal">正餐</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>牛骨湯普通 15k 韓元，特級 18k 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>韓牛牛骨湯飯 (곰탕)</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>80多年牛肉湯飯老店。湯頭清澈澄明，碗內盛入已浸泡柔軟的米飯，鋪滿極薄軟嫩的韓牛片，完全不辣。不點內臟拼盤（只點純肉）即為無生食、極好消化的溫和料理。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/하동관 명동본점" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=하동관 명동본점" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/hadongkwan-seoul" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">2. 兔子停 (토끼정 首爾站店)</span><span class="food-chip chip-meal">正餐</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>招牌烏龍麵約 12,500 韓元，炸豬排定食約 14,000 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>奶油咖哩烏龍麵 (크림카레우동)、起司炸豬排</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>直接位於首爾車站大樓內，免出站。店面寬敞且有舒適沙發。奶油咖哩烏龍麵口感綿密滑順、香濃不辣，且沒有任何生食內臟，符合長輩胃口。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/토끼정 서울역점" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=토끼정 서울역점" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/tokkijung-seoul-station" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">3. 南大門蔬菜糖餅 (남대門 야채호떡)</span><span class="food-chip chip-snack">小吃</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>蔬菜糖餅一個約 2,000 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>蔬菜糖餅 (야채호떡)、黑糖糖餅</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>南大門市場超人氣街頭排隊點心。外皮香脆，內餡是飽滿的冬粉、洋蔥和韭菜，口感鹹香且完全不辣。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/남대문 야채호떡" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=남대門 야채호떡" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/namdaemun-hotteok" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">4. BRICKSAND 首爾車站店</span><span class="food-chip chip-gift">伴手禮</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>單顆約 2,000 - 3,000 韓元，禮盒約 19,000 韓元起。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>黑巧克力磚塊費南雪、原味費南雪</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>直接位於首爾站1樓，位置極佳。精緻的積木造型費南雪外酥內軟、包裝衛生精美，極度適合在搭AREX前做為伴手禮採購。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/브릭샌드 서울역점" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=브릭샌드  서울역점" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/bricksand-seoul" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+            <details class="food-item">
+              <summary class="food-item-summary">
+                <span class="food-item-summary-left"><span class="food-item-name">5. Index Caramel 首爾站店</span><span class="food-chip chip-gift">伴手禮</span></span>
+                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </summary>
+              <div class="food-item-body">
+                <div class="food-item-row"><strong>價位帶：</strong>單顆手工牛奶糖約 3,000 韓元。</div>
+                <div class="food-item-row"><strong>招牌菜：</strong>手工海鹽牛奶糖 (Salted Caramel)</div>
+                <div class="food-item-row"><strong>為何適合此同伴：</strong>被譽為牛奶糖界的愛馬仕，天然原料手工製作，口感濃郁滑順，不會過度甜膩且包裝極具質感。</div>
+                <div class="food-actions">
+                  <a href="https://map.naver.com/v5/search/인덱스카라멜 서울역점" class="action-btn btn-naver" target="_blank">Naver 地圖 ↗</a>
+                  <a href="https://map.kakao.com/?q=인덱스카라멜  서울역점" class="action-btn btn-kakao" target="_blank">Kakao 地圖 ↗</a>
+                  <a href="https://bigfang.tw/blog/post/index-caramel" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ================= SECTION: 美食 ================= -->
+      <section id="section-food" class="content-section">
+        <h2 class="section-title">
+          <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+          美食
+        </h2>
+        <div class="section-sub">全站每站 5 家推薦美食已收合於「景點漫遊」各站卡片內，點下方直接跳轉到該站的收合清單。</div>
+
+        <div class="food-index-legend">
+          <span class="food-chip chip-meal">正餐</span>
+          <span class="food-chip chip-snack">小吃</span>
+          <span class="food-chip chip-cafe">咖啡廳</span>
+          <span class="food-chip chip-gift">伴手禮</span>
+        </div>
+
+        <div class="food-index-group">
+          <button class="food-index-btn" onclick="jumpToFoodArea('food-deoksugung')">
+            德壽宮美食<small>味成屋・滿足五香豬腳・Liege Waffle 等 5 家</small>
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+          </button>
+        </div>
+        <div class="food-index-group">
+          <button class="food-index-btn" onclick="jumpToFoodArea('food-gyeongbok')">
+            景福宮・三清洞美食<small>黃生家刀削麵・土俗村參雞湯 等 5 家</small>
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+          </button>
+        </div>
+        <div class="food-index-group">
+          <button class="food-index-btn" onclick="jumpToFoodArea('food-insadong')">
+            仁寺洞美食<small>開城餃子宮・仁寺洞蒜泥包肉 等 5 家</small>
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+          </button>
+        </div>
+        <div class="food-index-group">
+          <button class="food-index-btn" onclick="jumpToFoodArea('food-seoulforest')">
+            首爾林美食<small>奶奶的食譜・大成肋排 等 5 家</small>
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+          </button>
+        </div>
+        <div class="food-index-group">
+          <button class="food-index-btn" onclick="jumpToFoodArea('food-seongsu')">
+            聖水洞美食<small>聖水一隻雞・大林倉庫 等 5 家</small>
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+          </button>
+        </div>
+        <div class="food-index-group">
+          <button class="food-index-btn" onclick="jumpToFoodArea('food-seoulstation')">
+            首爾車站美食<small>河東館・兔子停 等 5 家</small>
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ================= SECTION: 實用 ================= -->
+      <section id="section-useful" class="content-section">
+        <h2 class="section-title">
+          <svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+          實用資訊
+        </h2>
+
+        <details class="accordion-card" open>
+          <summary class="accordion-summary">
+            <div class="summary-left">
+              <svg class="summary-icon" viewBox="0 0 24 24"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+              <span>機場接駁比較</span>
+            </div>
+            <svg class="summary-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="accordion-content">
+            <p style="margin-bottom: 16px; font-size: 15px;">從仁川機場 T2 到市區新首爾飯店，考量 4 人攜帶大行李且有長輩，對比以下四種方案：</p>
+
+            <div class="transport-card">
+              <div class="transport-card-header">
+                <h3 class="transport-title">Klook 7-9人座商務專車</h3>
+                <div class="transport-badge"><span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>5.0</span><small>最優推薦</small></div>
+              </div>
+              <div class="transport-detail-row"><span class="transport-detail-label">單程車資：</span><span class="transport-detail-value">4人共約 90,000 - 110,000 韓元</span></div>
+              <div class="transport-detail-row"><span class="transport-detail-label">單程時間：</span><span class="transport-detail-value">約 60 - 70 分鐘 (直達飯店)</span></div>
+              <div class="transport-detail-row"><span class="transport-detail-label">購票方式：</span><span class="transport-detail-value">出發前於 Klook 官網線上預訂付款，司機大廳舉牌接送</span></div>
+              <div class="transport-comment">門對門直達送達，出關即上車，無須在戶外吹風拖行李。長輩可在舒適寬敞車廂內全程補眠，最適合消除紅眼航班疲勞。</div>
+            </div>
+
+            <div class="transport-card">
+              <div class="transport-card-header">
+                <h3 class="transport-title">機場巴士 6701</h3>
+                <div class="transport-badge"><span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.0</span><small>舒適省錢</small></div>
+              </div>
+              <div class="transport-detail-row"><span class="transport-detail-label">單程車資：</span><span class="transport-detail-value">單人 18,000 韓元 (4人共 72,000 韓元)</span></div>
+              <div class="transport-detail-row"><span class="transport-detail-label">單程時間：</span><span class="transport-detail-value">約 70 - 80 分鐘 (視路況)</span></div>
+              <div class="transport-detail-row"><span class="transport-detail-label">搭乘月台：</span><span class="transport-detail-value">仁川機場 T2 B1 交通中心 18 號月台 (首班車 05:15)</span></div>
+              <div class="transport-comment">豪華三排大座椅，行李有專人提放至行李艙。直達「光化門(新首爾飯店)」路口下車，步行 1 分鐘即可到飯店後門。</div>
+            </div>
+
+            <div class="transport-card">
+              <div class="transport-card-header">
+                <h3 class="transport-title">機場直通列車 (AREX)</h3>
+                <div class="transport-badge"><span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>3.0</span><small>行走較長</small></div>
+              </div>
+              <div class="transport-detail-row"><span class="transport-detail-label">單程車資：</span><span class="transport-detail-value">單人 13,000 韓元 + 市區轉乘車資</span></div>
+              <div class="transport-detail-row"><span class="transport-detail-label">單程時間：</span><span class="transport-detail-value">約 51 分鐘 (直達首爾站)</span></div>
+              <div class="transport-detail-row"><span class="transport-detail-label">注意要點：</span><span class="transport-detail-value">抵達首爾站後，站體轉乘步行距離極長，長輩搬運大行李非常吃力。必須出站再轉計程車前往飯店。</span></div>
+              <div class="transport-comment">速度快且不塞車，但在首爾站內的漫長行走與上下樓梯對「爛腳人」是一大體力消耗。不推薦首日搭乘。</div>
+            </div>
+
+            <div class="transport-card">
+              <div class="transport-card-header">
+                <h3 class="transport-title">機場現場搭計程車</h3>
+                <div class="transport-badge"><span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>2.0</span><small>Jumbo較貴</small></div>
+              </div>
+              <div class="transport-detail-row"><span class="transport-detail-label">單程車資：</span><span class="transport-detail-value">一般車約 60k-70k 韓元 ｜ 大型/模範約 90k-120k 韓元</span></div>
+              <div class="transport-detail-row"><span class="transport-detail-label">注意要點：</span><span class="transport-detail-value">4人攜帶4件大行李時，一般計程車行李箱塞不下，必須叫大型車 (Jumbo Taxi)</span></div>
+              <div class="transport-comment">現場排隊叫大型車較為繁瑣，且價格不一定比 Klook 商務車便宜，溝通相對吃力。</div>
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion-card">
+          <summary class="accordion-summary">
+            <div class="summary-left">
+              <svg class="summary-icon" viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .9-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+              <span>免稅與習俗</span>
+            </div>
+            <svg class="summary-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="accordion-content">
+            <p><strong>免稅手續辦理</strong></p>
+            <p>• <strong>起徵門檻</strong>：單筆消費滿 <strong>15,000 韓元</strong> 即可辦理退稅。
+            <br>• <strong>2026最新退稅禁令</strong>：韓國自 2026 年起，<strong>已全面取消外國旅客的「醫療美容服務」（如皮秒雷射、音波、肉毒等）退稅優惠！</strong>一般商品（服飾、美妝、彩妝、零食）退稅規定照常。
+            <br>• <strong>退稅方式</strong>：
+            <br>1. <strong>現場即時退稅</strong>：在 Olive Young、大型百貨結帳時出示護照，結帳金額直接扣除附加稅，最方便！
+            <br>2. <strong>機場退稅</strong>：若現場無法退稅，保存店家退稅單，在回程機場 T2 的 3 樓 KIOSK 掃描，過安檢後在管制區 253 號登機門旁領取現金。</p>
+
+            <p style="margin-top: 16px;"><strong>當地習俗與避雷事項</strong></p>
+            <p>• <strong>地鐵博愛座 (老弱專用席)</strong>：在韓國不論車廂多擠，<strong>一般旅客絕對不要入座博愛座！</strong>這是當地非常嚴格的社交規範，避免引起側目。
+            <br>• <strong>手扶梯禮儀</strong>：習慣為「右側站立，左側通行」。
+            <br>• <strong>秋季洋蔥式穿搭</strong>：10 月中旬氣溫約在 10°C - 18°C，清晨或深夜可能低於 10°C。日夜溫差極大。強烈建議「發熱衣/薄長袖 + 針織衫/防風外套 + 大衣/輕羽絨」三層洋蔥式穿搭，室內有暖氣時方便迅速脫下。
+            <br>• <strong>無障礙避雷 (新首爾飯店)</strong>：明洞新首爾飯店正門有較陡的手扶階梯，長輩拖行李極累。<strong>進出飯店務必改走「飯店後門」的平緩斜坡</strong>，對行動不便的成員最友善。</p>
+          </div>
+        </details>
+
+        <details class="accordion-card">
+          <summary class="accordion-summary">
+            <div class="summary-left">
+              <svg class="summary-icon" viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+              <span>實用 App</span>
+            </div>
+            <svg class="summary-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="accordion-content">
+            <p style="margin-bottom: 16px; font-size: 15px;">出發前建議先下載並註冊好以下 App，能極大方便在地交通、叫車與點餐：</p>
+
+            <div class="app-grid">
+              <div class="app-card">
+                <div class="app-icon-wrapper"><svg class="app-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+                <div class="app-info">
+                  <h4>Naver Map / KakaoMap</h4>
+                  <p>韓國在地導航地圖。由於 Google Map 在韓國不夠精準，必備此地圖查步行動線與店家位置。</p>
+                </div>
+              </div>
+              <div class="app-card">
+                <div class="app-icon-wrapper"><svg class="app-icon" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.27-3.82c.07-.22.28-.38.52-.38h10.42c.24 0 .45.16.52.38L19 11H5z"/></svg></div>
+                <div class="app-info">
+                  <h4>Kakao T</h4>
+                  <p>叫計程車神器。可綁定台灣信用卡，在大街上或室內直接呼叫一般計程車，或呼叫中大型車（Venti/Jumbo）以容納 4 人及行李。</p>
+                </div>
+              </div>
+              <div class="app-card">
+                <div class="app-icon-wrapper"><svg class="app-icon" viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg></div>
+                <div class="app-info">
+                  <h4>Papago</h4>
+                  <p>Naver 旗下中韓翻譯 App。中韓互譯極其精準（勝過 Google 翻譯），且支援「即時拍照翻譯」，在餐廳看韓文菜單時極為方便。</p>
+                </div>
+              </div>
+              <div class="app-card">
+                <div class="app-icon-wrapper"><svg class="app-icon" viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8z"/></svg></div>
+                <div class="app-info">
+                  <h4>WOWPASS App</h4>
+                  <p>綁定 WOWPASS 實體卡。可隨時在手機上查詢消費明細、信用卡線上儲值以及交通卡 (T-Money) 剩餘額度。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <!-- ================= SECTION: 緊急應變 ================= -->
+      <section id="section-emergency" class="content-section">
+        <h2 class="section-title">
+          <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
+          緊急應變 (預防萬一)
+        </h2>
+
+        <p style="margin-bottom: 16px; font-size: 15px;">在首爾旅遊期間，若遇緊急事件或醫療就醫需求，請保持冷靜並參考以下聯絡管道與醫院指引：</p>
+
+        <div class="emergency-card">
+          <h3>
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            24小時當地求助熱線 (點擊即可直撥)
+          </h3>
+          <p>• <strong>救護車 / 消防車：<a href="tel:119" class="link-styled">119</a></strong>
+            <br><small style="color: var(--text-muted);">支援中文，接起後說 "Chinese, please"，將在數秒內連線至中文口譯人員。</small></p>
+          <p>• <strong>警察局：<a href="tel:112" class="link-styled">112</a></strong>
+            <br><small style="color: var(--text-muted);">緊急治安求助、車禍或人身安全受脅。</small></p>
+          <p>• <strong>韓國觀光公社熱線：<a href="tel:1330" class="link-styled">1330</a></strong>
+            <br><small style="color: var(--text-muted);">24小時繁體中文服務，提供旅遊資訊、路況、即時三方通話口譯。</small></p>
+        </div>
+
+        <div class="emergency-card">
+          <h3>
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            駐韓國台北代表部 (Taipei Mission in Korea)
+          </h3>
+          <p>• <strong>中文地址</strong>：首爾特別市鐘路區世宗大路 149 號光化門大廈 6 樓
+            <br><small style="color: var(--text-muted);">* 距離新首爾飯店僅約 350-450 公尺，步行約 5-7 分鐘，非常近！</small></p>
+          <p>• <strong>一般領務電話</strong>：<a href="tel:+82-2-6329-6000" class="link-styled">+82-2-6329-6000</a> (上班時間 09:00 - 15:30，六日關閉)</p>
+          <p>• <strong>急難救助專線</strong>：<a href="tel:+82-10-9080-2761" class="link-styled">010-9080-2761</a>
+            <br><small style="color: var(--maple); font-weight: bold;">* 僅限車禍、搶劫、生命安危等重大緊急求助，一般護照遺失請於上班時間辦理。</small></p>
+        </div>
+
+        <div class="emergency-card" style="border-left-color: var(--ginkgo);">
+          <h3>
+            <svg viewBox="0 0 24 24" style="fill: var(--ginkgo);"><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg>
+            設有中/英服務之大型醫院推薦 (可開英文診斷書辦保險)
+          </h3>
+          <p>1. <strong>江北三星醫院 (Kangbuk Samsung Hospital)</strong>
+            <br>- <strong>距離最近</strong>：距離飯店計程車程約 6 分鐘，就醫首選。
+            <br>- 電話：<a href="tel:+82-2-2001-5100" class="link-styled">+82-2-2001-5100</a> (備有中文協調員)</p>
+
+          <p>2. <strong>首爾大學醫院 (Seoul National University Hospital)</strong>
+            <br>- 電話：<a href="tel:+82-2-2072-0505" class="link-styled">+82-2-2072-0505</a> (國際醫療中心)
+            <br>- <strong>24小時急診電話</strong>：<a href="tel:+82-10-8831-2890" class="link-styled">010-8831-2890</a></p>
+
+          <p>3. <strong>延世大學塞弗蘭斯醫院 (Severance Hospital)</strong>
+            <br>- <strong>規模最大</strong>：位於新村，國際醫療中心全韓最大，設專職中文服務。
+            <br>- 電話：<a href="tel:+82-2-2228-5800" class="link-styled">+82-2-2228-5800</a></p>
+
+          <div class="info-subcard" style="margin-top: 10px;">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              長輩就醫防雷提示
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">前往就醫時，請務必隨身攜帶<strong>護照正本</strong>、<strong>平時慢性病藥物清單</strong>（附英文摘要佳），以及<strong>海外旅平險英文版保單</strong>。務必請醫院開立<strong>「英文診斷書」</strong>與收據，回台後方可向產險公司申請實支實付理賠。</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 底部持久快捷列 -->
+    <nav class="bottom-bar">
+      <button class="bottom-bar-btn emphasis" onclick="switchSection(null, 'emergency')" aria-label="緊急撥號">
+        <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+        緊急撥號
+      </button>
+      <button class="bottom-bar-btn" onclick="switchSection(null, 'overview')" aria-label="回總覽">
+        <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8h-3v9h-4v-6H10v6H6v-9H3z"/></svg>
+        回總覽
+      </button>
+      <button class="bottom-bar-btn" id="back-to-top" aria-label="回到最上面">
+        <svg viewBox="0 0 24 24"><path d="M4 12l8-8 8 8M12 4v16"/></svg>
+        回頂
+      </button>
+    </nav>
+
+  </div>
+
+  <script>
+    // --- 頁面區段切換 (Section Switching) ---
+    function switchSection(event, sectionId) {
+      if (event) event.preventDefault();
+
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => link.classList.remove('active'));
+
+      const activeLink = Array.from(navLinks).find(link => link.getAttribute('onclick') && link.getAttribute('onclick').includes("'" + sectionId + "'"));
+      if (activeLink) activeLink.classList.add('active');
+
+      const sections = document.querySelectorAll('.content-section');
+      sections.forEach(sec => sec.classList.remove('active'));
+
+      const targetSection = document.getElementById('section-' + sectionId);
+      if (targetSection) targetSection.classList.add('active');
+
+      scrollToActiveNav();
+
+      try {
+        localStorage.setItem('activeSection', sectionId);
+      } catch (e) {
+        console.error('LocalStorage error:', e);
+      }
+    }
+
+    function scrollToActiveNav() {
+      const activeLink = document.querySelector('.nav-link.active');
+      if (activeLink) {
+        const container = document.querySelector('.nav-menu');
+        container.scrollTo({
+          left: activeLink.offsetLeft - (container.offsetWidth / 2) + (activeLink.offsetWidth / 2),
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    // --- 通用平滑捲動至指定錨點（含 sticky 導覽補償） ---
+    function scrollToAnchor(anchorId) {
+      const target = document.getElementById(anchorId);
+      if (!target) return;
+      setTimeout(() => {
+        const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: elementPosition - 96, behavior: 'smooth' });
+      }, 60);
+    }
+
+    // --- 總覽景點畫廊：切至「景點漫遊」並捲動到指定站點 ---
+    function jumpToSpot(spotId) {
+      switchSection(null, 'spots');
+      scrollToAnchor(spotId);
+    }
+
+    // --- 美食索引：切至「景點漫遊」並捲動到指定站點美食清單 ---
+    function jumpToFoodArea(foodAnchorId) {
+      switchSection(null, 'spots');
+      scrollToAnchor(foodAnchorId);
+    }
+
+    // --- 摺疊詳解卡片：互斥 (僅限行前準備 name="prep-group") 與自動滾動置中 ---
+    function setupExclusiveAccordions() {
+      const details = document.querySelectorAll('details[name]');
+      details.forEach((targetDetail) => {
+        targetDetail.addEventListener('toggle', () => {
+          if (targetDetail.open) {
+            const group = targetDetail.getAttribute('name');
+            details.forEach((detail) => {
+              if (detail !== targetDetail && detail.getAttribute('name') === group) {
+                detail.open = false;
+              }
+            });
+            const stickyOffset = 110;
+            setTimeout(() => {
+              const elementPosition = targetDetail.getBoundingClientRect().top + window.scrollY;
+              window.scrollTo({ top: elementPosition - stickyOffset, behavior: 'smooth' });
+            }, 80);
+          }
+        });
+      });
+    }
+
+    // --- 回到頂部（掛載於底部持久快捷列） ---
+    function setupBackToTopButton() {
+      const backToTopBtn = document.getElementById('back-to-top');
+      if (!backToTopBtn) return;
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // --- 頁面初始化 ---
+    window.addEventListener('DOMContentLoaded', () => {
+      let savedSection = 'overview';
+      try {
+        savedSection = localStorage.getItem('activeSection') || 'overview';
+      } catch (e) {
+        console.error('LocalStorage error:', e);
+      }
+
+      switchSection(null, savedSection);
+
+      setupExclusiveAccordions();
+      setupBackToTopButton();
+    });
+
+    // 全域掛載函數防止行內事件失效
+    window.switchSection = switchSection;
+    window.scrollToAnchor = scrollToAnchor;
+    window.jumpToSpot = jumpToSpot;
+    window.jumpToFoodArea = jumpToFoodArea;
+  </script>
+</body>
+</html>
+
+</content>
