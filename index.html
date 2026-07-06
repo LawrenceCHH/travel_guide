@@ -336,13 +336,16 @@
       text-decoration: none;
     }
     .title-search-link {
-      display: inline-flex; align-items: center; justify-content: center;
-      color: var(--text-muted); opacity: 0.6;
-      text-decoration: none; transition: all 0.2s ease;
-      font-size: 15px; font-weight: normal; flex-shrink: 0;
+      color: inherit;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-size: inherit;
+      font-weight: inherit;
+      display: inline;
     }
     .title-search-link:hover, .title-search-link:active {
-      color: var(--primary); opacity: 1; text-decoration: none;
+      color: var(--primary);
+      text-decoration: none;
     }
     .spot-title-link, .food-item-name-link, .title-search-link {
       color: inherit;
@@ -380,11 +383,11 @@
     .pill svg { width: 16px; height: 16px; fill: var(--text-muted); flex-shrink: 0; margin-top: 2px; }
 
     .info-subcard {
-      background-color: var(--secondary-light); border-radius: var(--radius-sm);
-      padding: 14px; margin-top: 14px; border-left: 4px solid var(--secondary); font-size: 15px;
+      background-color: transparent; border-radius: 0; padding: 0; margin-top: 16px; border: none;
+      border-top: 1px solid var(--border-light); padding-top: 12px; font-size: 14.5px;
     }
-    .info-subcard-title { font-weight: 700; margin-bottom: 6px; color: var(--text-main); display: flex; align-items: center; gap: 6px; }
-    .info-subcard-title svg { width: 16px; height: 16px; fill: var(--primary); flex-shrink: 0; }
+    .info-subcard-title { font-weight: 800; margin-bottom: 6px; color: var(--primary-hover); display: flex; align-items: center; gap: 6px; font-size: 14px; }
+    .info-subcard-title svg { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
 
     /* --- 美食折疊清單（details，預設收合，非互斥） --- */
     .food-jump-link {
@@ -990,13 +993,13 @@
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：<a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%B2%9E%E6%B4%9E%E5%B1%95%E6%9C%9B%E5%8F%B0" target="_blank" class="title-search-link" style="color: var(--primary-hover); opacity: 1; font-weight: 800; display: inline;">貞洞展望台</a>
+              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%B2%9E%E6%B4%9E%E5%B1%95%E6%9C%9B%E5%8F%B0" target="_blank" class="title-search-link">鄰近歇腳處：貞洞展望台</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">位於首爾市廳西小門廳舍 13 樓，有直達電梯。設有咖啡廳，可透過落地窗俯瞰整片德壽宮的楓紅與金黃銀杏全景。</p>
           </div>
-          <div class="info-subcard" style="border-left-color: var(--primary);">
-            <div class="info-subcard-title" style="color: var(--primary-hover);">
-              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24" ><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
               下一站移動
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">直接步行 4 分鐘返回新首爾飯店休息，或在路邊使用 Kakao T 叫計程車前往明洞商圈（車程約 5 分鐘）。</p>
@@ -1024,13 +1027,13 @@
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：<a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%9C%8B%E7%AB%8B%E5%8F%A4%E5%AE%AE%E5%8D%9A%E7%89%A9%E9%A4%A8" target="_blank" class="title-search-link" style="color: var(--primary-hover); opacity: 1; font-weight: 800; display: inline;">國立古宮博物館</a>
+              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%9C%8B%E7%AB%8B%E5%8F%A4%E5%AE%AE%E5%8D%9A%E7%89%A9%E9%A4%A8" target="_blank" class="title-search-link">鄰近歇腳處：國立古宮博物館</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">位於景福宮旁，免門票。館內有直達電梯、大型沙發區與舒適冷暖氣，是極佳的避風歇腳點。</p>
           </div>
-          <div class="info-subcard" style="border-left-color: var(--primary);">
-            <div class="info-subcard-title" style="color: var(--primary-hover);">
-              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24" ><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
               下一站移動
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">在三清洞路邊使用 Kakao T 叫計程車前往仁寺洞商圈（車程約 10 分鐘，車資約 5,000 韓元）。</p>
@@ -1056,13 +1059,13 @@
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：<a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%80%95%E4%BB%81%E7%BE%8E%E8%A1%93%E9%A4%A8" target="_blank" class="title-search-link" style="color: var(--primary-hover); opacity: 1; font-weight: 800; display: inline;">耕仁美術館傳統茶院</a>
+              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%80%95%E4%BB%81%E7%BE%8E%E8%A1%93%E9%A4%A8" target="_blank" class="title-search-link">鄰近歇腳處：耕仁美術館傳統茶院</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">設於百年韓屋庭園內，有寬敞的木質茶座。可在此一邊悠閒品嚐傳統雙和茶或五味子茶，一邊觀賞秋意盎然的家庭庭園。</p>
           </div>
-          <div class="info-subcard" style="border-left-color: var(--primary);">
-            <div class="info-subcard-title" style="color: var(--primary-hover);">
-              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24" ><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
               下一站移動
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">直接使用 Kakao T 呼叫計程車返回新首爾飯店（車程約 8-10 分鐘，車資約 6,000 韓元）。</p>
@@ -1088,13 +1091,13 @@
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：<a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E9%A6%96%E7%88%BE%E6%9E%97+%E6%98%86%E8%9F%B2%E6%A4%8D%E7%89%A9%E5%9C%92" target="_blank" class="title-search-link" style="color: var(--primary-hover); opacity: 1; font-weight: 800; display: inline;">首爾林昆蟲植物園溫室</a>
+              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E9%A6%96%E7%88%BE%E6%9E%97+%E6%98%86%E8%9F%B2%E6%A4%8D%E7%89%A9%E5%9C%92" target="_blank" class="title-search-link">鄰近歇腳處：首爾林昆蟲植物園溫室</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">位於公園中心。溫室內暖和且平坦，設有長椅休息區。若秋季戶外風大偏涼，進入溫室內歇腳避風非常舒適。</p>
           </div>
-          <div class="info-subcard" style="border-left-color: var(--primary);">
-            <div class="info-subcard-title" style="color: var(--primary-hover);">
-              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24" ><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
               下一站移動
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">首爾林與聖水洞商圈相鄰，平路步行約 8-10 分鐘，或在出口直接使用 Kakao T 叫計程車（車程約 3 分鐘）。</p>
@@ -1122,13 +1125,13 @@
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：<a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%81%96%E6%B0%B4%E6%B4%9E+%E5%A4%A7%E6%9E%97%E5%80%89%E5%BA%AB" target="_blank" class="title-search-link" style="color: var(--primary-hover); opacity: 1; font-weight: 800; display: inline;">大林倉庫 (Daelim Changgo)</a>
+              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%81%96%E6%B0%B4%E6%B4%9E+%E5%A4%A7%E6%9E%97%E5%80%89%E5%BA%AB" target="_blank" class="title-search-link">鄰近歇腳處：大林倉庫 (Daelim Changgo)</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">工廠改建的超大型藝廊咖啡廳，內部挑高開闊，設有大量舒適的軟質沙發座位，是長輩在此放鬆等候的絕佳空間。</p>
           </div>
-          <div class="info-subcard" style="border-left-color: var(--primary);">
-            <div class="info-subcard-title" style="color: var(--primary-hover);">
-              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24" ><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
               下一站移動
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">直接於大林倉庫門口使用 Kakao T 呼叫大車 (Venti / Jumbo) 直達新首爾飯店休息，車程約 20 分鐘。</p>
@@ -1157,13 +1160,13 @@
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：<a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE%E7%AB%99+Lotte+Outlets" target="_blank" class="title-search-link" style="color: var(--primary-hover); opacity: 1; font-weight: 800; display: inline;">首爾站 Lotte Outlets 咖啡廳</a>
+              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE%E7%AB%99+Lotte+Outlets" target="_blank" class="title-search-link">鄰近歇腳處：首爾站 Lotte Outlets 咖啡廳</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">樂天超市與 Lotte Outlets 相連，各樓層設有多間安靜舒適的咖啡廳與沙發座，方便長輩悠閒喝飲料等候。</p>
           </div>
-          <div class="info-subcard" style="border-left-color: var(--primary);">
-            <div class="info-subcard-title" style="color: var(--primary-hover);">
-              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24" ><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
               下一站移動
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">叫車返回飯店拿行李，隨後搭乘預約好的 Klook 大型商務車直接前往仁川機場 T2（車程約 60-70 分鐘）。</p>
