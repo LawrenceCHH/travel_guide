@@ -383,33 +383,69 @@
     .btn-kakao { background-color: #fee500; color: #191919; }
     .btn-ref { background-color: var(--bg); border: 1px solid var(--border); color: var(--text-main); }
 
-    /* --- 美食分頁：分區直接展開 --- */
+    /* --- 美食分頁：分區 accordion（標題原地展開/收合、跳景點連結收在區尾） --- */
     .food-index-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-    .food-area { margin-bottom: 28px; }
-    .jump-arrow {
-      width: 18px; height: 18px; fill: none; stroke: var(--primary); stroke-width: 2;
-      stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0;
+    .food-area { margin-bottom: 28px; border-radius: var(--radius-md); transition: box-shadow .25s ease; }
+    .food-area.open { box-shadow: var(--shadow-md); }
+    .area-head {
+      width: 100%; display: flex; align-items: center; gap: 12px; text-align: left; cursor: pointer; font-family: inherit;
+      background: var(--surface); border: 1px solid var(--border-light); border-left: 4px solid var(--primary);
+      border-radius: var(--radius-sm); box-shadow: var(--shadow-sm); padding: 13px 14px; min-height: 56px;
+      transition: background .2s ease, border-color .2s ease;
     }
-    .area-bar {
-      display: flex; align-items: stretch; border: 1px solid var(--border-light); border-left: 4px solid var(--primary);
-      border-radius: var(--radius-sm); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 12px; background: var(--surface);
+    .area-head:hover { background: var(--bg); }
+    .food-area.open .area-head {
+      background: var(--secondary-light); border-color: var(--secondary); border-left-color: var(--primary-hover);
+      border-bottom-left-radius: 0; border-bottom-right-radius: 0; box-shadow: none;
     }
-    .area-jump {
-      flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; padding: 14px; min-height: 52px;
-      font-weight: 800; font-size: 15.5px; line-height: 1.35; color: var(--text-main); text-align: left;
-      background: none; border: none; cursor: pointer; font-family: inherit;
+    .area-head-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+    .area-head-title { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .area-name { font-weight: 800; font-size: 16.5px; line-height: 1.3; color: var(--text-main); }
+    .area-count {
+      font-size: 11px; font-weight: 800; color: var(--primary-hover); background: var(--secondary-light);
+      padding: 2px 8px; border-radius: 9px; white-space: nowrap; flex-shrink: 0;
     }
-    .area-jump .txt { flex: 1; min-width: 0; }
-    .area-toggle {
-      flex-shrink: 0; width: 64px; min-height: 52px; display: inline-flex; flex-direction: column; align-items: center;
-      justify-content: center; gap: 2px; background: var(--secondary-light); border: none; border-left: 1px solid var(--border-light);
-      color: var(--primary-hover); font-size: 11px; font-weight: 800; cursor: pointer; font-family: inherit;
+    .food-area.open .area-count { background: var(--surface); }
+    .area-preview {
+      font-size: 13px; color: var(--text-muted); white-space: nowrap; overflow: hidden;
+      text-overflow: ellipsis; max-width: 100%;
     }
-    .area-toggle svg {
-      width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2;
-      stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s ease;
+    .food-area.open .area-preview { display: none; }
+    .area-chevron {
+      flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; background: var(--secondary-light);
+      display: inline-flex; align-items: center; justify-content: center; transition: background .2s ease;
     }
-    .area-toggle.open svg { transform: rotate(180deg); }
+    .area-head:hover .area-chevron { background: var(--border-light); }
+    .food-area.open .area-chevron { background: var(--surface); }
+    .area-chevron svg {
+      width: 18px; height: 18px; fill: none; stroke: var(--primary-hover); stroke-width: 2.2;
+      stroke-linecap: round; stroke-linejoin: round; transition: transform .25s ease;
+    }
+    .food-area.open .area-chevron svg { transform: rotate(180deg); }
+    .food-area:not(.open) .area-list { display: none; }
+    .food-area.open .area-list {
+      border: 1px solid var(--secondary); border-top: none; border-left: 4px solid var(--primary-hover);
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm); padding: 12px 12px 4px; background: var(--surface);
+    }
+    .area-foot { margin-top: 2px; padding-top: 12px; border-top: 1px dashed var(--border); }
+    .spot-walk-link {
+      width: 100%; display: flex; align-items: center; gap: 11px; cursor: pointer; font-family: inherit; text-align: left;
+      background: var(--bg); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 11px 13px;
+      min-height: 48px; transition: background .2s ease, border-color .2s ease;
+    }
+    .spot-walk-link:hover { background: var(--secondary-light); border-color: var(--secondary); }
+    .spot-walk-icon {
+      flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px; background: var(--surface);
+      border: 1px solid var(--border-light); display: inline-flex; align-items: center; justify-content: center;
+    }
+    .spot-walk-icon svg { width: 18px; height: 18px; fill: var(--primary-hover); }
+    .spot-walk-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+    .spot-walk-main { font-weight: 800; font-size: 14px; color: var(--primary-hover); line-height: 1.3; }
+    .spot-walk-sub { font-size: 12px; color: var(--text-muted); }
+    .spot-walk-arrow {
+      flex-shrink: 0; width: 18px; height: 18px; fill: none; stroke: var(--primary); stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
 
     /* --- 接駁交通方案卡片 --- */
     .transport-card {
@@ -1116,7 +1152,7 @@
           <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
           美食
         </h2>
-        <div class="section-sub">各區美食已直接展開，點<strong>區塊標題</strong>即可跳到「景點漫遊」對應景點看詳細散步路線。</div>
+        <div class="section-sub">各區美食預設收合，點<strong>區塊標題</strong>展開該區 5 家；展開後最底可一鍵回「景點漫遊」看散步路線。</div>
 
         <div class="food-index-legend">
           <span class="food-chip chip-meal">正餐</span>
@@ -1126,17 +1162,17 @@
         </div>
 
         <div class="food-area" id="food-area-deoksugung">
-          <div class="area-bar">
-            <button class="area-jump" onclick="jumpToSpot('spot-deoksugung')">
-              <span class="txt">德壽宮: 味成屋・滿足五香豬腳・Liege Waffle 等 5 家</span>
-              <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
-            </button>
-            <button class="area-toggle" onclick="toggleFoodArea(this)" aria-label="展開或收合本區全部美食">
-              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              <span>展開</span>
-            </button>
-          </div>
-          <div id="food-deoksugung">
+          <button class="area-head" aria-expanded="false" aria-controls="food-deoksugung" onclick="toggleFoodArea(this)">
+            <span class="area-head-txt">
+              <span class="area-head-title">
+                <span class="area-name">德壽宮</span>
+                <span class="area-count">5 家</span>
+              </span>
+              <span class="area-preview">味成屋・滿足五香豬腳・Liege Waffle・珈琲島・BrickSand</span>
+            </span>
+            <span class="area-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+          </button>
+          <div class="area-list" id="food-deoksugung">
             <details class="food-item">
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">1. 味成屋 (미성옥)</span><span class="food-chip chip-meal">正餐</span></span>
@@ -1222,21 +1258,31 @@
                 </div>
               </div>
             </details>
+            <div class="area-foot">
+              <button class="spot-walk-link" onclick="jumpToSpot('spot-deoksugung')" aria-label="回景點漫遊，查看德壽宮散步路線與友善度">
+                <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
+                <span class="spot-walk-txt">
+                  <span class="spot-walk-main">回景點漫遊 · 德壽宮散步路線</span>
+                  <span class="spot-walk-sub">看步行距離・階梯・歇腳處與友善度</span>
+                </span>
+                <svg class="spot-walk-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"></path></svg>
+              </button>
+            </div>
           </div>
         </div>
 
         <div class="food-area" id="food-area-gyeongbok">
-          <div class="area-bar">
-            <button class="area-jump" onclick="jumpToSpot('spot-gyeongbok')">
-              <span class="txt">景福宮・三清洞: 黃生家刀削麵・土俗村參雞湯 等 5 家</span>
-              <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
-            </button>
-            <button class="area-toggle" onclick="toggleFoodArea(this)" aria-label="展開或收合本區全部美食">
-              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              <span>展開</span>
-            </button>
-          </div>
-          <div id="food-gyeongbok">
+          <button class="area-head" aria-expanded="false" aria-controls="food-gyeongbok" onclick="toggleFoodArea(this)">
+            <span class="area-head-txt">
+              <span class="area-head-title">
+                <span class="area-name">景福宮・三清洞</span>
+                <span class="area-count">5 家</span>
+              </span>
+              <span class="area-preview">黃生家刀削麵・土俗村參雞湯・Cafe Onion・紅豆粥・London Bagel Museum</span>
+            </span>
+            <span class="area-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+          </button>
+          <div class="area-list" id="food-gyeongbok">
             <details class="food-item">
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">1. 黃生家刀削麵 (황생가칼국수)</span><span class="food-chip chip-meal">正餐</span></span>
@@ -1322,21 +1368,31 @@
                 </div>
               </div>
             </details>
+            <div class="area-foot">
+              <button class="spot-walk-link" onclick="jumpToSpot('spot-gyeongbok')" aria-label="回景點漫遊，查看景福宮・三清洞散步路線與友善度">
+                <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
+                <span class="spot-walk-txt">
+                  <span class="spot-walk-main">回景點漫遊 · 景福宮・三清洞散步路線</span>
+                  <span class="spot-walk-sub">看步行距離・階梯・歇腳處與友善度</span>
+                </span>
+                <svg class="spot-walk-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"></path></svg>
+              </button>
+            </div>
           </div>
         </div>
 
         <div class="food-area" id="food-area-insadong">
-          <div class="area-bar">
-            <button class="area-jump" onclick="jumpToSpot('spot-insadong')">
-              <span class="txt">仁寺洞: 開城餃子宮・仁寺洞蒜泥包肉 等 5 家</span>
-              <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
-            </button>
-            <button class="area-toggle" onclick="toggleFoodArea(this)" aria-label="展開或收合本區全部美食">
-              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              <span>展開</span>
-            </button>
-          </div>
-          <div id="food-insadong">
+          <button class="area-head" aria-expanded="false" aria-controls="food-insadong" onclick="toggleFoodArea(this)">
+            <span class="area-head-txt">
+              <span class="area-head-title">
+                <span class="area-name">仁寺洞</span>
+                <span class="area-count">5 家</span>
+              </span>
+              <span class="area-preview">開城餃子宮・仁寺洞蒜泥包肉・Osulloc Tea House・仁寺洞黑糖餅・仁寺洞麵疙瘩</span>
+            </span>
+            <span class="area-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+          </button>
+          <div class="area-list" id="food-insadong">
             <details class="food-item">
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">1. 開城餃子宮 (개성만두궁)</span><span class="food-chip chip-meal">正餐</span></span>
@@ -1422,21 +1478,31 @@
                 </div>
               </div>
             </details>
+            <div class="area-foot">
+              <button class="spot-walk-link" onclick="jumpToSpot('spot-insadong')" aria-label="回景點漫遊，查看仁寺洞散步路線與友善度">
+                <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
+                <span class="spot-walk-txt">
+                  <span class="spot-walk-main">回景點漫遊 · 仁寺洞散步路線</span>
+                  <span class="spot-walk-sub">看步行距離・階梯・歇腳處與友善度</span>
+                </span>
+                <svg class="spot-walk-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"></path></svg>
+              </button>
+            </div>
           </div>
         </div>
 
         <div class="food-area" id="food-area-seoulforest">
-          <div class="area-bar">
-            <button class="area-jump" onclick="jumpToSpot('spot-seoulforest')">
-              <span class="txt">首爾林: 奶奶的食譜・大成肋排 等 5 家</span>
-              <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
-            </button>
-            <button class="area-toggle" onclick="toggleFoodArea(this)" aria-label="展開或收合本區全部美食">
-              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              <span>展開</span>
-            </button>
-          </div>
-          <div id="food-seoulforest">
+          <button class="area-head" aria-expanded="false" aria-controls="food-seoulforest" onclick="toggleFoodArea(this)">
+            <span class="area-head-txt">
+              <span class="area-head-title">
+                <span class="area-name">首爾林</span>
+                <span class="area-count">5 家</span>
+              </span>
+              <span class="area-preview">奶奶的食譜・大成肋排・自然島鹽麵包・Cafe Onion・Meal°</span>
+            </span>
+            <span class="area-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+          </button>
+          <div class="area-list" id="food-seoulforest">
             <details class="food-item">
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">1. 奶奶的食譜 (할머니의 레시피)</span><span class="food-chip chip-meal">正餐</span></span>
@@ -1522,21 +1588,31 @@
                 </div>
               </div>
             </details>
+            <div class="area-foot">
+              <button class="spot-walk-link" onclick="jumpToSpot('spot-seoulforest')" aria-label="回景點漫遊，查看首爾林散步路線與友善度">
+                <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
+                <span class="spot-walk-txt">
+                  <span class="spot-walk-main">回景點漫遊 · 首爾林散步路線</span>
+                  <span class="spot-walk-sub">看步行距離・階梯・歇腳處與友善度</span>
+                </span>
+                <svg class="spot-walk-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"></path></svg>
+              </button>
+            </div>
           </div>
         </div>
 
         <div class="food-area" id="food-area-seongsu">
-          <div class="area-bar">
-            <button class="area-jump" onclick="jumpToSpot('spot-seongsu')">
-              <span class="txt">聖水洞: 聖水一隻雞・大林倉庫 等 5 家</span>
-              <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
-            </button>
-            <button class="area-toggle" onclick="toggleFoodArea(this)" aria-label="展開或收合本區全部美食">
-              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              <span>展開</span>
-            </button>
-          </div>
-          <div id="food-seongsu">
+          <button class="area-head" aria-expanded="false" aria-controls="food-seongsu" onclick="toggleFoodArea(this)">
+            <span class="area-head-txt">
+              <span class="area-head-title">
+                <span class="area-name">聖水洞</span>
+                <span class="area-count">5 家</span>
+              </span>
+              <span class="area-preview">聖水一隻雞・馬鈴薯排骨湯・大林倉庫・Point of View・橋村炸雞</span>
+            </span>
+            <span class="area-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+          </button>
+          <div class="area-list" id="food-seongsu">
             <details class="food-item">
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">1. 聖水一隻雞 (성수닭한마리)</span><span class="food-chip chip-meal">正餐</span></span>
@@ -1622,21 +1698,31 @@
                 </div>
               </div>
             </details>
+            <div class="area-foot">
+              <button class="spot-walk-link" onclick="jumpToSpot('spot-seongsu')" aria-label="回景點漫遊，查看聖水洞散步路線與友善度">
+                <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
+                <span class="spot-walk-txt">
+                  <span class="spot-walk-main">回景點漫遊 · 聖水洞散步路線</span>
+                  <span class="spot-walk-sub">看步行距離・階梯・歇腳處與友善度</span>
+                </span>
+                <svg class="spot-walk-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"></path></svg>
+              </button>
+            </div>
           </div>
         </div>
 
         <div class="food-area" id="food-area-seoulstation">
-          <div class="area-bar">
-            <button class="area-jump" onclick="jumpToSpot('spot-seoulstation')">
-              <span class="txt">首爾車站: 河東館・兔子停 等 5 家</span>
-              <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
-            </button>
-            <button class="area-toggle" onclick="toggleFoodArea(this)" aria-label="展開或收合本區全部美食">
-              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              <span>展開</span>
-            </button>
-          </div>
-          <div id="food-seoulstation">
+          <button class="area-head" aria-expanded="false" aria-controls="food-seoulstation" onclick="toggleFoodArea(this)">
+            <span class="area-head-txt">
+              <span class="area-head-title">
+                <span class="area-name">首爾車站</span>
+                <span class="area-count">5 家</span>
+              </span>
+              <span class="area-preview">河東館・兔子停・南大門蔬菜糖餅・BRICKSAND・Index Caramel</span>
+            </span>
+            <span class="area-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+          </button>
+          <div class="area-list" id="food-seoulstation">
             <details class="food-item">
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">1. 河東館 (하동관) 明洞本店</span><span class="food-chip chip-meal">正餐</span></span>
@@ -1722,6 +1808,16 @@
                 </div>
               </div>
             </details>
+            <div class="area-foot">
+              <button class="spot-walk-link" onclick="jumpToSpot('spot-seoulstation')" aria-label="回景點漫遊，查看首爾車站散步路線與友善度">
+                <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
+                <span class="spot-walk-txt">
+                  <span class="spot-walk-main">回景點漫遊 · 首爾車站散步路線</span>
+                  <span class="spot-walk-sub">看步行距離・階梯・歇腳處與友善度</span>
+                </span>
+                <svg class="spot-walk-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"></path></svg>
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -1957,7 +2053,11 @@
     }
 
     // --- 頁面區段切換 (Section Switching) ---
-    // opts = { record = true }：是否把切換前的分頁記錄進歷史堆疊（供 goBack 使用）
+    // opts = { record = true, scrollTo }：
+    //   record：是否把切換前的分頁（含其當下捲動位置）記錄進歷史堆疊（供 goBack 使用）
+    //   scrollTo：切好目標分頁後如何處理捲動位置——
+    //     number → 捲到該絕對高度（goBack 還原用）；false → 不動捲動（呼叫端自行處理錨點）；
+    //     其餘（預設）→ 捲到頂端（前進導覽落在新分頁頂端）
     function switchSection(event, sectionId, opts) {
       if (event) event.preventDefault();
       const record = !opts || opts.record !== false;
@@ -1965,8 +2065,9 @@
       if (record) {
         const currentId = getCurrentSectionId();
         if (currentId && currentId !== sectionId) {
-          if (sectionHistory[sectionHistory.length - 1] !== currentId) {
-            sectionHistory.push(currentId);
+          const top = sectionHistory[sectionHistory.length - 1];
+          if (!top || top.id !== currentId) {
+            sectionHistory.push({ id: currentId, y: window.scrollY });
             if (sectionHistory.length > SECTION_HISTORY_LIMIT) sectionHistory.shift();
           }
         }
@@ -1986,6 +2087,14 @@
 
       scrollToActiveNav();
 
+      if (opts && typeof opts.scrollTo === 'number') {
+        window.scrollTo(0, opts.scrollTo);
+      } else if (opts && opts.scrollTo === false) {
+        // 不動捲動，交由呼叫端自行處理（如 jumpToSpot/jumpToFood 的錨點捲動）
+      } else {
+        window.scrollTo(0, 0);
+      }
+
       try {
         localStorage.setItem('activeSection', sectionId);
       } catch (e) {
@@ -1993,11 +2102,11 @@
       }
     }
 
-    // --- 回上頁：回到「剛才看的那個分頁」（瀏覽歷史 back），非順序上的前一頁 ---
+    // --- 回上頁：回到「剛才看的那個分頁」（瀏覽歷史 back），非順序上的前一頁；並還原離開當下的捲動位置 ---
     function goBack() {
       if (sectionHistory.length === 0) return;
-      const prev = sectionHistory.pop();
-      switchSection(null, prev, { record: false });
+      const entry = sectionHistory.pop();
+      switchSection(null, entry.id, { record: false, scrollTo: entry.y });
     }
 
     function scrollToActiveNav() {
@@ -2023,25 +2132,28 @@
 
     // --- 總覽景點畫廊：切至「景點漫遊」並捲動到指定站點 ---
     function jumpToSpot(spotId) {
-      switchSection(null, 'spots');
+      switchSection(null, 'spots', { scrollTo: false });
       scrollToAnchor(spotId);
     }
 
-    // --- 景點卡「本區美食 →」：切至「美食」分頁並捲動到對應展開區塊 ---
+    // --- 景點卡「本區美食 →」：切至「美食」分頁、自動展開對應區塊並捲動定位 ---
     function jumpToFood(areaId) {
-      switchSection(null, 'food');
+      switchSection(null, 'food', { scrollTo: false });
+      const area = document.getElementById('food-area-' + areaId);
+      if (area) {
+        area.classList.add('open');
+        const head = area.querySelector('.area-head');
+        if (head) head.setAttribute('aria-expanded', 'true');
+      }
       scrollToAnchor('food-area-' + areaId);
     }
 
-    // --- 美食分區「展開全部 / 收合全部」：自校正，偵測現況決定本次動作 ---
+    // --- 美食分區標題：原地展開/收合該區（不影響內層 5 家 details 各自狀態） ---
     function toggleFoodArea(btn) {
       const area = btn.closest('.food-area');
       if (!area) return;
-      const items = area.querySelectorAll('details.food-item');
-      const anyClosed = Array.from(items).some(d => !d.open);
-      items.forEach(d => { d.open = anyClosed; });
-      btn.classList.toggle('open', anyClosed);
-      btn.querySelector('span').textContent = anyClosed ? '收合' : '展開';
+      const open = area.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
 
     // --- 摺疊詳解卡片：互斥 (僅限行前準備 name="prep-group") 與自動滾動置中 ---
