@@ -174,6 +174,8 @@
 
 ### F.2 每區新增「展開全部 / 收合全部」（6 區）
 
+> **擺位定案（後續修訂）**：本節原「標題卡 + 獨立右浮工具列」為初版草稿，後續已改為**方案 A・一體化分割標題列**——單一 `.area-bar` 內左側 `.area-jump`（跳景點）與右側 64px `.area-toggle`（展開/收合）並排、髮絲線分區，取代下方三條堆疊結構；詳見 `index.html` 實作（`.area-bar` / `.area-jump` / `.area-toggle`）。
+
 - 在每個 `.food-area` 內、`.food-area-title` 之後、`#food-xxx` 之前，插入一列工具列（右對齊）：
   ```html
   <div class="food-area-toolbar">
