@@ -53,6 +53,12 @@
 - 六區對照：`德壽宮/spot-deoksugung`、`景福宮・三清洞/spot-gyeongbok`、`仁寺洞/spot-insadong`、`首爾林/spot-seoulforest`、`聖水洞/spot-seongsu`、`首爾車站/spot-seoulstation`（首日緩衝 `spot-buffer` 無美食）。
 - 保留：總覽景點畫廊、行前準備、通關 Stepper、機場接駁比較卡、免稅習俗、緊急一鍵撥號、類別 legend、導覽 active 自動置中。
 
+### 8. 介面無障礙度與旅遊指南更新 (2026-07-06)
+- **1. 友善度徽章對比度修正**：調整 `.friendly-badge.flat`、`.friendly-badge.slope`、`.friendly-badge.steps` 的文字顏色，將其加深（分別為 `#2b5046`、`#6e4f0a`、`#833411`），確保文字對比度符合 WCAG AA 規範（>= 4.5:1），提升長輩易讀性。
+- **3. 美食字型大小優化**：將 `.food-item-name` 字型大小從 14.5px 提高至 16.5px (加粗)，將 `.food-item-body` 從 14.5px 提高至 15px，改善內容閱讀體驗。
+- **4. 貞洞展望台開放時間提醒**：在德壽宮區的貞洞展望台介紹中，明確加註「目前僅週末與假日開放，平日不開放，建議出發前再次確認」的實用提示。
+- **6. 熱門排隊名店避雷指南**：在景福宮/三清洞的美食區，為 Cafe Onion（安國店）與 London Bagel Museum（安國店）補上排隊長度警告與替代方案（如 O'sulloc 綠茶專賣店、 Catch Table 遠端登記等）的貼心標記。
+
 ---
 
 ## 設計決策摘要（為什麼這樣做）
