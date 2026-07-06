@@ -497,14 +497,17 @@
       stroke-linecap: round; stroke-linejoin: round;
     }
 
-    /* --- 接駁交通方案卡片 --- */
+    /* --- 接駁交通方案項目 (扁平化設計) --- */
     .transport-card {
-      background-color: var(--surface); border: 1px solid var(--border-light); border-radius: var(--radius-md);
-      margin-bottom: 18px; padding: 20px; box-shadow: var(--shadow-sm);
+      padding: 16px 4px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .transport-card:last-of-type {
+      border-bottom: none;
     }
     .transport-card-header {
       display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid var(--border-light); padding-bottom: 12px; margin-bottom: 12px; flex-wrap: wrap; gap: 6px;
+      margin-bottom: 10px; flex-wrap: wrap; gap: 6px;
     }
     .transport-title { font-weight: 800; font-size: 16.5px; color: var(--text-main); }
     .transport-badge { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
@@ -531,11 +534,14 @@
     .step-title { font-weight: 800; font-size: 17px; color: var(--text-main); margin-bottom: 8px; }
     .step-content { font-size: 15px; color: var(--text-main); }
 
-    /* --- 實用 App 卡片 --- */
-    .app-grid { display: flex; flex-direction: column; gap: 14px; }
+    /* --- 實用 App 項目 (扁平化設計) --- */
+    .app-grid { display: flex; flex-direction: column; }
     .app-card {
-      background-color: var(--surface); border-radius: var(--radius-md); border: 1px solid var(--border-light);
-      padding: 18px; display: flex; gap: 14px; box-shadow: var(--shadow-sm);
+      padding: 16px 4px; display: flex; gap: 14px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .app-card:last-of-type {
+      border-bottom: none;
     }
     .app-icon-wrapper {
       width: 46px; height: 46px; background-color: var(--secondary-light); border-radius: var(--radius-sm);
@@ -646,7 +652,7 @@
           總覽
         </h2>
 
-        <div class="soft-tagline">順序與停留時間都可依當天體力與心情彈性調整，不趕行程——每一站都有歇腳處，累了就坐下來喝杯茶。</div>
+        <div class="soft-tagline">順序與停留時間都可依當天體力與心情彈性調整，不趕行程——每一站都有休憩處，累了就坐下來喝杯茶。</div>
 
         <div class="gallery-grid">
           <button class="gallery-card" onclick="jumpToSpot('spot-buffer')" style="border-top-color: var(--day1);">
@@ -807,7 +813,7 @@
             </ul>
 
             <div class="alert-important">
-              <h4>WOWPASS 實操步驟 (Step-by-Step)</h4>
+              <h4><a href="https://www.skyscanner.com.tw/news/all-you-need-to-know-about-wowpass" target="_blank" class="spot-title-link">WOWPASS 步驟 ↗</a></h4>
               <ol style="margin-left: 20px;">
                 <li><strong>機台購買與開卡</strong>：明洞等主要地鐵站尋找黃色機台，選擇「發行新卡」，掃描中華民國護照，放入台幣現鈔吐出實體卡。<strong>請務必將新卡再次插入機台卡槽一次以完成啟用！</strong></li>
                 <li><strong>綁定 App</strong>：下載 WOWPASS App，註冊後掃描卡片背面的條碼，即時掌握明細與餘額。</li>
@@ -838,7 +844,7 @@
               <br>去程請將重量控制在 <strong>10–12 公斤</strong>，預留購物空間。可多利用隨身手提行李（兩家航空均提供 10 公斤免費額度）。去程若預估超重，建議提早於真航空官網線上加購（比現場超重費便宜）。</p>
             </div>
 
-            <p><strong>2026 最新飛安與違禁品規定</strong></p>
+            <p><strong>2026 最新航空違禁品規定</strong></p>
             <ul class="nested-list">
               <li><strong>行動電源與備用鋰電池</strong>：<strong>嚴禁託運！</strong>必須隨身手提。單個能量不得超過 100Wh，且須有容量標示。</li>
               <li><strong>暖暖包限制 (2026 最新特別法規)</strong>：
@@ -848,6 +854,18 @@
               <li><strong>液體/膠狀物</strong>：隨身攜帶單件不可超過 <strong>100 毫升</strong>，需全部裝入一公升透明夾鏈袋（限帶一個）。</li>
               <li><strong>管制藥品</strong>：日本 EVE 系列止痛藥含有丙烯異丙乙酸尿成分，在韓國列為管制藥物，<strong>禁止攜帶入境</strong>。</li>
             </ul>
+
+            <div class="info-subcard" style="margin-top: 16px;">
+              <div class="info-subcard-title">
+                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                官方參考連結
+              </div>
+              <ul class="nested-list" style="font-size: 13.5px; margin-bottom: 0;">
+                <li><a href="https://www.caa.gov.tw/article.aspx?a=1270&lang=1" class="link-styled" target="_blank">交通部民用航空局：旅客行李規定 ↗</a></li>
+                <li><a href="https://www.jinair.com/ready/transportLimit" class="link-styled" target="_blank">去程真航空 (Jin Air)：行李運送限制 ↗</a></li>
+                <li><a href="https://www.koreanair.com/contents/plan-your-travel/baggage/checked-baggage/free-baggage" class="link-styled" target="_blank">回程大韓航空 (Korean Air)：免費託運行李規定 ↗</a></li>
+              </ul>
+            </div>
           </div>
         </details>
       </section>
@@ -874,6 +892,7 @@
               <p>1. <strong>填寫電子入境卡 (e-Arrival Card)</strong>：出發前 72 小時內，前往 <a href="https://www.e-arrivalcard.go.kr/portal/main/index.do" class="link-styled" target="_blank">韓國電子入境卡官網 ↗</a> 申報個人資料、航班與飯店地址。填妥後會生成 <strong>e-Arrival Card QR Code</strong>，<strong>請務必截圖存於手機</strong>。
               <br><small style="color: var(--text-muted);">*註：台灣旅客免申請 K-ETA 優惠已延長至 2026 年 12 月 31 日，因此僅需填寫 e-Arrival Card 即可。</small></p>
               <p style="margin-top: 6px;">2. <strong>註冊 SmartPass (供出境返台使用)</strong>：下載「ICN SmartPass」手機 App，掃描護照並進行 NFC 晶片讀取、臉部特徵註冊，並綁定回程大韓航空機票。成功後效期為 5 年。</p>
+              <p style="margin-top: 6px;">3. <strong>入境/出境流程參考攻略</strong>：閱讀 <a href="https://www.funliday.com/posts/2026-korea-entry/" class="link-styled" target="_blank">2026 韓國入境申報與 SmartPass 實測攻略 ↗</a> 了解更詳細的步驟與圖文說明。</p>
             </div>
           </div>
 
@@ -929,7 +948,7 @@
           <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
           景點漫遊
         </h2>
-        <div class="soft-tagline">7 站各有各的秋日性格，由上而下自由捲動，想看哪站看哪站；順序與停留時間都可依體力彈性調整，不趕行程。（💡 貼心提示：點擊「景點標題」或「鄰近歇腳處地名」可直接搜尋地圖與相關資訊）</div>
+        <div class="soft-tagline">7 站各有各的秋日性格，由上而下自由捲動，想看哪站看哪站；順序與停留時間都可依體力彈性調整，不趕行程。<br>💡 點擊「景點標題」或「鄰近休憩處地名」搜尋相關資訊</div>
 
         <div class="anchor-chip-row">
           <span class="anchor-chip" onclick="scrollToAnchor('spot-buffer')">首日緩衝</span>
@@ -945,34 +964,13 @@
         <div id="spot-buffer" class="spot-card" style="border-left-color: var(--day1);">
           <span class="day-label" style="background-color: var(--day1-soft); color: var(--day1);">建議 Day1 清晨・可彈性</span>
           <h3 class="spot-title"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E7%B4%85%E7%9C%BC%E8%88%AA%E7%8F%AD+%E4%BC%91%E6%81%AF" target="_blank" class="spot-title-link">首日緩衝・紅眼降落後的從容補眠</a></h3>
-          <div class="friendly-badge flat">
-            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
-            平地・體力需求低
-            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>5.0</span>
-          </div>
-                    <p class="area-desc">去程紅眼航班熬夜極度疲憊，而飯店通常下午 15:00 才能辦理入住。以下為您規劃三種晨間緩衝方案：</p>
+
+                    <p class="area-desc">去程紅眼航班熬夜極度疲憊，而飯店通常下午 15:00 才能辦理入住。以下為您規劃休息方案：</p>
           
           <div class="info-subcard">
             <div class="info-subcard-title">
-              <svg viewBox="0 0 24 24"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/></svg>
-              方案 A：提早預訂前一晚飯店（最推薦！預算充足首選）
-            </div>
-            <p style="font-size: 14px; margin-bottom: 0;"><strong>做法</strong>：提早預訂前一晚（10/14）的「新首爾飯店」房型。早上 07:30 抵達飯店後直接 Check-in 入住，全家躺在床上好好補眠至中午 12:00，徹底恢復體力。</p>
-          </div>
-
-          <div class="info-subcard">
-            <div class="info-subcard-title">
-              <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/></svg>
-              方案 B：機場膠囊旅館休息（Darakhyu）
-            </div>
-            <p style="font-size: 14px; margin-bottom: 0;"><strong>做法</strong>：於仁川 T2 B1 預約 Darakhyu 膠囊旅館（需提前數月預訂）。
-            <br>• <strong>2026最新價格</strong>：Day Use（3小時）：Single 32,000 韓元起，Double 41,000 韓元起，Double+Shower 48,000 韓元起；Overnight（12小時）Single 69,000 韓元起。</p>
-          </div>
-
-          <div class="info-subcard">
-            <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-              方案 C：市區汗蒸幕體驗（東大門 SPAREX）
+              <a href="https://creatrip.com/zh-TW/blog/13656" target="_blank" class="spot-title-link">市區汗蒸幕體驗（東大門 SPAREX） ↗</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;"><strong>做法</strong>：搭機場接駁至市區後，前往東大門 SPAREX 汗蒸幕。大行李寄存櫃台，洗漱後在公共大廳平躺補眠。
             <br>• <strong>2026最新價格</strong>：日間門票 12,000 韓元，夜間（20:00 後）門票 14,000 - 15,000 韓元。</p>
@@ -993,7 +991,7 @@
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%B2%9E%E6%B4%9E%E5%B1%95%E6%9C%9B%E5%8F%B0" target="_blank" class="title-search-link">鄰近歇腳處：貞洞展望台</a>
+              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%B2%9E%E6%B4%9E%E5%B1%95%E6%9C%9B%E5%8F%B0" target="_blank" class="title-search-link">鄰近休憩處：貞洞展望台</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">位於首爾市廳西小門廳舍 13 樓，有直達電梯。設有咖啡廳，可透過落地窗俯瞰整片德壽宮的楓紅與金黃銀杏全景。</p>
           </div>
@@ -1027,7 +1025,7 @@
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%9C%8B%E7%AB%8B%E5%8F%A4%E5%AE%AE%E5%8D%9A%E7%89%A9%E9%A4%A8" target="_blank" class="title-search-link">鄰近歇腳處：國立古宮博物館</a>
+              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%9C%8B%E7%AB%8B%E5%8F%A4%E5%AE%AE%E5%8D%9A%E7%89%A9%E9%A4%A8" target="_blank" class="title-search-link">鄰近休憩處：國立古宮博物館</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">位於景福宮旁，免門票。館內有直達電梯、大型沙發區與舒適冷暖氣，是極佳的避風歇腳點。</p>
           </div>
@@ -1059,7 +1057,7 @@
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%80%95%E4%BB%81%E7%BE%8E%E8%A1%93%E9%A4%A8" target="_blank" class="title-search-link">鄰近歇腳處：耕仁美術館傳統茶院</a>
+              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%80%95%E4%BB%81%E7%BE%8E%E8%A1%93%E9%A4%A8" target="_blank" class="title-search-link">鄰近休憩處：耕仁美術館傳統茶院</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">設於百年韓屋庭園內，有寬敞的木質茶座。可在此一邊悠閒品嚐傳統雙和茶或五味子茶，一邊觀賞秋意盎然的家庭庭園。</p>
           </div>
@@ -1091,7 +1089,7 @@
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E9%A6%96%E7%88%BE%E6%9E%97+%E6%98%86%E8%9F%B2%E6%A4%8D%E7%89%A9%E5%9C%92" target="_blank" class="title-search-link">鄰近歇腳處：首爾林昆蟲植物園溫室</a>
+              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E9%A6%96%E7%88%BE%E6%9E%97+%E6%98%86%E8%9F%B2%E6%A4%8D%E7%89%A9%E5%9C%92" target="_blank" class="title-search-link">鄰近休憩處：首爾林昆蟲植物園溫室</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">位於公園中心。溫室內暖和且平坦，設有長椅休息區。若秋季戶外風大偏涼，進入溫室內歇腳避風非常舒適。</p>
           </div>
@@ -1125,7 +1123,7 @@
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%81%96%E6%B0%B4%E6%B4%9E+%E5%A4%A7%E6%9E%97%E5%80%89%E5%BA%AB" target="_blank" class="title-search-link">鄰近歇腳處：大林倉庫 (Daelim Changgo)</a>
+              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%81%96%E6%B0%B4%E6%B4%9E+%E5%A4%A7%E6%9E%97%E5%80%89%E5%BA%AB" target="_blank" class="title-search-link">鄰近休憩處：大林倉庫 (Daelim Changgo)</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">工廠改建的超大型藝廊咖啡廳，內部挑高開闊，設有大量舒適的軟質沙發座位，是長輩在此放鬆等候的絕佳空間。</p>
           </div>
@@ -1160,7 +1158,7 @@
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE%E7%AB%99+Lotte+Outlets" target="_blank" class="title-search-link">鄰近歇腳處：首爾站 Lotte Outlets 咖啡廳</a>
+              <a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE%E7%AB%99+Lotte+Outlets" target="_blank" class="title-search-link">鄰近休憩處：首爾站 Lotte Outlets 咖啡廳</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">樂天超市與 Lotte Outlets 相連，各樓層設有多間安靜舒適的咖啡廳與沙發座，方便長輩悠閒喝飲料等候。</p>
           </div>
@@ -1307,7 +1305,7 @@
                 <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
                 <span class="spot-walk-txt">
                   <span class="spot-walk-main">回景點漫遊 · 德壽宮散步路線</span>
-                  <span class="spot-walk-sub">看步行距離・階梯・歇腳處與友善度</span>
+                  <span class="spot-walk-sub">看步行距離・階梯・休憩處與友善度</span>
                 </span>
                 <svg class="spot-walk-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"></path></svg>
               </button>
@@ -1427,7 +1425,7 @@
                 <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
                 <span class="spot-walk-txt">
                   <span class="spot-walk-main">回景點漫遊 · 景福宮・三清洞散步路線</span>
-                  <span class="spot-walk-sub">看步行距離・階梯・歇腳處與友善度</span>
+                  <span class="spot-walk-sub">看步行距離・階梯・休憩處與友善度</span>
                 </span>
                 <svg class="spot-walk-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"></path></svg>
               </button>
@@ -1547,7 +1545,7 @@
                 <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
                 <span class="spot-walk-txt">
                   <span class="spot-walk-main">回景點漫遊 · 仁寺洞散步路線</span>
-                  <span class="spot-walk-sub">看步行距離・階梯・歇腳處與友善度</span>
+                  <span class="spot-walk-sub">看步行距離・階梯・休憩處與友善度</span>
                 </span>
                 <svg class="spot-walk-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"></path></svg>
               </button>
@@ -1667,7 +1665,7 @@
                 <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
                 <span class="spot-walk-txt">
                   <span class="spot-walk-main">回景點漫遊 · 首爾林散步路線</span>
-                  <span class="spot-walk-sub">看步行距離・階梯・歇腳處與友善度</span>
+                  <span class="spot-walk-sub">看步行距離・階梯・休憩處與友善度</span>
                 </span>
                 <svg class="spot-walk-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"></path></svg>
               </button>
@@ -1787,7 +1785,7 @@
                 <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
                 <span class="spot-walk-txt">
                   <span class="spot-walk-main">回景點漫遊 · 聖水洞散步路線</span>
-                  <span class="spot-walk-sub">看步行距離・階梯・歇腳處與友善度</span>
+                  <span class="spot-walk-sub">看步行距離・階梯・休憩處與友善度</span>
                 </span>
                 <svg class="spot-walk-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"></path></svg>
               </button>
@@ -1853,31 +1851,46 @@
               <span class="food-chip chip-snack">小吃</span>
               <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span>
             </div>
-              <div class="food-item-body">
-                <div class="food-item-row"><strong>價位帶：</strong>蔬菜糖餅一個約 2,000 韓元。</div>
-                <div class="food-item-row"><strong>招牌菜：</strong>蔬菜糖餅 (야채호떡)、黑糖糖餅</div>
-                <div class="food-item-row"><strong>為何適合此同伴：</strong>南大門市場超人氣街頭排隊點心。外皮香脆，內餡是飽滿的冬粉、洋蔥和韭菜，口感鹹香且完全不辣。</div>
-                <div class="food-actions">
-                  <a href="https://map.naver.com/v5/search/남대문 야채호떡" class="action-btn btn-naver" target="_blank">Naver 地圖</a>
-                  <a href="https://map.kakao.com/?q=남대門 야채호떡" class="action-btn btn-kakao" target="_blank">Kakao 地圖</a>
-                  <a href="https://bigfang.tw/blog/post/namdaemun-hotteok" class="action-btn btn-ref" target="_blank">食記參考</a>
-                </div>
-              </div>
-            </div>
-            <div class="food-item">
-            <div class="food-item-title-row">
-              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+BRICKSAND+%E9%A6%96%E7%88%BE%E8%BB%8A%E7%AB%99%E5%BA%97" target="_blank" class="food-item-name-link" title="Google 搜尋 BRICKSAND 首爾車站店" aria-label="Google 搜尋 BRICKSAND 首爾車站店">4. BRICKSAND 首爾車站店</a></span>
-            </div>
-            <div class="food-item-meta-row">
-              <span class="food-chip chip-gift">伴手禮</span>
-              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span>
-            </div>
-              <div class="food-item-body">
-                <div class="food-item-row"><strong>價位帶：</strong>單顆約 2,000 - 3,000 韓元，禮盒約 19,000 韓元起。</div>
-                <div class="food-item-row"><strong>招牌菜：</strong>黑巧克力磚塊費南雪、原味費南雪</div>
-                <div class="food-item-row"><strong>為何適合此同伴：</strong>直接位於首爾站1樓，位置極佳。精緻的積木造型費南雪外酥內軟、包裝衛生精美，極度適合在搭AREX前做為伴手禮採購。</div>
-                <div class="food-actions">
-                  <a href="https://map.naver.com/v5/search/브릭샌드 서울역점" class="action-btn btn-naver" target="_blank">Naver 地圖</a>
+              <div clas          <p>• <strong>救護車 / 消防車：<a href="tel:119" class="link-styled">119</a></strong>
+            <br><small style="color: var(--text-muted);">支援中文，接起後說 "Chinese, please"，將在數秒內連線至中文口譯人員。</small></p>
+          <p>• <strong>警察局：<a href="tel:112" class="link-styled">112</a></strong>
+            <br><small style="color: var(--text-muted);">緊急治安求助、車禍或人身安全受脅。</small></p>
+          <p>• <strong>韓國觀光公社熱線：<a href="tel:1330" class="link-styled">1330</a></strong>
+            <br><small style="color: var(--text-muted);">24小時繁體中文服務，提供旅遊資訊、路況與三方通話口譯。亦可使用免通話費的 <a href="https://1330chat.visitkorea.or.kr" class="link-styled" target="_blank">1330 線上文字/網路電話諮詢 ↗</a>。</small></p>
+        </div>
+
+        <div class="emergency-card">
+          <h3>
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            駐韓國台北代表部 (Taipei Mission in Korea)
+          </h3>
+          <p>• <strong>中文地址</strong>：首爾特別市鐘路區世宗大路 149 號光化門大廈 6 樓
+            <br><small style="color: var(--text-muted);">* 距離新首爾飯店僅約 350-450 公尺，步行約 5-7 分鐘，非常近！</small></p>
+          <p>• <strong>一般領務電話</strong>：<a href="tel:+82-2-6329-6000" class="link-styled">+82-2-6329-6000</a> (上班時間 09:00 - 15:30，六日關閉)</p>
+          <p>• <strong>急難救助專線</strong>：<a href="tel:+82-10-9080-2761" class="link-styled">010-9080-2761</a>
+            <br><small style="color: var(--maple); font-weight: bold;">* 僅限車禍、搶劫、生命安危等重大緊急求助，一般護照遺失請於上班時間辦理。</small></p>
+          <p>• <strong>官方網站</strong>：<a href="https://www.roc-taiwan.org/kr/index.html" class="link-styled" target="_blank">中華民國駐韓國代表部官網 ↗</a></p>
+        </div>
+
+        <div class="emergency-card" style="border-left-color: var(--ginkgo);">
+          <h3>
+            <svg viewBox="0 0 24 24" style="fill: var(--ginkgo);"><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg>
+            設有中/英服務之大型醫院推薦 (可開英文診斷書辦保險)
+          </h3>
+          <p>1. <strong>江北三星醫院 (Kangbuk Samsung Hospital)</strong>
+            <br>- <strong>距離最近</strong>：距離飯店計程車程約 6 分鐘，就醫首選。
+            <br>- 電話：<a href="tel:+82-2-2001-5100" class="link-styled">+82-2-2001-5100</a> (備有中文協調員)
+            <br>- 連結：<a href="https://www.kbsmc.co.kr/" class="link-styled" target="_blank">江北三星醫院官網 ↗</a></p>
+
+          <p>2. <strong>首爾大學醫院 (Seoul National University Hospital)</strong>
+            <br>- 電話：<a href="tel:+82-2-2072-0505" class="link-styled">+82-2-2072-0505</a> (國際醫療中心)
+            <br>- <strong>24小時急診電話</strong>：<a href="tel:+82-10-8831-2890" class="link-styled">010-8831-2890</a>
+            <br>- 連結：<a href="https://www.snuh.org/english/index.do" class="link-styled" target="_blank">首爾大學醫院英文官網 ↗</a></p>
+
+          <p>3. <strong>延世大學塞弗蘭斯醫院 (Severance Hospital)</strong>
+            <br>- <strong>規模最大</strong>：位於新村，國際醫療中心全韓最大，設專職中文服務。
+            <br>- 電話：<a href="tel:+82-2-2228-5800" class="link-styled">+82-2-2228-5800</a>
+            <br>- 連結：<a href="https://sev.severance.healthcare/sev-en/index.do" class="link-styled" target="_blank">世福蘭斯醫院英文官網 ↗</a></p>s="action-btn btn-naver" target="_blank">Naver 地圖</a>
                   <a href="https://map.kakao.com/?q=브릭샌드  서울역점" class="action-btn btn-kakao" target="_blank">Kakao 地圖</a>
                   <a href="https://bigfang.tw/blog/post/bricksand-seoul" class="action-btn btn-ref" target="_blank">食記參考</a>
                 </div>
@@ -1907,7 +1920,7 @@
                 <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
                 <span class="spot-walk-txt">
                   <span class="spot-walk-main">回景點漫遊 · 首爾車站散步路線</span>
-                  <span class="spot-walk-sub">看步行距離・階梯・歇腳處與友善度</span>
+                  <span class="spot-walk-sub">看步行距離・階梯・休憩處與友善度</span>
                 </span>
                 <svg class="spot-walk-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"></path></svg>
               </button>
@@ -1983,19 +1996,31 @@
           <summary class="accordion-summary">
             <div class="summary-left">
               <svg class="summary-icon" viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .9-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
-              <span>免稅與習俗</span>
+              <span>免稅退稅指南</span>
             </div>
             <svg class="summary-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </summary>
           <div class="accordion-content">
-            <p><strong>免稅手續辦理</strong></p>
             <p>• <strong>起徵門檻</strong>：單筆消費滿 <strong>15,000 韓元</strong> 即可辦理退稅。
-            <br>• <strong>2026最新退稅禁令</strong>：韓國自 2026 年起，<strong>已全面取消外國旅客的「醫療美容服務」（如皮秒雷射、音波、肉毒等）退稅優惠！</strong>一般商品（服飾、美妝、彩妝、零食）退稅規定照常。
-            <br>• <strong>退稅方式</strong>：
+            <br>• <strong>2026最新退稅禁令</strong>：韓國自 2026 年起，<strong>已全面取消外國旅客的「醫療美容服務」（如皮秒雷射、音波、肉毒等）退稅優惠！</strong>一般商品（服飾、美妝、彩妝、零食）退稅規定照常。</p>
+            <p>• <strong>退稅方式</strong>：
             <br>1. <strong>現場即時退稅</strong>：在 Olive Young、大型百貨結帳時出示護照，結帳金額直接扣除附加稅，最方便！
             <br>2. <strong>機場退稅</strong>：若現場無法退稅，保存店家退稅單，在回程機場 T2 的 3 樓 KIOSK 掃描，過安檢後在管制區 253 號登機門旁領取現金。</p>
+            <p style="margin-top: 16px; border-top: 1px dashed var(--border-light); padding-top: 12px; font-size: 14.5px;">
+              💡 <strong>詳細退稅攻略</strong>：閱讀 <a href="https://www.klook.com/zh-TW/blog/tax-refunds-in-korea/" class="link-styled" target="_blank">Klook 韓國退稅與市區/機場退稅教學 ↗</a> 了解最完整的步驟與實測。
+            </p>
+          </div>
+        </details>
 
-            <p style="margin-top: 16px;"><strong>當地習俗與避雷事項</strong></p>
+        <details class="accordion-card">
+          <summary class="accordion-summary">
+            <div class="summary-left">
+              <svg class="summary-icon" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.65 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.65-.8 3.16-2.15 4.1z"/></svg>
+              <span>在地習俗與避雷</span>
+            </div>
+            <svg class="summary-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="accordion-content">
             <p>• <strong>地鐵博愛座 (老弱專用席)</strong>：在韓國不論車廂多擠，<strong>一般旅客絕對不要入座博愛座！</strong>這是當地非常嚴格的社交規範，避免引起側目。
             <br>• <strong>手扶梯禮儀</strong>：習慣為「右側站立，左側通行」。
             <br>• <strong>秋季洋蔥式穿搭</strong>：10 月中旬氣溫約在 10°C - 18°C，清晨或深夜可能低於 10°C。日夜溫差極大。強烈建議「發熱衣/薄長袖 + 針織衫/防風外套 + 大衣/輕羽絨」三層洋蔥式穿搭，室內有暖氣時方便迅速脫下。
@@ -2018,8 +2043,21 @@
               <div class="app-card">
                 <div class="app-icon-wrapper"><svg class="app-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
                 <div class="app-info">
-                  <h4>Naver Map / KakaoMap</h4>
-                  <p>韓國在地導航地圖。由於 Google Map 在韓國不夠精準，必備此地圖查步行動線與店家位置。</p>
+                  <h4>Naver Map</h4>
+                  <p>韓國在地導航首選。支援繁體中文與中文語音導航，查步行動線與店家位置極其精準，且能查看即時公車/地鐵班次與剩餘時間。</p>
+                  <div style="margin-top: 8px; font-size: 13px; color: var(--text-muted);">
+                    <strong>下載連結：</strong> <a href="https://play.google.com/store/apps/details?id=com.nhn.android.nmap" class="link-styled" target="_blank">Android ↗</a> ｜ <a href="https://apps.apple.com/app/naver-map-navigation/id311867728" class="link-styled" target="_blank">iOS ↗</a>
+                  </div>
+                </div>
+              </div>
+              <div class="app-card">
+                <div class="app-icon-wrapper"><svg class="app-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+                <div class="app-info">
+                  <h4>KakaoMap</h4>
+                  <p>韓國市佔率極高之地圖。與 Naver Map 互為備用，搜尋特定韓國小吃店家或評論時資訊非常完整，街景呈現與定位精準度高。</p>
+                  <div style="margin-top: 8px; font-size: 13px; color: var(--text-muted);">
+                    <strong>下載連結：</strong> <a href="https://play.google.com/store/apps/details?id=net.daum.android.map" class="link-styled" target="_blank">Android ↗</a> ｜ <a href="https://apps.apple.com/app/kakaomap-korea-no-1-map/id304621727" class="link-styled" target="_blank">iOS ↗</a>
+                  </div>
                 </div>
               </div>
               <div class="app-card">
@@ -2027,6 +2065,9 @@
                 <div class="app-info">
                   <h4>Kakao T</h4>
                   <p>叫計程車神器。可綁定台灣信用卡，在大街上或室內直接呼叫一般計程車，或呼叫中大型車（Venti/Jumbo）以容納 4 人及行李。</p>
+                  <div style="margin-top: 8px; font-size: 13px; color: var(--text-muted);">
+                    <strong>下載連結：</strong> <a href="https://play.google.com/store/apps/details?id=com.kakao.taxi" class="link-styled" target="_blank">Android ↗</a> ｜ <a href="https://apps.apple.com/app/kakao-t/id981110422" class="link-styled" target="_blank">iOS ↗</a>
+                  </div>
                 </div>
               </div>
               <div class="app-card">
@@ -2034,6 +2075,9 @@
                 <div class="app-info">
                   <h4>Papago</h4>
                   <p>Naver 旗下中韓翻譯 App。中韓互譯極其精準（勝過 Google 翻譯），且支援「即時拍照翻譯」，在餐廳看韓文菜單時極為方便。</p>
+                  <div style="margin-top: 8px; font-size: 13px; color: var(--text-muted);">
+                    <strong>下載連結：</strong> <a href="https://play.google.com/store/apps/details?id=com.naver.labs.translator" class="link-styled" target="_blank">Android ↗</a> ｜ <a href="https://apps.apple.com/app/naver-papago-ai-translator/id1147874819" class="link-styled" target="_blank">iOS ↗</a>
+                  </div>
                 </div>
               </div>
               <div class="app-card">
@@ -2041,6 +2085,9 @@
                 <div class="app-info">
                   <h4>WOWPASS App</h4>
                   <p>綁定 WOWPASS 實體卡。可隨時在手機上查詢消費明細、信用卡線上儲值以及交通卡 (T-Money) 剩餘額度。</p>
+                  <div style="margin-top: 8px; font-size: 13px; color: var(--text-muted);">
+                    <strong>下載連結：</strong> <a href="https://play.google.com/store/apps/details?id=com.wow.wowpass" class="link-styled" target="_blank">Android ↗</a> ｜ <a href="https://apps.apple.com/app/wowpass-go-cashless-in-korea/id1603504937" class="link-styled" target="_blank">iOS ↗</a>
+                  </div>
                 </div>
               </div>
             </div>
