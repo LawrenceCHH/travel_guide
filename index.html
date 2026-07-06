@@ -273,23 +273,44 @@
     .nested-list li { margin-bottom: 10px; }
 
     /* --- 警示框 --- */
-    .alert-box { padding: 18px 20px; border-radius: var(--radius-md); margin: 18px 0; font-size: 15px; line-height: 1.65; }
-    .alert-warning { background-color: var(--warning-bg); border: 1.5px solid var(--warning-border); color: var(--warning-text); }
-    .alert-warning h4 { color: #724c30; font-size: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-    .alert-important { background-color: var(--secondary-light); border: 1.5px solid var(--border); color: var(--text-main); }
-    .alert-important h4 { color: var(--text-main); font-size: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .alert-box, .alert-warning, .alert-important {
+      padding: 14px 16px; border-radius: var(--radius-sm); margin: 16px 0; font-size: 14.5px; line-height: 1.65;
+    }
+    .alert-box p, .alert-warning p, .alert-important p { margin-bottom: 8px; }
+    .alert-box p:last-child, .alert-warning p:last-child, .alert-important p:last-child { margin-bottom: 0; }
+    .alert-warning { background-color: var(--warning-bg); border: 1px solid var(--warning-border); color: var(--warning-text); }
+    .alert-warning h4 { color: #724c30; font-size: 15.5px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; font-weight: 800; }
+    .alert-important { background-color: var(--secondary-light); border: 1px solid var(--border); color: var(--text-main); }
+    .alert-important h4 { color: var(--text-main); font-size: 15.5px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; font-weight: 800; }
 
     /* --- 景點漫遊：地名快速跳轉 chip --- */
     .anchor-chip-row {
       display: flex; overflow-x: auto; gap: 8px; margin-bottom: 20px;
-      padding-bottom: 6px; scrollbar-width: none;
+      padding-bottom: 6px; scrollbar-width: none; transition: all 0.2s ease;
     }
     .anchor-chip-row::-webkit-scrollbar { display: none; }
     .anchor-chip {
       white-space: nowrap; padding: 8px 14px; background-color: var(--surface);
       border: 1px solid var(--border); color: var(--text-muted); border-radius: 14px;
       font-size: 13px; font-weight: 700; cursor: pointer; min-height: 36px;
-      display: flex; align-items: center;
+      display: flex; align-items: center; transition: all 0.2s ease;
+    }
+
+    /* 當處於景點漫遊分頁時，第一列導覽列改為 position: relative（不置頂） */
+    .spots-section-active .nav-container {
+      position: relative;
+      border-bottom: none;
+    }
+
+    /* 景點漫遊的快速跳轉晶片列在該分頁內改為 sticky 置頂 */
+    .spots-section-active .anchor-chip-row {
+      position: sticky;
+      top: 0;
+      z-index: 101;
+      background-color: var(--bg);
+      padding-top: 8px;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 16px;
     }
 
     /* --- 景點主題章節卡（永遠可見，非互斥收合） --- */
@@ -303,6 +324,37 @@
       font-size: 12px; font-weight: 700; margin-bottom: 12px; opacity: 0.9;
     }
     .spot-title { font-size: 19px; font-weight: 800; color: var(--text-main); margin-bottom: 12px; }
+    .spot-title-link, .food-item-name-link, .title-search-link {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      display: inline-block;
+    }
+    .spot-title-link:hover, .food-item-name-link:hover, .title-search-link:hover {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .title-search-link {
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--text-muted); opacity: 0.6;
+      text-decoration: none; transition: all 0.2s ease;
+      font-size: 15px; font-weight: normal; flex-shrink: 0;
+    }
+    .title-search-link:hover, .title-search-link:active {
+      color: var(--primary); opacity: 1; text-decoration: none;
+    }
+    .spot-title-link, .food-item-name-link, .title-search-link {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      display: inline-block;
+    }
+    .spot-title-link:hover, .food-item-name-link:hover, .title-search-link:hover {
+      color: var(--primary);
+      text-decoration: none;
+    }
 
     /* --- 友善度徽章：第一級、放大、單一星星元件 --- */
     .friendly-badge {
@@ -344,21 +396,16 @@
     .food-jump-link svg { width: 18px; height: 18px; fill: var(--primary-hover); flex-shrink: 0; }
 
     .food-item {
-      background-color: var(--surface); border: 1px solid var(--border-light);
-      border-radius: var(--radius-sm); margin-bottom: 10px; overflow: hidden; scroll-margin-top: 100px;
+      padding: 16px 4px; border-bottom: 1px solid var(--border-light);
+      scroll-margin-top: 100px;
     }
-    .food-item[open] { border-color: var(--border); }
-    .food-item-summary {
-      list-style: none; cursor: pointer; padding: 12px 14px; display: flex;
-      align-items: center; justify-content: space-between; gap: 8px; min-height: 44px; flex-wrap: wrap;
+    .food-item:last-of-type { border-bottom: none; }
+    .food-item-title-row {
+      display: block; margin-bottom: 6px;
     }
-    .food-item-summary::-webkit-details-marker { display: none; }
-    .food-item-summary-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
-    .food-preview {
-      flex-basis: 100%; width: 100%; font-size: 13px; color: var(--text-muted);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;
+    .food-item-meta-row {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
     }
-    .food-item[open] .food-preview { display: none; }
     .food-item-name { font-weight: 700; font-size: 14.5px; color: var(--text-main); }
     .food-chip { font-size: 11px; padding: 3px 9px; border-radius: 10px; font-weight: 700; white-space: nowrap; }
     .chip-meal { background-color: var(--secondary-light); color: var(--primary-hover); }
@@ -366,22 +413,22 @@
     .chip-cafe { background-color: var(--wood-soft); color: var(--wood); }
     .chip-gift { background-color: var(--maple-soft); color: var(--maple); }
     .food-item-stars { color: var(--ginkgo); flex-shrink: 0; }
-    .food-item-arrow {
-      width: 16px; height: 16px; fill: none; stroke: var(--text-muted); stroke-width: 2;
-      stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s ease; flex-shrink: 0;
-    }
-    .food-item[open] .food-item-arrow { transform: rotate(180deg); }
-    .food-item-body { padding: 4px 14px 16px; font-size: 14.5px; color: var(--text-main); line-height: 1.65; border-top: 1px solid var(--border-light); }
+    .food-item-body { font-size: 14.5px; color: var(--text-main); line-height: 1.65; }
     .food-item-row { margin: 10px 0 0; }
     .food-item-row strong { color: var(--text-main); }
-    .food-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .food-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: nowrap; width: 100%; }
     .action-btn {
-      display: inline-flex; align-items: center; gap: 4px; padding: 7px 14px; border-radius: 6px;
-      font-size: 13px; font-weight: 600; text-decoration: none; min-height: 32px;
+      flex: 1 1 0%; min-width: 0; display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 7px 6px; border-radius: 6px;
+      font-size: clamp(11px, 2.8vw, 13px); font-weight: 700; text-decoration: none; min-height: 40px; white-space: nowrap; transition: all 0.2s ease;
     }
+    .action-btn:active { transform: scale(0.98); opacity: 0.9; }
     .btn-naver { background-color: #03cf5d; color: #ffffff; }
     .btn-kakao { background-color: #fee500; color: #191919; }
     .btn-ref { background-color: var(--bg); border: 1px solid var(--border); color: var(--text-main); }
+    @media (max-width: 360px) {
+      .food-actions { gap: 6px; }
+      .action-btn { padding: 7px 2px; font-size: 10.5px; gap: 2px; }
+    }
 
     /* --- 美食分頁：分區 accordion（標題原地展開/收合、跳景點連結收在區尾） --- */
     .food-index-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
@@ -879,7 +926,7 @@
           <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
           景點漫遊
         </h2>
-        <div class="soft-tagline">7 站各有各的秋日性格，由上而下自由捲動，想看哪站看哪站；順序與停留時間都可依體力彈性調整，不趕行程。</div>
+        <div class="soft-tagline">7 站各有各的秋日性格，由上而下自由捲動，想看哪站看哪站；順序與停留時間都可依體力彈性調整，不趕行程。（💡 貼心提示：點擊「景點標題」或「鄰近歇腳處地名」可直接搜尋地圖與相關資訊）</div>
 
         <div class="anchor-chip-row">
           <span class="anchor-chip" onclick="scrollToAnchor('spot-buffer')">首日緩衝</span>
@@ -894,23 +941,37 @@
         <!-- 1. 首日緩衝 -->
         <div id="spot-buffer" class="spot-card" style="border-left-color: var(--day1);">
           <span class="day-label" style="background-color: var(--day1-soft); color: var(--day1);">建議 Day1 清晨・可彈性</span>
-          <h3 class="spot-title">首日緩衝・紅眼降落後的從容補眠</h3>
+          <h3 class="spot-title"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E7%B4%85%E7%9C%BC%E8%88%AA%E7%8F%AD+%E4%BC%91%E6%81%AF" target="_blank" class="spot-title-link">首日緩衝・紅眼降落後的從容補眠</a></h3>
           <div class="friendly-badge flat">
             <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
             平地・體力需求低
             <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>5.0</span>
           </div>
-          <p class="area-desc">去程紅眼航班熬夜極度疲憊，而飯店通常下午 15:00 才能辦理入住。以下為您規劃三種晨間緩衝方案：</p>
-          <div class="nested-list" style="margin-left: 0;">
-            <p><strong>方案 A（最推薦！預算充足首選）</strong>
-            <br>• <strong>做法</strong>：提早預訂前一晚（10/14）的「新首爾飯店」房型。早上 07:30 抵達飯店後直接 Check-in 入住，全家躺在床上好好補眠至中午 12:00，徹底恢復體力。</p>
+                    <p class="area-desc">去程紅眼航班熬夜極度疲憊，而飯店通常下午 15:00 才能辦理入住。以下為您規劃三種晨間緩衝方案：</p>
+          
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/></svg>
+              方案 A：提早預訂前一晚飯店（最推薦！預算充足首選）
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;"><strong>做法</strong>：提早預訂前一晚（10/14）的「新首爾飯店」房型。早上 07:30 抵達飯店後直接 Check-in 入住，全家躺在床上好好補眠至中午 12:00，徹底恢復體力。</p>
+          </div>
 
-            <p><strong>方案 B（機場休息 - Darakhyu 膠囊旅館）</strong>
-            <br>• <strong>做法</strong>：於仁川 T2 B1 預約 Darakhyu 膠囊旅館（需提前數月預訂）。
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/></svg>
+              方案 B：機場膠囊旅館休息（Darakhyu）
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;"><strong>做法</strong>：於仁川 T2 B1 預約 Darakhyu 膠囊旅館（需提前數月預訂）。
             <br>• <strong>2026最新價格</strong>：Day Use（3小時）：Single 32,000 韓元起，Double 41,000 韓元起，Double+Shower 48,000 韓元起；Overnight（12小時）Single 69,000 韓元起。</p>
+          </div>
 
-            <p><strong>方案 C（市區體驗 - 東大門 SPAREX 24H 汗蒸幕）</strong>
-            <br>• <strong>做法</strong>：搭機場接駁至市區後，前往東大門 SPAREX 汗蒸幕。大行李寄存櫃台，洗漱後在公共大廳平躺補眠。
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              方案 C：市區汗蒸幕體驗（東大門 SPAREX）
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;"><strong>做法</strong>：搭機場接駁至市區後，前往東大門 SPAREX 汗蒸幕。大行李寄存櫃台，洗漱後在公共大廳平躺補眠。
             <br>• <strong>2026最新價格</strong>：日間門票 12,000 韓元，夜間（20:00 後）門票 14,000 - 15,000 韓元。</p>
           </div>
         </div>
@@ -918,7 +979,7 @@
         <!-- 2. 德壽宮 -->
         <div id="spot-deoksugung" class="spot-card" style="border-left-color: var(--day1);">
           <span class="day-label" style="background-color: var(--day1-soft); color: var(--day1);">建議 Day1 下午・可彈性</span>
-          <h3 class="spot-title">德壽宮・金黃銀杏石牆路散步</h3>
+          <h3 class="spot-title"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%BE%B7%E5%A3%BD%E5%AE%AE" target="_blank" class="spot-title-link">德壽宮・金黃銀杏石牆路散步</a></h3>
           <div class="friendly-badge flat">
             <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
             平地
@@ -926,15 +987,10 @@
           </div>
           <p class="area-desc">德壽宮石牆路地勢完全平坦，秋季銀杏會將道路染成金黃色。距離飯店僅 300 公尺，步行負擔極低，路面設有大量長椅。</p>
 
-          <div class="pill-row">
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>步行約 4 分鐘回飯店，或叫車前往明洞約 5 分鐘</span>
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：貞洞展望台 13 樓咖啡廳</span>
-          </div>
-
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：貞洞展望台
+              鄰近歇腳處：<a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%B2%9E%E6%B4%9E%E5%B1%95%E6%9C%9B%E5%8F%B0" target="_blank" class="title-search-link" style="color: var(--primary-hover); opacity: 1; font-weight: 800; display: inline;">貞洞展望台</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">位於首爾市廳西小門廳舍 13 樓，有直達電梯。設有咖啡廳，可透過落地窗俯瞰整片德壽宮的楓紅與金黃銀杏全景。</p>
           </div>
@@ -955,7 +1011,7 @@
         <!-- 3. 景福宮/三清洞 -->
         <div id="spot-gyeongbok" class="spot-card" style="border-left-color: var(--day2);">
           <span class="day-label" style="background-color: var(--day2-soft); color: var(--day2);">建議 Day2 上午・可彈性</span>
-          <h3 class="spot-title">景福宮・三清洞・平地銀杏與紅楓散策</h3>
+          <h3 class="spot-title"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E6%99%AF%E7%A6%8F%E5%AE%AE+%E4%B8%89%E6%B8%85%E6%B4%9E" target="_blank" class="spot-title-link">景福宮・三清洞・平地銀杏與紅楓散策</a></h3>
           <div class="friendly-badge slope">
             <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
             緩坡・碎石路段
@@ -965,15 +1021,10 @@
             <p><strong>爛腳人防雷提示</strong>：景福宮內多為碎石路，步行阻力較大且傷鞋，<strong>請務必讓長輩穿著高防震的慢跑鞋</strong>。建議避開北村韓屋村的陡峭陡坡，專注於平坦的宮內及三清洞石牆路一帶。</p>
           </div>
 
-          <div class="pill-row">
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>三清洞路邊叫車前往仁寺洞約 10 分鐘（約 5,000 韓元）</span>
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：國立古宮博物館（免門票、有電梯）</span>
-          </div>
-
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：國立古宮博物館
+              鄰近歇腳處：<a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%9C%8B%E7%AB%8B%E5%8F%A4%E5%AE%AE%E5%8D%9A%E7%89%A9%E9%A4%A8" target="_blank" class="title-search-link" style="color: var(--primary-hover); opacity: 1; font-weight: 800; display: inline;">國立古宮博物館</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">位於景福宮旁，免門票。館內有直達電梯、大型沙發區與舒適冷暖氣，是極佳的避風歇腳點。</p>
           </div>
@@ -994,7 +1045,7 @@
         <!-- 4. 仁寺洞 -->
         <div id="spot-insadong" class="spot-card" style="border-left-color: var(--day2);">
           <span class="day-label" style="background-color: var(--day2-soft); color: var(--day2);">建議 Day2 下午・可彈性</span>
-          <h3 class="spot-title">仁寺洞・傳統茶院與工藝老街</h3>
+          <h3 class="spot-title"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E4%BB%81%E5%AF%BA%E6%B4%9E" target="_blank" class="spot-title-link">仁寺洞・傳統茶院與工藝老街</a></h3>
           <div class="friendly-badge slope">
             <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
             緩坡・環形無階梯
@@ -1002,15 +1053,10 @@
           </div>
           <p class="area-desc">仁寺洞是首爾著名的傳統文藝街區。整條主街道為平緩的步行區，兩側有古董工藝品店。著名的森吉街（Ssamzigil）大樓為環形無階梯緩坡設計，長輩散步上樓完全不費力。</p>
 
-          <div class="pill-row">
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>叫車返回飯店約 8-10 分鐘（約 6,000 韓元）</span>
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：耕仁美術館傳統茶院</span>
-          </div>
-
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：耕仁美術館傳統茶院
+              鄰近歇腳處：<a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%80%95%E4%BB%81%E7%BE%8E%E8%A1%93%E9%A4%A8" target="_blank" class="title-search-link" style="color: var(--primary-hover); opacity: 1; font-weight: 800; display: inline;">耕仁美術館傳統茶院</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">設於百年韓屋庭園內，有寬敞的木質茶座。可在此一邊悠閒品嚐傳統雙和茶或五味子茶，一邊觀賞秋意盎然的家庭庭園。</p>
           </div>
@@ -1031,7 +1077,7 @@
         <!-- 5. 首爾林 -->
         <div id="spot-seoulforest" class="spot-card" style="border-left-color: var(--day3);">
           <span class="day-label" style="background-color: var(--day3-soft); color: var(--day3);">建議 Day3 上午・可彈性</span>
-          <h3 class="spot-title">首爾林・金黃銀杏隧道漫步</h3>
+          <h3 class="spot-title"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E9%A6%96%E7%88%BE%E6%9E%97" target="_blank" class="spot-title-link">首爾林・金黃銀杏隧道漫步</a></h3>
           <div class="friendly-badge flat">
             <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
             平地
@@ -1039,15 +1085,10 @@
           </div>
           <p class="area-desc">首爾林是著名的都市森林，十月中旬金黃的銀杏落葉鋪滿步道，極其美麗。全區地勢完全平坦，鋪面平整無階梯，無障礙設施完善，設有大量木質靠背長椅，是本次行程最輕鬆的公園。</p>
 
-          <div class="pill-row">
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>步行 8-10 分鐘或叫車 3 分鐘到聖水洞</span>
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：昆蟲植物園溫室（暖和平坦）</span>
-          </div>
-
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：首爾林昆蟲植物園溫室
+              鄰近歇腳處：<a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E9%A6%96%E7%88%BE%E6%9E%97+%E6%98%86%E8%9F%B2%E6%A4%8D%E7%89%A9%E5%9C%92" target="_blank" class="title-search-link" style="color: var(--primary-hover); opacity: 1; font-weight: 800; display: inline;">首爾林昆蟲植物園溫室</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">位於公園中心。溫室內暖和且平坦，設有長椅休息區。若秋季戶外風大偏涼，進入溫室內歇腳避風非常舒適。</p>
           </div>
@@ -1068,7 +1109,7 @@
         <!-- 6. 聖水洞 -->
         <div id="spot-seongsu" class="spot-card" style="border-left-color: var(--day3);">
           <span class="day-label" style="background-color: var(--day3-soft); color: var(--day3);">建議 Day3 下午・可彈性</span>
-          <h3 class="spot-title">聖水洞・工業風選物與藝廊咖啡廳</h3>
+          <h3 class="spot-title"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%81%96%E6%B0%B4%E6%B4%9E" target="_blank" class="spot-title-link">聖水洞・工業風選物與藝廊咖啡廳</a></h3>
           <div class="friendly-badge steps">
             <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
             部分店家有門檻/窄樓梯
@@ -1078,15 +1119,10 @@
             <p><strong>爛腳人防雷提示</strong>：聖水洞人行道狹窄，部分由工廠改建的特色小店入口<strong>設有較高的門檻或窄陡樓梯</strong>。建議安排家庭長輩在空間平整開闊的大型藝廊咖啡廳（如大林倉庫）中歇腳喝飲料，年輕成員則在周邊選物店逛街採購。</p>
           </div>
 
-          <div class="pill-row">
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>大林倉庫叫大型車返回飯店約 20 分鐘</span>
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：大林倉庫挑高沙發區</span>
-          </div>
-
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：大林倉庫 (Daelim Changgo)
+              鄰近歇腳處：<a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%81%96%E6%B0%B4%E6%B4%9E+%E5%A4%A7%E6%9E%97%E5%80%89%E5%BA%AB" target="_blank" class="title-search-link" style="color: var(--primary-hover); opacity: 1; font-weight: 800; display: inline;">大林倉庫 (Daelim Changgo)</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">工廠改建的超大型藝廊咖啡廳，內部挑高開闊，設有大量舒適的軟質沙發座位，是長輩在此放鬆等候的絕佳空間。</p>
           </div>
@@ -1107,7 +1143,7 @@
         <!-- 7. 首爾車站 -->
         <div id="spot-seoulstation" class="spot-card" style="border-left-color: var(--day4);">
           <span class="day-label" style="background-color: var(--day4-soft); color: var(--day4);">建議 Day4 上午・可彈性</span>
-          <h3 class="spot-title">首爾車站・樂天超市採購與老店牛骨湯</h3>
+          <h3 class="spot-title"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE%E8%BB%8A%E7%AB%99+%E6%A8%82%E5%A4%A9%E8%B6%85%E5%B8%82" target="_blank" class="spot-title-link">首爾車站・樂天超市採購與老店牛骨湯</a></h3>
           <div class="friendly-badge flat">
             <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
             室內平地・無障礙動線
@@ -1118,15 +1154,10 @@
           </div>
           <p class="area-desc">首爾站樂天超市是採購韓國泡麵、海苔、伴手禮零食的一站式首選。全室內平坦且無障礙動線良好，長輩可推著推車作為步行支撐，安全又省力。</p>
 
-          <div class="pill-row">
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>叫車返飯店取行李，再接 Klook 商務車前往機場（約 60-70 分鐘）</span>
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：Lotte Outlets 咖啡廳</span>
-          </div>
-
           <div class="info-subcard">
             <div class="info-subcard-title">
               <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：首爾站 Lotte Outlets 咖啡廳
+              鄰近歇腳處：<a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE%E7%AB%99+Lotte+Outlets" target="_blank" class="title-search-link" style="color: var(--primary-hover); opacity: 1; font-weight: 800; display: inline;">首爾站 Lotte Outlets 咖啡廳</a>
             </div>
             <p style="font-size: 14px; margin-bottom: 0;">樂天超市與 Lotte Outlets 相連，各樓層設有多間安靜舒適的咖啡廳與沙發座，方便長輩悠閒喝飲料等候。</p>
           </div>
@@ -1152,7 +1183,7 @@
           <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
           美食
         </h2>
-        <div class="section-sub">各區美食預設收合，點<strong>區塊標題</strong>展開該區 5 家；展開後最底可一鍵回「景點漫遊」看散步路線。</div>
+        <div class="section-sub">各區美食預設收合，點<strong>區塊標題</strong>展開該區 5 家；展開後最底可一鍵回「景點漫遊」看散步路線。（💡 貼心提示：點擊「美食店家名稱」或「區域標題」可直接搜尋相關資訊）</div>
 
         <div class="food-index-legend">
           <span class="food-chip chip-meal">正餐</span>
@@ -1165,7 +1196,7 @@
           <button class="area-head" aria-expanded="false" aria-controls="food-deoksugung" onclick="toggleFoodArea(this)">
             <span class="area-head-txt">
               <span class="area-head-title">
-                <span class="area-name">德壽宮</span>
+                <span class="area-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%BE%B7%E5%A3%BD%E5%AE%AE" target="_blank" class="food-item-name-link" onclick="event.stopPropagation()">德壽宮</a></span>
                 <span class="area-count">5 家</span>
               </span>
               <span class="area-preview">味成屋・滿足五香豬腳・Liege Waffle・珈琲島・BrickSand</span>
@@ -1173,12 +1204,14 @@
             <span class="area-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
           </button>
           <div class="area-list" id="food-deoksugung">
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">1. 味成屋 (미성옥)</span><span class="food-chip chip-meal">正餐</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 韓牛雪濃湯 (설렁탕)・雪濃湯小份 11k 韓元，大份 13k 韓元；白切牛肉盤大份 45k 韓元。</span>
-              </summary>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%91%B3%E6%88%90%E5%B1%8B+%28%EB%AF%B8%EC%84%B1%EC%98%A5%29" target="_blank" class="food-item-name-link" title="Google 搜尋 味成屋 (미성옥)" aria-label="Google 搜尋 味成屋 (미성옥)">1. 味成屋 (미성옥)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-meal">正餐</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>雪濃湯小份 11k 韓元，大份 13k 韓元；白切牛肉盤大份 45k 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>韓牛雪濃湯 (설렁탕)</div>
@@ -1189,13 +1222,15 @@
                   <a href="https://bigfang.tw/blog/post/seolleongtang-miseongok" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">2. 滿足五香豬腳 (만족오향족발 市廳店)</span><span class="food-chip chip-meal">正餐</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.7</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 五香豬腳 (오향족발)・中份 38k 韓元，大份 43k 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E6%BB%BF%E8%B6%B3%E4%BA%94%E9%A6%99%E8%B1%AC%E8%85%B3+%28%EB%A7%8C%EC%A1%B1%EC%98%A4%ED%96%A5%EC%A1%B1%EB%B0%9C+%E5%B8%82%E5%BB%B3%E5%BA%97%29" target="_blank" class="food-item-name-link" title="Google 搜尋 滿足五香豬腳 (만족오향족발 市廳店)" aria-label="Google 搜尋 滿足五香豬腳 (만족오향족발 市廳店)">2. 滿足五香豬腳 (만족오향족발 市廳店)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-meal">正餐</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.7</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>中份 38k 韓元，大份 43k 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>五香豬腳 (오향족발)</div>
@@ -1206,13 +1241,15 @@
                   <a href="https://bobbytravel.tw/blog/post/manjok-ohyang-jokbal" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">3. 德壽宮 Liege Waffle (덕수궁 리에제와플)</span><span class="food-chip chip-snack">小吃</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 藍莓奶油起司列日鬆餅、原味列日鬆餅・鬆餅約 3,900 - 6,500 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%BE%B7%E5%A3%BD%E5%AE%AE+Liege+Waffle+%28%EB%8D%95%EC%88%98%EA%B6%81+%EB%A6%AC%EC%97%90%EC%A0%9C%EC%99%80%ED%94%8C%29" target="_blank" class="food-item-name-link" title="Google 搜尋 德壽宮 Liege Waffle (덕수궁 리에제와플)" aria-label="Google 搜尋 德壽宮 Liege Waffle (덕수궁 리에제와플)">3. 德壽宮 Liege Waffle (덕수궁 리에제와플)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-snack">小吃</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>鬆餅約 3,900 - 6,500 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>藍莓奶油起司列日鬆餅、原味列日鬆餅</div>
@@ -1223,13 +1260,15 @@
                   <a href="https://bigfang.tw/blog/post/limburg-waffle-seoul" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">4. 珈琲島 (Gabaedo 市廳店)</span><span class="food-chip chip-cafe">咖啡廳</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 焙茶提拉米蘇、抹茶拿鐵・咖啡約 4.5k 韓元起，提拉米蘇約 7k 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E7%8F%88%E7%90%B2%E5%B3%B6+%28Gabaedo+%E5%B8%82%E5%BB%B3%E5%BA%97%29" target="_blank" class="food-item-name-link" title="Google 搜尋 珈琲島 (Gabaedo 市廳店)" aria-label="Google 搜尋 珈琲島 (Gabaedo 市廳店)">4. 珈琲島 (Gabaedo 市廳店)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-cafe">咖啡廳</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>咖啡約 4.5k 韓元起，提拉米蘇約 7k 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>焙茶提拉米蘇、抹茶拿鐵</div>
@@ -1240,13 +1279,15 @@
                   <a href="https://bigfang.tw/blog/post/seoul-gabaedo-samcheongdong" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">5. BrickSand 明洞店 (브릭샌드 명동점)</span><span class="food-chip chip-gift">伴手禮</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 黑巧克力磚塊費南雪 (Dark Brick)・單顆約 2,000 - 3,000 韓元，8入禮盒約 19,000 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+BrickSand+%E6%98%8E%E6%B4%9E%E5%BA%97+%28%EB%B8%8C%EB%A6%AD%EC%83%8C%EB%93%9C+%EB%AA%85%EB%8F%99%EC%A0%90%29" target="_blank" class="food-item-name-link" title="Google 搜尋 BrickSand 明洞店 (브릭샌드 명동점)" aria-label="Google 搜尋 BrickSand 明洞店 (브릭샌드 명동점)">5. BrickSand 明洞店 (브릭샌드 명동점)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-gift">伴手禮</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>單顆約 2,000 - 3,000 韓元，8入禮盒約 19,000 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>黑巧克力磚塊費南雪 (Dark Brick)</div>
@@ -1257,7 +1298,7 @@
                   <a href="https://bigfang.tw/blog/post/bricksand-seoul" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
+            </div>
             <div class="area-foot">
               <button class="spot-walk-link" onclick="jumpToSpot('spot-deoksugung')" aria-label="回景點漫遊，查看德壽宮散步路線與友善度">
                 <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
@@ -1275,7 +1316,7 @@
           <button class="area-head" aria-expanded="false" aria-controls="food-gyeongbok" onclick="toggleFoodArea(this)">
             <span class="area-head-txt">
               <span class="area-head-title">
-                <span class="area-name">景福宮・三清洞</span>
+                <span class="area-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E6%99%AF%E7%A6%8F%E5%AE%AE+%E4%B8%89%E6%B8%85%E6%B4%9E" target="_blank" class="food-item-name-link" onclick="event.stopPropagation()">景福宮・三清洞</a></span>
                 <span class="area-count">5 家</span>
               </span>
               <span class="area-preview">黃生家刀削麵・土俗村參雞湯・Cafe Onion・紅豆粥・London Bagel Museum</span>
@@ -1283,12 +1324,14 @@
             <span class="area-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
           </button>
           <div class="area-list" id="food-gyeongbok">
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">1. 黃生家刀削麵 (황생가칼국수)</span><span class="food-chip chip-meal">正餐</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 牛骨刀削麵 (사골칼국수)、手工王餃子・牛骨刀削麵 11k 韓元，手工餃子 11k 韓元。</span>
-              </summary>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E9%BB%83%E7%94%9F%E5%AE%B6%E5%88%80%E5%89%8A%E9%BA%B5+%28%ED%99%A9%EC%83%9D%EA%B0%80%EC%B9%BC%EA%B5%AD%EC%88%98%29" target="_blank" class="food-item-name-link" title="Google 搜尋 黃生家刀削麵 (황생가칼국수)" aria-label="Google 搜尋 黃生家刀削麵 (황생가칼국수)">1. 黃生家刀削麵 (황생가칼국수)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-meal">正餐</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>牛骨刀削麵 11k 韓元，手工餃子 11k 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>牛骨刀削麵 (사골칼국수)、手工王餃子</div>
@@ -1299,13 +1342,15 @@
                   <a href="https://chinese.visitseoul.net/eat/%E9%BB%83%E7%94%9F%E5%AE%B6%E5%88%80%E5%89%8A%E9%BA%B5_/15064" class="action-btn btn-ref" target="_blank">官方介紹 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">2. 土俗村參雞湯 (토속촌삼계탕)</span><span class="food-chip chip-meal">正餐</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 土俗村參雞湯・參雞湯 20k 韓元，山蔘參雞湯 26k 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%9C%9F%E4%BF%97%E6%9D%91%E5%8F%83%E9%9B%9E%E6%B9%AF+%28%ED%86%A0%EC%86%8D%EC%B4%8C%EC%82%BC%EA%B3%84%ED%83%95%29" target="_blank" class="food-item-name-link" title="Google 搜尋 土俗村參雞湯 (토속촌삼계탕)" aria-label="Google 搜尋 土俗村參雞湯 (토속촌삼계탕)">2. 土俗村參雞湯 (토속촌삼계탕)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-meal">正餐</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>參雞湯 20k 韓元，山蔘參雞湯 26k 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>土俗村參雞湯</div>
@@ -1316,13 +1361,15 @@
                   <a href="https://bobbytravel.tw/blog/post/tosokchon-samgyetang" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">3. Cafe Onion 安國店 (카페어니언 안국점)</span><span class="food-chip chip-cafe">咖啡廳</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 潘朵拉麵包 (Pandoro)、黃豆粉麵包・麵包約 4k - 8k 韓元，咖啡/茶約 5k - 7k 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+Cafe+Onion+%E5%AE%89%E5%9C%8B%E5%BA%97+%28%EC%B9%B4%ED%8E%98%EC%96%B4%EB%8B%88%EC%96%B8+%EC%95%88%EA%B5%AD%EC%A0%90%29" target="_blank" class="food-item-name-link" title="Google 搜尋 Cafe Onion 安國店 (카페어니언 안국점)" aria-label="Google 搜尋 Cafe Onion 安國店 (카페어니언 안국점)">3. Cafe Onion 安國店 (카페어니언 안국점)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-cafe">咖啡廳</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>麵包約 4k - 8k 韓元，咖啡/茶約 5k - 7k 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>潘朵拉麵包 (Pandoro)、黃豆粉麵包</div>
@@ -1333,13 +1380,15 @@
                   <a href="https://bigfang.tw/blog/post/seoul-gabaedo-samcheongdong" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">4. 首爾第二家紅豆粥 (서울서둘째로잘하는집)</span><span class="food-chip chip-snack">小吃</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.3</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 傳統甜紅豆粥 (단팥죽)・招牌紅豆粥 9,000 - 10,000 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E9%A6%96%E7%88%BE%E7%AC%AC%E4%BA%8C%E5%AE%B6%E7%B4%85%E8%B1%86%E7%B2%A5+%28%EC%84%9C%EC%9A%B8%EC%84%9C%EB%91%98%EC%A7%B8%EB%A1%9C%EC%9E%98%ED%95%98%EB%8A%94%EC%A7%91%29" target="_blank" class="food-item-name-link" title="Google 搜尋 首爾第二家紅豆粥 (서울서둘째로잘하는집)" aria-label="Google 搜尋 首爾第二家紅豆粥 (서울서둘째로잘하는집)">4. 首爾第二家紅豆粥 (서울서둘째로잘하는집)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-snack">小吃</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.3</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>招牌紅豆粥 9,000 - 10,000 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>傳統甜紅豆粥 (단팥죽)</div>
@@ -1350,13 +1399,15 @@
                   <a href="https://bigfang.tw/blog/post/seoul-second-red-bean-porridge" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">5. London Bagel Museum 安國店</span><span class="food-chip chip-gift">伴手禮</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 馬鈴薯起司貝果 (Potato Cheese Bagel)、招牌鹽味貝果・單個貝果約 4,700 - 8,500 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+London+Bagel+Museum+%E5%AE%89%E5%9C%8B%E5%BA%97" target="_blank" class="food-item-name-link" title="Google 搜尋 London Bagel Museum 安國店" aria-label="Google 搜尋 London Bagel Museum 安國店">5. London Bagel Museum 安國店</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-gift">伴手禮</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>單個貝果約 4,700 - 8,500 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>馬鈴薯起司貝果 (Potato Cheese Bagel)、招牌鹽味貝果</div>
@@ -1367,7 +1418,7 @@
                   <a href="https://bigfang.tw/blog/post/london-bagel-museum-anguk" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
+            </div>
             <div class="area-foot">
               <button class="spot-walk-link" onclick="jumpToSpot('spot-gyeongbok')" aria-label="回景點漫遊，查看景福宮・三清洞散步路線與友善度">
                 <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
@@ -1385,7 +1436,7 @@
           <button class="area-head" aria-expanded="false" aria-controls="food-insadong" onclick="toggleFoodArea(this)">
             <span class="area-head-txt">
               <span class="area-head-title">
-                <span class="area-name">仁寺洞</span>
+                <span class="area-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E4%BB%81%E5%AF%BA%E6%B4%9E" target="_blank" class="food-item-name-link" onclick="event.stopPropagation()">仁寺洞</a></span>
                 <span class="area-count">5 家</span>
               </span>
               <span class="area-preview">開城餃子宮・仁寺洞蒜泥包肉・Osulloc Tea House・仁寺洞黑糖餅・仁寺洞麵疙瘩</span>
@@ -1393,12 +1444,14 @@
             <span class="area-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
           </button>
           <div class="area-list" id="food-insadong">
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">1. 開城餃子宮 (개성만두궁)</span><span class="food-chip chip-meal">正餐</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 開城手工餃子湯 (개성만두국)・手工餃子湯 15k-17k 韓元，餃子火鍋每人約 20k-30k 韓元。</span>
-              </summary>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E9%96%8B%E5%9F%8E%E9%A4%83%E5%AD%90%E5%AE%AE+%28%EA%B0%9C%EC%84%B1%EB%A7%8C%EB%91%90%EA%B6%81%29" target="_blank" class="food-item-name-link" title="Google 搜尋 開城餃子宮 (개성만두궁)" aria-label="Google 搜尋 開城餃子宮 (개성만두궁)">1. 開城餃子宮 (개성만두궁)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-meal">正餐</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>手工餃子湯 15k-17k 韓元，餃子火鍋每人約 20k-30k 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>開城手工餃子湯 (개성만두국)</div>
@@ -1409,13 +1462,15 @@
                   <a href="https://bigfang.tw/blog/post/gaeseong-mandu-gung" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">2. 仁寺洞蒜泥包肉 (인사동마늘보쌈)</span><span class="food-chip chip-meal">正餐</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 蒜泥豬肉包菜 (마늘보쌈)・小份 28k 韓元，中份 38k 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E4%BB%81%E5%AF%BA%E6%B4%9E%E8%92%9C%E6%B3%A5%E5%8C%85%E8%82%89+%28%EC%9D%B8%EC%82%AC%EB%8F%99%EB%A7%88%EB%8A%98%EB%B3%B4%EC%8C%88%29" target="_blank" class="food-item-name-link" title="Google 搜尋 仁寺洞蒜泥包肉 (인사동마늘보쌈)" aria-label="Google 搜尋 仁寺洞蒜泥包肉 (인사동마늘보쌈)">2. 仁寺洞蒜泥包肉 (인사동마늘보쌈)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-meal">正餐</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>小份 28k 韓元，中份 38k 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>蒜泥豬肉包菜 (마늘보쌈)</div>
@@ -1426,13 +1481,15 @@
                   <a href="https://bigfang.tw/blog/post/insa-garlic-bossam" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">3. Osulloc Tea House 仁寺洞店</span><span class="food-chip chip-cafe">咖啡廳</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 抹茶霜淇淋、抹茶拿鐵、抹茶牛奶抹醬・抹茶拿鐵約 6.5k 韓元，抹茶蛋糕/霜淇淋約 7k - 8.5k 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+Osulloc+Tea+House+%E4%BB%81%E5%AF%BA%E6%B4%9E%E5%BA%97" target="_blank" class="food-item-name-link" title="Google 搜尋 Osulloc Tea House 仁寺洞店" aria-label="Google 搜尋 Osulloc Tea House 仁寺洞店">3. Osulloc Tea House 仁寺洞店</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-cafe">咖啡廳</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>抹茶拿鐵約 6.5k 韓元，抹茶蛋糕/霜淇淋約 7k - 8.5k 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>抹茶霜淇淋、抹茶拿鐵、抹茶牛奶抹醬</div>
@@ -1443,13 +1500,15 @@
                   <a href="https://bigfang.tw/blog/post/seoul-osulloc-tea-house" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">4. 仁寺洞黑糖餅 (인사동 꿀호떡)</span><span class="food-chip chip-snack">小吃</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.2</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 傳統黑糖堅果糖餅 (꿀호떡)・一個約 2,000 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E4%BB%81%E5%AF%BA%E6%B4%9E%E9%BB%91%E7%B3%96%E9%A4%85+%28%EC%9D%B8%EC%82%AC%EB%8F%99+%EA%BF%80%ED%98%B8%EB%96%A1%29" target="_blank" class="food-item-name-link" title="Google 搜尋 仁寺洞黑糖餅 (인사동 꿀호떡)" aria-label="Google 搜尋 仁寺洞黑糖餅 (인사동 꿀호떡)">4. 仁寺洞黑糖餅 (인사동 꿀호떡)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-snack">小吃</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.2</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>一個約 2,000 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>傳統黑糖堅果糖餅 (꿀호떡)</div>
@@ -1460,13 +1519,15 @@
                   <a href="https://bigfang.tw/blog/post/insa-hotteok" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">5. 仁寺洞麵疙瘩 (인사동수제비)</span><span class="food-chip chip-meal">正餐</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.3</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 瓦罐麵疙瘩 (수제비)、海鮮煎餅・麵疙瘩約 9,000 韓元，海鮮煎餅約 15,000 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E4%BB%81%E5%AF%BA%E6%B4%9E%E9%BA%B5%E7%96%99%E7%98%A9+%28%EC%9D%B8%EC%82%AC%EB%8F%99%EC%88%98%EC%A0%9C%EB%B9%84%29" target="_blank" class="food-item-name-link" title="Google 搜尋 仁寺洞麵疙瘩 (인사동수제비)" aria-label="Google 搜尋 仁寺洞麵疙瘩 (인사동수제비)">5. 仁寺洞麵疙瘩 (인사동수제비)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-meal">正餐</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.3</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>麵疙瘩約 9,000 韓元，海鮮煎餅約 15,000 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>瓦罐麵疙瘩 (수제비)、海鮮煎餅</div>
@@ -1477,7 +1538,7 @@
                   <a href="https://bigfang.tw/blog/post/insadong-sujebi" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
+            </div>
             <div class="area-foot">
               <button class="spot-walk-link" onclick="jumpToSpot('spot-insadong')" aria-label="回景點漫遊，查看仁寺洞散步路線與友善度">
                 <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
@@ -1495,7 +1556,7 @@
           <button class="area-head" aria-expanded="false" aria-controls="food-seoulforest" onclick="toggleFoodArea(this)">
             <span class="area-head-txt">
               <span class="area-head-title">
-                <span class="area-name">首爾林</span>
+                <span class="area-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E9%A6%96%E7%88%BE%E6%9E%97" target="_blank" class="food-item-name-link" onclick="event.stopPropagation()">首爾林</a></span>
                 <span class="area-count">5 家</span>
               </span>
               <span class="area-preview">奶奶的食譜・大成肋排・自然島鹽麵包・Cafe Onion・Meal°</span>
@@ -1503,12 +1564,14 @@
             <span class="area-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
           </button>
           <div class="area-list" id="food-seoulforest">
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">1. 奶奶的食譜 (할머니의 레시피)</span><span class="food-chip chip-meal">正餐</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 烤魚定食、藥膳排骨湯・家庭定食約 12,000 - 18,000 韓元。</span>
-              </summary>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%A5%B6%E5%A5%B6%E7%9A%84%E9%A3%9F%E8%AD%9C+%28%ED%95%A0%EB%A8%B8%EB%8B%88%EC%9D%98+%EB%A0%88%EC%8B%9C%ED%94%BC%29" target="_blank" class="food-item-name-link" title="Google 搜尋 奶奶的食譜 (할머니의 레시피)" aria-label="Google 搜尋 奶奶的食譜 (할머니의 레시피)">1. 奶奶的食譜 (할머니의 레시피)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-meal">正餐</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>家庭定食約 12,000 - 18,000 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>烤魚定食、藥膳排骨湯</div>
@@ -1519,13 +1582,15 @@
                   <a href="https://bigfang.tw/blog/post/grandma-recipe-seongsu" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">2. 大成肋排 (대성갈비)</span><span class="food-chip chip-meal">正餐</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 炭火烤豬肋排・豬肋排 (200g) 17k 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%A4%A7%E6%88%90%E8%82%8B%E6%8E%92+%28%EB%8C%80%EC%84%B1%EA%B0%88%EB%B9%84%29" target="_blank" class="food-item-name-link" title="Google 搜尋 大成肋排 (대성갈비)" aria-label="Google 搜尋 大成肋排 (대성갈비)">2. 大成肋排 (대성갈비)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-meal">正餐</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>豬肋排 (200g) 17k 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>炭火烤豬肋排</div>
@@ -1536,13 +1601,15 @@
                   <a href="https://bigfang.tw/blog/post/daeseong-galbi-seongsu" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">3. 自然島鹽麵包 聖水店</span><span class="food-chip chip-snack">小吃</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 招牌海鹽麵包 (소금빵)・一袋4個 12,000 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%87%AA%E7%84%B6%E5%B3%B6%E9%B9%BD%E9%BA%B5%E5%8C%85+%E8%81%96%E6%B0%B4%E5%BA%97" target="_blank" class="food-item-name-link" title="Google 搜尋 自然島鹽麵包 聖水店" aria-label="Google 搜尋 自然島鹽麵包 聖水店">3. 自然島鹽麵包 聖水店</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-snack">小吃</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>一袋4個 12,000 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>招牌海鹽麵包 (소금빵)</div>
@@ -1553,13 +1620,15 @@
                   <a href="https://bigfang.tw/blog/post/jayeondo-salt-bread" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">4. Cafe Onion 聖水店</span><span class="food-chip chip-cafe">咖啡廳</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 潘朵拉麵包、紅豆奶油麵包・麵包約 4k - 8k 韓元，咖啡/茶約 5k - 7k 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+Cafe+Onion+%E8%81%96%E6%B0%B4%E5%BA%97" target="_blank" class="food-item-name-link" title="Google 搜尋 Cafe Onion 聖水店" aria-label="Google 搜尋 Cafe Onion 聖水店">4. Cafe Onion 聖水店</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-cafe">咖啡廳</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>麵包約 4k - 8k 韓元，咖啡/茶約 5k - 7k 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>潘朵拉麵包、紅豆奶油麵包</div>
@@ -1570,13 +1639,15 @@
                   <a href="https://bigfang.tw/blog/post/cafe-onion-seongsu" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">5. Meal° 聖水本店 (밀도)</span><span class="food-chip chip-gift">伴手禮</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 招牌栗子迷你立方吐司、起司迷你立方吐司・招牌栗子立方吐司約 6,500 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+Meal%C2%B0+%E8%81%96%E6%B0%B4%E6%9C%AC%E5%BA%97+%28%EB%B0%80%EB%8F%84%29" target="_blank" class="food-item-name-link" title="Google 搜尋 Meal° 聖水本店 (밀도)" aria-label="Google 搜尋 Meal° 聖水本店 (밀도)">5. Meal° 聖水本店 (밀도)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-gift">伴手禮</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>招牌栗子立方吐司約 6,500 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>招牌栗子迷你立方吐司、起司迷你立方吐司</div>
@@ -1587,7 +1658,7 @@
                   <a href="https://bigfang.tw/blog/post/meal-seoul" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
+            </div>
             <div class="area-foot">
               <button class="spot-walk-link" onclick="jumpToSpot('spot-seoulforest')" aria-label="回景點漫遊，查看首爾林散步路線與友善度">
                 <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
@@ -1605,7 +1676,7 @@
           <button class="area-head" aria-expanded="false" aria-controls="food-seongsu" onclick="toggleFoodArea(this)">
             <span class="area-head-txt">
               <span class="area-head-title">
-                <span class="area-name">聖水洞</span>
+                <span class="area-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%81%96%E6%B0%B4%E6%B4%9E" target="_blank" class="food-item-name-link" onclick="event.stopPropagation()">聖水洞</a></span>
                 <span class="area-count">5 家</span>
               </span>
               <span class="area-preview">聖水一隻雞・馬鈴薯排骨湯・大林倉庫・Point of View・橋村炸雞</span>
@@ -1613,12 +1684,14 @@
             <span class="area-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
           </button>
           <div class="area-list" id="food-seongsu">
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">1. 聖水一隻雞 (성수닭한마리)</span><span class="food-chip chip-meal">正餐</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 蒜香清雞湯一隻雞 (닭한마리)・一隻雞 (2人份) 28k 韓元，加點麵條 3k 韓元。</span>
-              </summary>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E8%81%96%E6%B0%B4%E4%B8%80%E9%9A%BB%E9%9B%9E+%28%EC%84%B1%EC%88%98%EB%8B%AD%ED%95%9C%EB%A7%88%EB%A6%AC%29" target="_blank" class="food-item-name-link" title="Google 搜尋 聖水一隻雞 (성수닭한마리)" aria-label="Google 搜尋 聖水一隻雞 (성수닭한마리)">1. 聖水一隻雞 (성수닭한마리)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-meal">正餐</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>一隻雞 (2人份) 28k 韓元，加點麵條 3k 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>蒜香清雞湯一隻雞 (닭한마리)</div>
@@ -1629,13 +1702,15 @@
                   <a href="https://bobbytravel.tw/blog/post/dongdaemun-chicken" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">2. 傳聞中的聖水馬鈴薯排骨湯 (소문난성수감자탕)</span><span class="food-chip chip-meal">正餐</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 馬鈴薯排骨湯 (감자탕)・小份 27k 韓元，中份 34k 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%82%B3%E8%81%9E%E4%B8%AD%E7%9A%84%E8%81%96%E6%B0%B4%E9%A6%AC%E9%88%B4%E8%96%AF%E6%8E%92%E9%AA%A8%E6%B9%AF+%28%EC%86%8C%EB%AC%B8%EB%82%9C%EC%84%B1%EC%88%98%EA%B0%90%EC%9E%90%ED%83%95%29" target="_blank" class="food-item-name-link" title="Google 搜尋 傳聞中的聖水馬鈴薯排骨湯 (소문난성수감자탕)" aria-label="Google 搜尋 傳聞中的聖水馬鈴薯排骨湯 (소문난성수감자탕)">2. 傳聞中的聖水馬鈴薯排骨湯 (소문난성수감자탕)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-meal">正餐</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>小份 27k 韓元，中份 34k 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>馬鈴薯排骨湯 (감자탕)</div>
@@ -1646,13 +1721,15 @@
                   <a href="https://bigfang.tw/blog/post/seongsu-gamjatang" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">3. 大林倉庫 (Gallery CO:LUMN)</span><span class="food-chip chip-cafe">咖啡廳</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 草莓鮮奶油牛角麵包、冰美式咖啡・咖啡飲品約 5.5k - 8k 韓元，烘焙點心 6k - 9k 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%A4%A7%E6%9E%97%E5%80%89%E5%BA%AB+%28Gallery+CO%3ALUMN%29" target="_blank" class="food-item-name-link" title="Google 搜尋 大林倉庫 (Gallery CO:LUMN)" aria-label="Google 搜尋 大林倉庫 (Gallery CO:LUMN)">3. 大林倉庫 (Gallery CO:LUMN)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-cafe">咖啡廳</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>咖啡飲品約 5.5k - 8k 韓元，烘焙點心 6k - 9k 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>草莓鮮奶油牛角麵包、冰美式咖啡</div>
@@ -1663,13 +1740,15 @@
                   <a href="https://bigfang.tw/blog/post/daelim-warehouse-seoul" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">4. Point of View 聖水旗艦店</span><span class="food-chip chip-gift">伴手禮</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 設計質感筆記本、原創特色鋼筆與紙鎮・質感文具小物約 3,000 韓元起，禮品約 20k 韓元以上。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+Point+of+View+%E8%81%96%E6%B0%B4%E6%97%97%E8%89%A6%E5%BA%97" target="_blank" class="food-item-name-link" title="Google 搜尋 Point of View 聖水旗艦店" aria-label="Google 搜尋 Point of View 聖水旗艦店">4. Point of View 聖水旗艦店</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-gift">伴手禮</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>質感文具小物約 3,000 韓元起，禮品約 20k 韓元以上。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>設計質感筆記本、原創特色鋼筆與紙鎮</div>
@@ -1680,13 +1759,15 @@
                   <a href="https://bigfang.tw/blog/post/point-of-view-seoul" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">5. 橋村炸雞 聖水店 (교촌치킨)</span><span class="food-chip chip-snack">小吃</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.7</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 蜂蜜原味炸雞 (허니콤보)、香蒜醬油炸雞・蜂蜜原味炸雞約 19,000 - 23,000 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E6%A9%8B%E6%9D%91%E7%82%B8%E9%9B%9E+%E8%81%96%E6%B0%B4%E5%BA%97+%28%EA%B5%90%EC%B4%8C%EC%B9%98%ED%82%A8%29" target="_blank" class="food-item-name-link" title="Google 搜尋 橋村炸雞 聖水店 (교촌치킨)" aria-label="Google 搜尋 橋村炸雞 聖水店 (교촌치킨)">5. 橋村炸雞 聖水店 (교촌치킨)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-snack">小吃</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.7</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>蜂蜜原味炸雞約 19,000 - 23,000 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>蜂蜜原味炸雞 (허니콤보)、香蒜醬油炸雞</div>
@@ -1697,7 +1778,7 @@
                   <a href="https://bobbytravel.tw/blog/post/kyochon-chicken" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
+            </div>
             <div class="area-foot">
               <button class="spot-walk-link" onclick="jumpToSpot('spot-seongsu')" aria-label="回景點漫遊，查看聖水洞散步路線與友善度">
                 <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
@@ -1715,7 +1796,7 @@
           <button class="area-head" aria-expanded="false" aria-controls="food-seoulstation" onclick="toggleFoodArea(this)">
             <span class="area-head-txt">
               <span class="area-head-title">
-                <span class="area-name">首爾車站</span>
+                <span class="area-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE%E8%BB%8A%E7%AB%99+%E6%A8%82%E5%A4%A9%E8%B6%85%E5%B8%82" target="_blank" class="food-item-name-link" onclick="event.stopPropagation()">首爾車站</a></span>
                 <span class="area-count">5 家</span>
               </span>
               <span class="area-preview">河東館・兔子停・南大門蔬菜糖餅・BRICKSAND・Index Caramel</span>
@@ -1723,12 +1804,14 @@
             <span class="area-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
           </button>
           <div class="area-list" id="food-seoulstation">
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">1. 河東館 (하동관) 明洞本店</span><span class="food-chip chip-meal">正餐</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 韓牛牛骨湯飯 (곰탕)・牛骨湯普通 15k 韓元，特級 18k 韓元。</span>
-              </summary>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E6%B2%B3%E6%9D%B1%E9%A4%A8+%28%ED%95%98%EB%8F%99%EA%B4%80%29+%E6%98%8E%E6%B4%9E%E6%9C%AC%E5%BA%97" target="_blank" class="food-item-name-link" title="Google 搜尋 河東館 (하동관) 明洞本店" aria-label="Google 搜尋 河東館 (하동관) 明洞本店">1. 河東館 (하동관) 明洞本店</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-meal">正餐</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>牛骨湯普通 15k 韓元，特級 18k 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>韓牛牛骨湯飯 (곰탕)</div>
@@ -1739,13 +1822,15 @@
                   <a href="https://bigfang.tw/blog/post/hadongkwan-seoul" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">2. 兔子停 (토끼정 首爾站店)</span><span class="food-chip chip-meal">正餐</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 奶油咖哩烏龍麵 (크림카레우동)、起司炸豬排・招牌烏龍麵約 12,500 韓元，炸豬排定食約 14,000 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%85%94%E5%AD%90%E5%81%9C+%28%ED%86%A0%EB%81%BC%EC%A0%95+%E9%A6%96%E7%88%BE%E7%AB%99%E5%BA%97%29" target="_blank" class="food-item-name-link" title="Google 搜尋 兔子停 (토끼정 首爾站店)" aria-label="Google 搜尋 兔子停 (토끼정 首爾站店)">2. 兔子停 (토끼정 首爾站店)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-meal">正餐</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>招牌烏龍麵約 12,500 韓元，炸豬排定食約 14,000 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>奶油咖哩烏龍麵 (크림카레우동)、起司炸豬排</div>
@@ -1756,13 +1841,15 @@
                   <a href="https://bigfang.tw/blog/post/tokkijung-seoul-station" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">3. 南大門蔬菜糖餅 (남대門 야채호떡)</span><span class="food-chip chip-snack">小吃</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 蔬菜糖餅 (야채호떡)、黑糖糖餅・蔬菜糖餅一個約 2,000 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+%E5%8D%97%E5%A4%A7%E9%96%80%E8%94%AC%E8%8F%9C%E7%B3%96%E9%A4%85+%28%EB%82%A8%EB%8C%80%E9%96%80+%EC%95%BC%EC%B1%84%ED%98%B8%EB%96%A1%29" target="_blank" class="food-item-name-link" title="Google 搜尋 南大門蔬菜糖餅 (남대門 야채호떡)" aria-label="Google 搜尋 南大門蔬菜糖餅 (남대門 야채호떡)">3. 南大門蔬菜糖餅 (남대門 야채호떡)</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-snack">小吃</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>蔬菜糖餅一個約 2,000 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>蔬菜糖餅 (야채호떡)、黑糖糖餅</div>
@@ -1773,13 +1860,15 @@
                   <a href="https://bigfang.tw/blog/post/namdaemun-hotteok" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">4. BRICKSAND 首爾車站店</span><span class="food-chip chip-gift">伴手禮</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 黑巧克力磚塊費南雪、原味費南雪・單顆約 2,000 - 3,000 韓元，禮盒約 19,000 韓元起。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+BRICKSAND+%E9%A6%96%E7%88%BE%E8%BB%8A%E7%AB%99%E5%BA%97" target="_blank" class="food-item-name-link" title="Google 搜尋 BRICKSAND 首爾車站店" aria-label="Google 搜尋 BRICKSAND 首爾車站店">4. BRICKSAND 首爾車站店</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-gift">伴手禮</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>單顆約 2,000 - 3,000 韓元，禮盒約 19,000 韓元起。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>黑巧克力磚塊費南雪、原味費南雪</div>
@@ -1790,13 +1879,15 @@
                   <a href="https://bigfang.tw/blog/post/bricksand-seoul" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
-            <details class="food-item">
-              <summary class="food-item-summary">
-                <span class="food-item-summary-left"><span class="food-item-name">5. Index Caramel 首爾站店</span><span class="food-chip chip-gift">伴手禮</span></span>
-                <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                <span class="food-preview">招牌 手工海鹽牛奶糖 (Salted Caramel)・單顆手工牛奶糖約 3,000 韓元。</span>
-              </summary>
+            </div>
+            <div class="food-item">
+            <div class="food-item-title-row">
+              <span class="food-item-name"><a href="https://www.google.com/search?q=%E9%A6%96%E7%88%BE+Index+Caramel+%E9%A6%96%E7%88%BE%E7%AB%99%E5%BA%97" target="_blank" class="food-item-name-link" title="Google 搜尋 Index Caramel 首爾站店" aria-label="Google 搜尋 Index Caramel 首爾站店">5. Index Caramel 首爾站店</a></span>
+            </div>
+            <div class="food-item-meta-row">
+              <span class="food-chip chip-gift">伴手禮</span>
+              <span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span>
+            </div>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>單顆手工牛奶糖約 3,000 韓元。</div>
                 <div class="food-item-row"><strong>招牌菜：</strong>手工海鹽牛奶糖 (Salted Caramel)</div>
@@ -1807,7 +1898,7 @@
                   <a href="https://bigfang.tw/blog/post/index-caramel" class="action-btn btn-ref" target="_blank">食記參考 ↗</a>
                 </div>
               </div>
-            </details>
+            </div>
             <div class="area-foot">
               <button class="spot-walk-link" onclick="jumpToSpot('spot-seoulstation')" aria-label="回景點漫遊，查看首爾車站散步路線與友善度">
                 <span class="spot-walk-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg></span>
@@ -2085,6 +2176,11 @@
       const targetSection = document.getElementById('section-' + sectionId);
       if (targetSection) targetSection.classList.add('active');
 
+      const appContainer = document.querySelector('.app-container');
+      if (appContainer) {
+        appContainer.classList.toggle('spots-section-active', sectionId === 'spots');
+      }
+
       scrollToActiveNav();
 
       if (opts && typeof opts.scrollTo === 'number') {
@@ -2126,7 +2222,9 @@
       if (!target) return;
       setTimeout(() => {
         const elementPosition = target.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: elementPosition - 96, behavior: 'smooth' });
+        const isSpots = document.querySelector('.app-container').classList.contains('spots-section-active');
+        const offset = isSpots ? 56 : 96;
+        window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
       }, 60);
     }
 
@@ -2242,6 +2340,50 @@
       }, { passive: true });
     }
 
+    // --- 景點漫遊：捲動觀測器 (IntersectionObserver) 自動高亮對應晶片 ---
+    function setupSpotIntersectionObserver() {
+      if (!('IntersectionObserver' in window)) return;
+      const observerOptions = {
+        root: null,
+        rootMargin: '-60px 0px -75% 0px',
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        const isSpots = document.querySelector('.app-container').classList.contains('spots-section-active');
+        if (!isSpots) return;
+
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const spotId = entry.target.id;
+            highlightAnchorChip(spotId);
+          }
+        });
+      }, observerOptions);
+
+      const spotCards = document.querySelectorAll('.spot-card');
+      spotCards.forEach((card) => observer.observe(card));
+    }
+
+    function highlightAnchorChip(spotId) {
+      const chips = document.querySelectorAll('.anchor-chip');
+      chips.forEach((chip) => {
+        const onClickAttr = chip.getAttribute('onclick') || '';
+        if (onClickAttr.includes("'" + spotId + "'")) {
+          chip.classList.add('active');
+          const container = chip.closest('.anchor-chip-row');
+          if (container) {
+            container.scrollTo({
+              left: chip.offsetLeft - (container.offsetWidth / 2) + (chip.offsetWidth / 2),
+              behavior: 'smooth'
+            });
+          }
+        } else {
+          chip.classList.remove('active');
+        }
+      });
+    }
+
     // --- 頁面初始化 ---
     window.addEventListener('DOMContentLoaded', () => {
       let savedSection = 'overview';
@@ -2256,6 +2398,7 @@
       setupExclusiveAccordions();
       setupBackToTopButton();
       setupSwipeNavigation();
+      setupSpotIntersectionObserver();
     });
 
     // 全域掛載函數防止行內事件失效

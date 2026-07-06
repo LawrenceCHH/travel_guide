@@ -34,12 +34,22 @@
 ### 5. 美食區塊互動（現行定案）
 每區 `.food-area` 預設**收合**，三段式：
 - **標題 `.area-head`**（accordion header，點了原地展開/收合）：`景點名 + 「N 家」chip + 招牌店名預覽`（預覽僅收合態顯示）；右側圓形 chevron 展開旋 180°；展開時整條轉 `--secondary-light` band、上 `--shadow-md`。`toggleFoodArea` 切 `.food-area.open` 並同步 `aria-expanded`。
-- **清單 `.area-list`**（=原 `#food-XXX`）：展開才顯示，外包 `--secondary` 抽屜框。每家 `details.food-item` 仍可各自獨立展開；收合列含「名稱 + 類別 chip + 星等 + 招牌/價位預覽行」。
-- **區尾 `.spot-walk-link`**：dashed 分隔 + 步行圖示 +「回景點漫遊 · {景點}散步路線」/「看步行距離・階梯・歇腳處與友善度」+ ↗，跳對應 `spot-XXX`。
+- **清單 `.area-list`**（=原 `#food-XXX`）：展開才顯示，外包 `--secondary` 抽屜框。每家店以 `div.food-item` 扁平條列（無二次摺疊）。每家店標題行（`.food-item-title-row`）以 Flexbox 兩端對齊，右側固定 Google 搜尋放大鏡連結；標籤與星數統一收納在下方的中繼資訊行（`.food-item-meta-row`）中，維持卡片整潔並提升資訊讀取效率。
+- **區尾 `.spot-walk-link`**：無虛線分隔，由氣泡按鈕 + 步行圖示 +「回景點漫遊 · {景點}散步路線」/「看步行距離・階梯・歇腳處與友善度」+ ↗ 組成，跳對應 `spot-XXX`。
 - **視覺文法**：chevron＝原地展開、↗＝跳分頁，兩動作拆到區頭/區尾物理隔開，避免誤點。
 - `jumpToFood(areaId)` 從景點跳來時**自動展開**目標區並定位。
 
-### 6. 其餘
+### 6. 景點漫遊視覺重塑與資訊減噪
+- **二級導覽列動態 Sticky**：切換至景點漫遊分頁時，全局第一列導覽變為 `position: relative`，第二列景點快速導覽（`.anchor-chip-row`）變為 `position: sticky; top: 0` 置頂，減少垂直空間佔用。
+- **捲動觀測器 (Scrollspy)**：採用 `IntersectionObserver` 監聽 `.spot-card` 的捲動狀態，自動將頂部對應的景點晶片設為 Active 並平滑滾動置中。
+- **資訊減噪與重疊移除**：直接移除景點卡中與 `.info-subcard` 高度重疊的重點小標題（`.pill-row` 摘要標籤），以減少視覺擁擠與認知負荷。
+- **扁平化子卡片與首日緩衝**：將 `.info-subcard` 背景與左邊框改為透明，改以細實線 (`border-top`) 橫向分隔；並將首日緩衝方案 A、B、C 轉換為相同的分欄排版，維持排版一致性。
+- **警示框排版優化**：合併並優化了 `.alert-warning` 與 `.alert-important` 的 padding 與 margin 樣式，徹底解決文字緊貼邊框、提示框與下方內容黏連的問題。
+- **隱藏式即時搜尋連結**：
+  * 移除所有外部圖示符號（包含 `↗` 與放大鏡），將所有提及地名的標題、小標與歇腳處改為**無底線的點擊連結**，作為乾淨的隱藏功能。
+  * 於景點與美食區塊頂部的軟性說明文字直接加上引導語，提示用戶可以點擊地名標題或歇腳處進行即時搜尋，維持最極簡的侘寂風手帳美學。
+
+### 7. 其餘
 - 六區對照：`德壽宮/spot-deoksugung`、`景福宮・三清洞/spot-gyeongbok`、`仁寺洞/spot-insadong`、`首爾林/spot-seoulforest`、`聖水洞/spot-seongsu`、`首爾車站/spot-seoulstation`（首日緩衝 `spot-buffer` 無美食）。
 - 保留：總覽景點畫廊、行前準備、通關 Stepper、機場接駁比較卡、免稅習俗、緊急一鍵撥號、類別 legend、導覽 active 自動置中。
 
