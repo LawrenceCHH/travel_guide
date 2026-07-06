@@ -150,3 +150,64 @@
 1. **先 commit 現況檢查點**：檢視 `git diff` / `git status`，將目前 travel_guide 專案有意義的變更（`index.html` v2 重設計、`plan.md`、`.gitignore`）提交為一個檢查點 commit；`.claude/`、`.agents/` 等本機工作目錄依 `.gitignore` 判斷是否納入（不確定就不強加）。
 2. **再依本計畫實作 A、B 兩組**（建議先 A.2 歷史堆疊改造 → A.1 按鈕 → A.3 滑動 → B 搬移與跳轉），逐項對照 §D 自檢。
 3. 實作完成後，開瀏覽器/本機驗證行為（分頁切換、回上頁、左右滑動、美食展開與雙向跳轉、離線資源檢查），再提交實作 commit。
+
+---
+
+## F. （v3.1 追加）美食清單降低點擊摩擦：預覽行 + 展開全部
+
+**動機**：美食分頁 6 區 × 5 家 = 30 個 `<details>` 全收合，要看得點很多次。使用者提議「依捷動方向自動展開/收合」，但那會造成版面跳動、方向判定拖影、奪控制權（已討論否決）。**定案方案：讓大多數情況根本不用展開（預覽行）+ 想全看時一鍵搬定（展開全部）**。零捷動監聽、無版面拖影、受控。
+
+### F.1 收合列新增「預覽行」（30 家）
+
+- 在每個 `<summary class="food-item-summary">` 內，**新增第三個子元素**（現有兩個：名稱組 / 星等+箭頭組 維持不動）：
+  ```html
+  <span class="food-preview">招牌 {該家招牌菜原文}・{該家價位帶原文}</span>
+  ```
+- **內容一律直接搬用該 details body 內的「招牌菜」與「價位帶」原文，一字不改、不重寫、不新編任何數字**（避免截短變造事實）。中間以「・」隔開；前置一個小標「招牌」。
+  例：味成屋 → `招牌 韓牛雪濃湯 (설렁탕)・雪濃湯小份 11k 韓元，大份 13k 韓元；白切牛肉盤大份 45k 韓元。`
+- 過長一律以 CSS **單行省略號截斷**（`white-space:nowrap; overflow:hidden; text-overflow:ellipsis`），不手動削字。
+- **展開後隱藏預覽行**（body 已有完整招牌菜/價位帶，避免重複）：`.food-item[open] .food-preview { display:none; }`。
+
+**CSS**：
+- `.food-item-summary` 新增 `flex-wrap: wrap;`（讓預覽行換到第二行滿寬）。
+- 新增 `.food-preview { flex-basis:100%; width:100%; font-size:13px; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px; }`（「招牌」小標可用 `var(--ginkgo)` 稍作區隳，但不強制）。
+
+### F.2 每區新增「展開全部 / 收合全部」（6 區）
+
+- 在每個 `.food-area` 內、`.food-area-title` 之後、`#food-xxx` 之前，插入一列工具列（右對齊）：
+  ```html
+  <div class="food-area-toolbar">
+    <button class="food-expand-all" onclick="toggleFoodArea(this)" aria-label="展開或收合本區全部美食">
+      <span>展開全部</span>
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
+  </div>
+  ```
+- **JS `toggleFoodArea(btn)`**（自校正、偵測現況）：
+  ```js
+  function toggleFoodArea(btn){
+    const area = btn.closest('.food-area');
+    if(!area) return;
+    const items = area.querySelectorAll('details.food-item');
+    const anyClosed = Array.from(items).some(d => !d.open); // 有任何一家收著 → 本次全開
+    items.forEach(d => { d.open = anyClosed; });
+    btn.classList.toggle('open', anyClosed);          // open 態 → 箭頭朝上
+    btn.querySelector('span').textContent = anyClosed ? '收合全部' : '展開全部';
+  }
+  window.toggleFoodArea = toggleFoodArea; // 行內事件必須全域掛載
+  ```
+  - 這個「有任何收著→全開；全開→全收」邏輯對使用者手動開關個別項目後仍能自行修正，不會卡死。
+  - `food-item` 本就無 `name` 屬性（非互斥），可全部同時展開；也不受既有 `setupExclusiveAccordions`（只管 `details[name]`）影響。
+
+**CSS**：
+- `.food-area-toolbar { display:flex; justify-content:flex-end; margin:-4px 0 10px; }`
+- `.food-expand-all { display:inline-flex; align-items:center; gap:6px; background:var(--secondary-light); color:var(--primary-hover); border:none; border-radius:8px; padding:8px 12px; font-size:13px; font-weight:700; cursor:pointer; font-family:inherit; min-height:40px; }`
+- `.food-expand-all svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transition:transform .25s ease; }`
+- `.food-expand-all.open svg { transform:rotate(180deg); }`
+
+### F.3 驗收（串入 §D）
+
+- [ ] 30 家收合列都有預覽行，內容＝該家「招牌菜 + 價位帶」**原文連接**（預覽行出現的每一個數字/文字都能在該 details body 找到，無新編事實）；展開後預覽行隱藏。
+- [ ] 6 區各有一顆展開/收合切換鈕；點一下全區開、再點全區收，標題與箭頭隨狀態更新；toggleFoodArea 已掛 `window`。
+- [ ] 無 emoji（箭頭皆 inline SVG）；離線可開、localStorage 仍 try-catch——這些鐵則未被破壞。
+- [ ] 預覽行不會擐爆 summary 版面（兩行式：第一行 名稱/星等，第二行 滿寬預覽並省略號截斷）。

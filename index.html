@@ -350,10 +350,15 @@
     .food-item[open] { border-color: var(--border); }
     .food-item-summary {
       list-style: none; cursor: pointer; padding: 12px 14px; display: flex;
-      align-items: center; justify-content: space-between; gap: 8px; min-height: 44px;
+      align-items: center; justify-content: space-between; gap: 8px; min-height: 44px; flex-wrap: wrap;
     }
     .food-item-summary::-webkit-details-marker { display: none; }
     .food-item-summary-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
+    .food-preview {
+      flex-basis: 100%; width: 100%; font-size: 13px; color: var(--text-muted);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;
+    }
+    .food-item[open] .food-preview { display: none; }
     .food-item-name { font-weight: 700; font-size: 14.5px; color: var(--text-main); }
     .food-chip { font-size: 11px; padding: 3px 9px; border-radius: 10px; font-weight: 700; white-space: nowrap; }
     .chip-meal { background-color: var(--secondary-light); color: var(--primary-hover); }
@@ -393,6 +398,17 @@
       width: 18px; height: 18px; fill: none; stroke: var(--primary); stroke-width: 2;
       stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0;
     }
+    .food-area-toolbar { display: flex; justify-content: flex-end; margin: -4px 0 10px; }
+    .food-expand-all {
+      display: inline-flex; align-items: center; gap: 6px; background: var(--secondary-light);
+      color: var(--primary-hover); border: none; border-radius: 8px; padding: 8px 12px;
+      font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; min-height: 40px;
+    }
+    .food-expand-all svg {
+      width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s ease;
+    }
+    .food-expand-all.open svg { transform: rotate(180deg); }
 
     /* --- 接駁交通方案卡片 --- */
     .transport-card {
@@ -1113,11 +1129,18 @@
             <span>德壽宮: 味成屋・滿足五香豬腳・Liege Waffle 等 5 家</span>
             <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
           </button>
+          <div class="food-area-toolbar">
+            <button class="food-expand-all" onclick="toggleFoodArea(this)" aria-label="展開或收合本區全部美食">
+              <span>展開全部</span>
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
           <div id="food-deoksugung">
             <details class="food-item">
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">1. 味成屋 (미성옥)</span><span class="food-chip chip-meal">正餐</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 韓牛雪濃湯 (설렁탕)・雪濃湯小份 11k 韓元，大份 13k 韓元；白切牛肉盤大份 45k 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>雪濃湯小份 11k 韓元，大份 13k 韓元；白切牛肉盤大份 45k 韓元。</div>
@@ -1134,6 +1157,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">2. 滿足五香豬腳 (만족오향족발 市廳店)</span><span class="food-chip chip-meal">正餐</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.7</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 五香豬腳 (오향족발)・中份 38k 韓元，大份 43k 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>中份 38k 韓元，大份 43k 韓元。</div>
@@ -1150,6 +1174,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">3. 德壽宮 Liege Waffle (덕수궁 리에제와플)</span><span class="food-chip chip-snack">小吃</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 藍莓奶油起司列日鬆餅、原味列日鬆餅・鬆餅約 3,900 - 6,500 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>鬆餅約 3,900 - 6,500 韓元。</div>
@@ -1166,6 +1191,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">4. 珈琲島 (Gabaedo 市廳店)</span><span class="food-chip chip-cafe">咖啡廳</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 焙茶提拉米蘇、抹茶拿鐵・咖啡約 4.5k 韓元起，提拉米蘇約 7k 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>咖啡約 4.5k 韓元起，提拉米蘇約 7k 韓元。</div>
@@ -1182,6 +1208,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">5. BrickSand 明洞店 (브릭샌드 명동점)</span><span class="food-chip chip-gift">伴手禮</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 黑巧克力磚塊費南雪 (Dark Brick)・單顆約 2,000 - 3,000 韓元，8入禮盒約 19,000 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>單顆約 2,000 - 3,000 韓元，8入禮盒約 19,000 韓元。</div>
@@ -1202,11 +1229,18 @@
             <span>景福宮・三清洞: 黃生家刀削麵・土俗村參雞湯 等 5 家</span>
             <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
           </button>
+          <div class="food-area-toolbar">
+            <button class="food-expand-all" onclick="toggleFoodArea(this)" aria-label="展開或收合本區全部美食">
+              <span>展開全部</span>
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
           <div id="food-gyeongbok">
             <details class="food-item">
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">1. 黃生家刀削麵 (황생가칼국수)</span><span class="food-chip chip-meal">正餐</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 牛骨刀削麵 (사골칼국수)、手工王餃子・牛骨刀削麵 11k 韓元，手工餃子 11k 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>牛骨刀削麵 11k 韓元，手工餃子 11k 韓元。</div>
@@ -1223,6 +1257,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">2. 土俗村參雞湯 (토속촌삼계탕)</span><span class="food-chip chip-meal">正餐</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 土俗村參雞湯・參雞湯 20k 韓元，山蔘參雞湯 26k 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>參雞湯 20k 韓元，山蔘參雞湯 26k 韓元。</div>
@@ -1239,6 +1274,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">3. Cafe Onion 安國店 (카페어니언 안국점)</span><span class="food-chip chip-cafe">咖啡廳</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 潘朵拉麵包 (Pandoro)、黃豆粉麵包・麵包約 4k - 8k 韓元，咖啡/茶約 5k - 7k 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>麵包約 4k - 8k 韓元，咖啡/茶約 5k - 7k 韓元。</div>
@@ -1255,6 +1291,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">4. 首爾第二家紅豆粥 (서울서둘째로잘하는집)</span><span class="food-chip chip-snack">小吃</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.3</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 傳統甜紅豆粥 (단팥죽)・招牌紅豆粥 9,000 - 10,000 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>招牌紅豆粥 9,000 - 10,000 韓元。</div>
@@ -1271,6 +1308,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">5. London Bagel Museum 安國店</span><span class="food-chip chip-gift">伴手禮</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 馬鈴薯起司貝果 (Potato Cheese Bagel)、招牌鹽味貝果・單個貝果約 4,700 - 8,500 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>單個貝果約 4,700 - 8,500 韓元。</div>
@@ -1291,11 +1329,18 @@
             <span>仁寺洞: 開城餃子宮・仁寺洞蒜泥包肉 等 5 家</span>
             <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
           </button>
+          <div class="food-area-toolbar">
+            <button class="food-expand-all" onclick="toggleFoodArea(this)" aria-label="展開或收合本區全部美食">
+              <span>展開全部</span>
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
           <div id="food-insadong">
             <details class="food-item">
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">1. 開城餃子宮 (개성만두궁)</span><span class="food-chip chip-meal">正餐</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 開城手工餃子湯 (개성만두국)・手工餃子湯 15k-17k 韓元，餃子火鍋每人約 20k-30k 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>手工餃子湯 15k-17k 韓元，餃子火鍋每人約 20k-30k 韓元。</div>
@@ -1312,6 +1357,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">2. 仁寺洞蒜泥包肉 (인사동마늘보쌈)</span><span class="food-chip chip-meal">正餐</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 蒜泥豬肉包菜 (마늘보쌈)・小份 28k 韓元，中份 38k 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>小份 28k 韓元，中份 38k 韓元。</div>
@@ -1328,6 +1374,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">3. Osulloc Tea House 仁寺洞店</span><span class="food-chip chip-cafe">咖啡廳</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 抹茶霜淇淋、抹茶拿鐵、抹茶牛奶抹醬・抹茶拿鐵約 6.5k 韓元，抹茶蛋糕/霜淇淋約 7k - 8.5k 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>抹茶拿鐵約 6.5k 韓元，抹茶蛋糕/霜淇淋約 7k - 8.5k 韓元。</div>
@@ -1344,6 +1391,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">4. 仁寺洞黑糖餅 (인사동 꿀호떡)</span><span class="food-chip chip-snack">小吃</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.2</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 傳統黑糖堅果糖餅 (꿀호떡)・一個約 2,000 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>一個約 2,000 韓元。</div>
@@ -1360,6 +1408,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">5. 仁寺洞麵疙瘩 (인사동수제비)</span><span class="food-chip chip-meal">正餐</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.3</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 瓦罐麵疙瘩 (수제비)、海鮮煎餅・麵疙瘩約 9,000 韓元，海鮮煎餅約 15,000 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>麵疙瘩約 9,000 韓元，海鮮煎餅約 15,000 韓元。</div>
@@ -1380,11 +1429,18 @@
             <span>首爾林: 奶奶的食譜・大成肋排 等 5 家</span>
             <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
           </button>
+          <div class="food-area-toolbar">
+            <button class="food-expand-all" onclick="toggleFoodArea(this)" aria-label="展開或收合本區全部美食">
+              <span>展開全部</span>
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
           <div id="food-seoulforest">
             <details class="food-item">
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">1. 奶奶的食譜 (할머니의 레시피)</span><span class="food-chip chip-meal">正餐</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 烤魚定食、藥膳排骨湯・家庭定食約 12,000 - 18,000 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>家庭定食約 12,000 - 18,000 韓元。</div>
@@ -1401,6 +1457,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">2. 大成肋排 (대성갈비)</span><span class="food-chip chip-meal">正餐</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 炭火烤豬肋排・豬肋排 (200g) 17k 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>豬肋排 (200g) 17k 韓元。</div>
@@ -1417,6 +1474,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">3. 自然島鹽麵包 聖水店</span><span class="food-chip chip-snack">小吃</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 招牌海鹽麵包 (소금빵)・一袋4個 12,000 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>一袋4個 12,000 韓元。</div>
@@ -1433,6 +1491,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">4. Cafe Onion 聖水店</span><span class="food-chip chip-cafe">咖啡廳</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 潘朵拉麵包、紅豆奶油麵包・麵包約 4k - 8k 韓元，咖啡/茶約 5k - 7k 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>麵包約 4k - 8k 韓元，咖啡/茶約 5k - 7k 韓元。</div>
@@ -1449,6 +1508,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">5. Meal° 聖水本店 (밀도)</span><span class="food-chip chip-gift">伴手禮</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 招牌栗子迷你立方吐司、起司迷你立方吐司・招牌栗子立方吐司約 6,500 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>招牌栗子立方吐司約 6,500 韓元。</div>
@@ -1469,11 +1529,18 @@
             <span>聖水洞: 聖水一隻雞・大林倉庫 等 5 家</span>
             <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
           </button>
+          <div class="food-area-toolbar">
+            <button class="food-expand-all" onclick="toggleFoodArea(this)" aria-label="展開或收合本區全部美食">
+              <span>展開全部</span>
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
           <div id="food-seongsu">
             <details class="food-item">
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">1. 聖水一隻雞 (성수닭한마리)</span><span class="food-chip chip-meal">正餐</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 蒜香清雞湯一隻雞 (닭한마리)・一隻雞 (2人份) 28k 韓元，加點麵條 3k 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>一隻雞 (2人份) 28k 韓元，加點麵條 3k 韓元。</div>
@@ -1490,6 +1557,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">2. 傳聞中的聖水馬鈴薯排骨湯 (소문난성수감자탕)</span><span class="food-chip chip-meal">正餐</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.6</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 馬鈴薯排骨湯 (감자탕)・小份 27k 韓元，中份 34k 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>小份 27k 韓元，中份 34k 韓元。</div>
@@ -1506,6 +1574,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">3. 大林倉庫 (Gallery CO:LUMN)</span><span class="food-chip chip-cafe">咖啡廳</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 草莓鮮奶油牛角麵包、冰美式咖啡・咖啡飲品約 5.5k - 8k 韓元，烘焙點心 6k - 9k 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>咖啡飲品約 5.5k - 8k 韓元，烘焙點心 6k - 9k 韓元。</div>
@@ -1522,6 +1591,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">4. Point of View 聖水旗艦店</span><span class="food-chip chip-gift">伴手禮</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 設計質感筆記本、原創特色鋼筆與紙鎮・質感文具小物約 3,000 韓元起，禮品約 20k 韓元以上。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>質感文具小物約 3,000 韓元起，禮品約 20k 韓元以上。</div>
@@ -1538,6 +1608,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">5. 橋村炸雞 聖水店 (교촌치킨)</span><span class="food-chip chip-snack">小吃</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.7</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 蜂蜜原味炸雞 (허니콤보)、香蒜醬油炸雞・蜂蜜原味炸雞約 19,000 - 23,000 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>蜂蜜原味炸雞約 19,000 - 23,000 韓元。</div>
@@ -1558,11 +1629,18 @@
             <span>首爾車站: 河東館・兔子停 等 5 家</span>
             <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
           </button>
+          <div class="food-area-toolbar">
+            <button class="food-expand-all" onclick="toggleFoodArea(this)" aria-label="展開或收合本區全部美食">
+              <span>展開全部</span>
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
           <div id="food-seoulstation">
             <details class="food-item">
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">1. 河東館 (하동관) 明洞本店</span><span class="food-chip chip-meal">正餐</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 韓牛牛骨湯飯 (곰탕)・牛骨湯普通 15k 韓元，特級 18k 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>牛骨湯普通 15k 韓元，特級 18k 韓元。</div>
@@ -1579,6 +1657,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">2. 兔子停 (토끼정 首爾站店)</span><span class="food-chip chip-meal">正餐</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 奶油咖哩烏龍麵 (크림카레우동)、起司炸豬排・招牌烏龍麵約 12,500 韓元，炸豬排定食約 14,000 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>招牌烏龍麵約 12,500 韓元，炸豬排定食約 14,000 韓元。</div>
@@ -1595,6 +1674,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">3. 南大門蔬菜糖餅 (남대門 야채호떡)</span><span class="food-chip chip-snack">小吃</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 蔬菜糖餅 (야채호떡)、黑糖糖餅・蔬菜糖餅一個約 2,000 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>蔬菜糖餅一個約 2,000 韓元。</div>
@@ -1611,6 +1691,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">4. BRICKSAND 首爾車站店</span><span class="food-chip chip-gift">伴手禮</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.4</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 黑巧克力磚塊費南雪、原味費南雪・單顆約 2,000 - 3,000 韓元，禮盒約 19,000 韓元起。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>單顆約 2,000 - 3,000 韓元，禮盒約 19,000 韓元起。</div>
@@ -1627,6 +1708,7 @@
               <summary class="food-item-summary">
                 <span class="food-item-summary-left"><span class="food-item-name">5. Index Caramel 首爾站店</span><span class="food-chip chip-gift">伴手禮</span></span>
                 <span class="food-item-summary-left"><span class="stars food-item-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.5</span><svg class="food-item-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                <span class="food-preview">招牌 手工海鹽牛奶糖 (Salted Caramel)・單顆手工牛奶糖約 3,000 韓元。</span>
               </summary>
               <div class="food-item-body">
                 <div class="food-item-row"><strong>價位帶：</strong>單顆手工牛奶糖約 3,000 韓元。</div>
@@ -1844,17 +1926,17 @@
         <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
         緊急撥號
       </button>
+      <button class="bottom-bar-btn" onclick="switchSection(null, 'overview')" aria-label="回總覽">
+        <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8h-3v9h-4v-6H10v6H6v-9H3z"/></svg>
+        總覽
+      </button>
       <button class="bottom-bar-btn" onclick="goBack()" aria-label="回上頁">
         <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         回上頁
       </button>
-      <button class="bottom-bar-btn" onclick="switchSection(null, 'overview')" aria-label="回總覽">
-        <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8h-3v9h-4v-6H10v6H6v-9H3z"/></svg>
-        回總覽
-      </button>
       <button class="bottom-bar-btn" id="back-to-top" aria-label="回到最上面">
         <svg viewBox="0 0 24 24"><path d="M4 12l8-8 8 8M12 4v16"/></svg>
-        回頂
+        回頂端
       </button>
     </nav>
 
@@ -1948,6 +2030,17 @@
     function jumpToFood(areaId) {
       switchSection(null, 'food');
       scrollToAnchor('food-area-' + areaId);
+    }
+
+    // --- 美食分區「展開全部 / 收合全部」：自校正，偵測現況決定本次動作 ---
+    function toggleFoodArea(btn) {
+      const area = btn.closest('.food-area');
+      if (!area) return;
+      const items = area.querySelectorAll('details.food-item');
+      const anyClosed = Array.from(items).some(d => !d.open);
+      items.forEach(d => { d.open = anyClosed; });
+      btn.classList.toggle('open', anyClosed);
+      btn.querySelector('span').textContent = anyClosed ? '收合全部' : '展開全部';
     }
 
     // --- 摺疊詳解卡片：互斥 (僅限行前準備 name="prep-group") 與自動滾動置中 ---
@@ -2058,6 +2151,7 @@
     window.scrollToAnchor = scrollToAnchor;
     window.jumpToSpot = jumpToSpot;
     window.jumpToFood = jumpToFood;
+    window.toggleFoodArea = toggleFoodArea;
   </script>
 </body>
 </html>
