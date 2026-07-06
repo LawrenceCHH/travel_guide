@@ -335,11 +335,13 @@
     .info-subcard-title svg { width: 16px; height: 16px; fill: var(--primary); flex-shrink: 0; }
 
     /* --- 美食折疊清單（details，預設收合，非互斥） --- */
-    .food-section-title {
-      font-size: 17px; font-weight: 800; color: var(--text-main); margin: 22px 0 12px 0;
-      display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border-light); padding-bottom: 8px;
+    .food-jump-link {
+      display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+      background-color: var(--secondary-light); border: 1px solid var(--border); color: var(--primary-hover);
+      border-radius: var(--radius-sm); padding: 12px 14px; margin-top: 16px; font-size: 14px; font-weight: 700;
+      cursor: pointer; font-family: inherit; min-height: 44px;
     }
-    .food-section-title svg { width: 18px; height: 18px; fill: var(--primary); flex-shrink: 0; }
+    .food-jump-link svg { width: 18px; height: 18px; fill: var(--primary-hover); flex-shrink: 0; }
 
     .food-item {
       background-color: var(--surface); border: 1px solid var(--border-light);
@@ -376,17 +378,21 @@
     .btn-kakao { background-color: #fee500; color: #191919; }
     .btn-ref { background-color: var(--bg); border: 1px solid var(--border); color: var(--text-main); }
 
-    /* --- 美食總覽：分區快速跳轉索引 --- */
+    /* --- 美食分頁：分區直接展開 --- */
     .food-index-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-    .food-index-group { margin-bottom: 14px; }
-    .food-index-btn {
+    .food-area { margin-bottom: 28px; }
+    .food-area-title {
       display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%;
       background-color: var(--surface); border: 1px solid var(--border-light); border-left: 4px solid var(--primary);
-      border-radius: var(--radius-sm); padding: 14px 16px; font-size: 15px; font-weight: 700;
-      color: var(--text-main); cursor: pointer; font-family: inherit; min-height: 44px;
+      border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 12px; font-size: 15.5px; font-weight: 800;
+      color: var(--text-main); cursor: pointer; font-family: inherit; min-height: 44px; text-align: left;
     }
-    .food-index-btn small { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
-    .food-index-btn svg { width: 18px; height: 18px; fill: var(--text-muted); flex-shrink: 0; }
+    .food-area-title:hover { border-color: var(--primary); }
+    .food-area-title span { color: var(--text-main); }
+    .jump-arrow {
+      width: 18px; height: 18px; fill: none; stroke: var(--primary); stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0;
+    }
 
     /* --- 接駁交通方案卡片 --- */
     .transport-card {
@@ -455,12 +461,14 @@
       border-top: 1px solid var(--border-light); box-shadow: 0 -4px 16px rgba(15,23,42,0.06); z-index: 200;
     }
     .bottom-bar-btn {
-      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 3px; padding: 10px 4px; background: none; border: none; cursor: pointer;
-      color: var(--text-muted); font-size: 11px; font-weight: 700; font-family: inherit; min-height: 56px;
+      flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; padding: 9px 2px; background: none; border: none; cursor: pointer;
+      color: var(--text-muted); font-size: 11px; font-weight: 700; font-family: inherit; min-height: 44px;
+      line-height: 1.2; text-align: center;
     }
-    .bottom-bar-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .bottom-bar-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
     .bottom-bar-btn.emphasis { color: var(--primary-hover); }
+    .bottom-bar-btn:disabled, .bottom-bar-btn.is-disabled { opacity: 0.4; cursor: default; }
 
     .link-styled { color: var(--primary); text-decoration: none; font-weight: 600; border-bottom: 1px dashed var(--primary); }
     .link-styled:hover { color: var(--primary-hover); }
@@ -885,10 +893,226 @@
             <p style="font-size: 14px; margin-bottom: 0;">直接步行 4 分鐘返回新首爾飯店休息，或在路邊使用 Kakao T 叫計程車前往明洞商圈（車程約 5 分鐘）。</p>
           </div>
 
-          <h4 class="food-section-title">
+          <button class="food-jump-link" onclick="jumpToFood('deoksugung')">
             <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
-            本區推薦美食
-          </h4>
+            <span>本區美食 →</span>
+          </button>
+        </div>
+
+        <!-- 3. 景福宮/三清洞 -->
+        <div id="spot-gyeongbok" class="spot-card" style="border-left-color: var(--day2);">
+          <span class="day-label" style="background-color: var(--day2-soft); color: var(--day2);">建議 Day2 上午・可彈性</span>
+          <h3 class="spot-title">景福宮・三清洞・平地銀杏與紅楓散策</h3>
+          <div class="friendly-badge slope">
+            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            緩坡・碎石路段
+            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.0</span>
+          </div>
+          <div class="alert-warning">
+            <p><strong>爛腳人防雷提示</strong>：景福宮內多為碎石路，步行阻力較大且傷鞋，<strong>請務必讓長輩穿著高防震的慢跑鞋</strong>。建議避開北村韓屋村的陡峭陡坡，專注於平坦的宮內及三清洞石牆路一帶。</p>
+          </div>
+
+          <div class="pill-row">
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>三清洞路邊叫車前往仁寺洞約 10 分鐘（約 5,000 韓元）</span>
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：國立古宮博物館（免門票、有電梯）</span>
+          </div>
+
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
+              鄰近歇腳處：國立古宮博物館
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">位於景福宮旁，免門票。館內有直達電梯、大型沙發區與舒適冷暖氣，是極佳的避風歇腳點。</p>
+          </div>
+          <div class="info-subcard" style="border-left-color: var(--primary);">
+            <div class="info-subcard-title" style="color: var(--primary-hover);">
+              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+              下一站移動
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">在三清洞路邊使用 Kakao T 叫計程車前往仁寺洞商圈（車程約 10 分鐘，車資約 5,000 韓元）。</p>
+          </div>
+
+          <button class="food-jump-link" onclick="jumpToFood('gyeongbok')">
+            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+            <span>本區美食 →</span>
+          </button>
+        </div>
+
+        <!-- 4. 仁寺洞 -->
+        <div id="spot-insadong" class="spot-card" style="border-left-color: var(--day2);">
+          <span class="day-label" style="background-color: var(--day2-soft); color: var(--day2);">建議 Day2 下午・可彈性</span>
+          <h3 class="spot-title">仁寺洞・傳統茶院與工藝老街</h3>
+          <div class="friendly-badge slope">
+            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            緩坡・環形無階梯
+            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.0</span>
+          </div>
+          <p class="area-desc">仁寺洞是首爾著名的傳統文藝街區。整條主街道為平緩的步行區，兩側有古董工藝品店。著名的森吉街（Ssamzigil）大樓為環形無階梯緩坡設計，長輩散步上樓完全不費力。</p>
+
+          <div class="pill-row">
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>叫車返回飯店約 8-10 分鐘（約 6,000 韓元）</span>
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：耕仁美術館傳統茶院</span>
+          </div>
+
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
+              鄰近歇腳處：耕仁美術館傳統茶院
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">設於百年韓屋庭園內，有寬敞的木質茶座。可在此一邊悠閒品嚐傳統雙和茶或五味子茶，一邊觀賞秋意盎然的家庭庭園。</p>
+          </div>
+          <div class="info-subcard" style="border-left-color: var(--primary);">
+            <div class="info-subcard-title" style="color: var(--primary-hover);">
+              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+              下一站移動
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">直接使用 Kakao T 呼叫計程車返回新首爾飯店（車程約 8-10 分鐘，車資約 6,000 韓元）。</p>
+          </div>
+
+          <button class="food-jump-link" onclick="jumpToFood('insadong')">
+            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+            <span>本區美食 →</span>
+          </button>
+        </div>
+
+        <!-- 5. 首爾林 -->
+        <div id="spot-seoulforest" class="spot-card" style="border-left-color: var(--day3);">
+          <span class="day-label" style="background-color: var(--day3-soft); color: var(--day3);">建議 Day3 上午・可彈性</span>
+          <h3 class="spot-title">首爾林・金黃銀杏隧道漫步</h3>
+          <div class="friendly-badge flat">
+            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            平地
+            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>5.0</span>
+          </div>
+          <p class="area-desc">首爾林是著名的都市森林，十月中旬金黃的銀杏落葉鋪滿步道，極其美麗。全區地勢完全平坦，鋪面平整無階梯，無障礙設施完善，設有大量木質靠背長椅，是本次行程最輕鬆的公園。</p>
+
+          <div class="pill-row">
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>步行 8-10 分鐘或叫車 3 分鐘到聖水洞</span>
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：昆蟲植物園溫室（暖和平坦）</span>
+          </div>
+
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
+              鄰近歇腳處：首爾林昆蟲植物園溫室
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">位於公園中心。溫室內暖和且平坦，設有長椅休息區。若秋季戶外風大偏涼，進入溫室內歇腳避風非常舒適。</p>
+          </div>
+          <div class="info-subcard" style="border-left-color: var(--primary);">
+            <div class="info-subcard-title" style="color: var(--primary-hover);">
+              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+              下一站移動
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">首爾林與聖水洞商圈相鄰，平路步行約 8-10 分鐘，或在出口直接使用 Kakao T 叫計程車（車程約 3 分鐘）。</p>
+          </div>
+
+          <button class="food-jump-link" onclick="jumpToFood('seoulforest')">
+            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+            <span>本區美食 →</span>
+          </button>
+        </div>
+
+        <!-- 6. 聖水洞 -->
+        <div id="spot-seongsu" class="spot-card" style="border-left-color: var(--day3);">
+          <span class="day-label" style="background-color: var(--day3-soft); color: var(--day3);">建議 Day3 下午・可彈性</span>
+          <h3 class="spot-title">聖水洞・工業風選物與藝廊咖啡廳</h3>
+          <div class="friendly-badge steps">
+            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            部分店家有門檻/窄樓梯
+            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>3.0</span>
+          </div>
+          <div class="alert-warning">
+            <p><strong>爛腳人防雷提示</strong>：聖水洞人行道狹窄，部分由工廠改建的特色小店入口<strong>設有較高的門檻或窄陡樓梯</strong>。建議安排家庭長輩在空間平整開闊的大型藝廊咖啡廳（如大林倉庫）中歇腳喝飲料，年輕成員則在周邊選物店逛街採購。</p>
+          </div>
+
+          <div class="pill-row">
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>大林倉庫叫大型車返回飯店約 20 分鐘</span>
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：大林倉庫挑高沙發區</span>
+          </div>
+
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
+              鄰近歇腳處：大林倉庫 (Daelim Changgo)
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">工廠改建的超大型藝廊咖啡廳，內部挑高開闊，設有大量舒適的軟質沙發座位，是長輩在此放鬆等候的絕佳空間。</p>
+          </div>
+          <div class="info-subcard" style="border-left-color: var(--primary);">
+            <div class="info-subcard-title" style="color: var(--primary-hover);">
+              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+              下一站移動
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">直接於大林倉庫門口使用 Kakao T 呼叫大車 (Venti / Jumbo) 直達新首爾飯店休息，車程約 20 分鐘。</p>
+          </div>
+
+          <button class="food-jump-link" onclick="jumpToFood('seongsu')">
+            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+            <span>本區美食 →</span>
+          </button>
+        </div>
+
+        <!-- 7. 首爾車站 -->
+        <div id="spot-seoulstation" class="spot-card" style="border-left-color: var(--day4);">
+          <span class="day-label" style="background-color: var(--day4-soft); color: var(--day4);">建議 Day4 上午・可彈性</span>
+          <h3 class="spot-title">首爾車站・樂天超市採購與老店牛骨湯</h3>
+          <div class="friendly-badge flat">
+            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+            室內平地・無障礙動線
+            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>5.0</span>
+          </div>
+          <div class="alert-warning">
+            <p><strong>爛腳人防雷提示</strong>：樂天超市採購人潮眾多，且打包裝箱區需要長時間站立整理。建議安排長輩在二樓的咖啡廳坐下歇腳等候，由年輕隨行成員處理手動封箱與打包事宜。</p>
+          </div>
+          <p class="area-desc">首爾站樂天超市是採購韓國泡麵、海苔、伴手禮零食的一站式首選。全室內平坦且無障礙動線良好，長輩可推著推車作為步行支撐，安全又省力。</p>
+
+          <div class="pill-row">
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>叫車返飯店取行李，再接 Klook 商務車前往機場（約 60-70 分鐘）</span>
+            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：Lotte Outlets 咖啡廳</span>
+          </div>
+
+          <div class="info-subcard">
+            <div class="info-subcard-title">
+              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
+              鄰近歇腳處：首爾站 Lotte Outlets 咖啡廳
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">樂天超市與 Lotte Outlets 相連，各樓層設有多間安靜舒適的咖啡廳與沙發座，方便長輩悠閒喝飲料等候。</p>
+          </div>
+          <div class="info-subcard" style="border-left-color: var(--primary);">
+            <div class="info-subcard-title" style="color: var(--primary-hover);">
+              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
+              下一站移動
+            </div>
+            <p style="font-size: 14px; margin-bottom: 0;">叫車返回飯店拿行李，隨後搭乘預約好的 Klook 大型商務車直接前往仁川機場 T2（車程約 60-70 分鐘）。</p>
+          </div>
+
+          <button class="food-jump-link" onclick="jumpToFood('seoulstation')">
+            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+            <span>本區美食 →</span>
+          </button>
+        </div>
+
+      </section>
+
+      <!-- ================= SECTION: 美食 ================= -->
+      <section id="section-food" class="content-section">
+        <h2 class="section-title">
+          <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+          美食
+        </h2>
+        <div class="section-sub">各區美食已直接展開，點<strong>區塊標題</strong>即可跳到「景點漫遊」對應景點看詳細散步路線。</div>
+
+        <div class="food-index-legend">
+          <span class="food-chip chip-meal">正餐</span>
+          <span class="food-chip chip-snack">小吃</span>
+          <span class="food-chip chip-cafe">咖啡廳</span>
+          <span class="food-chip chip-gift">伴手禮</span>
+        </div>
+
+        <div class="food-area" id="food-area-deoksugung">
+          <button class="food-area-title" onclick="jumpToSpot('spot-deoksugung')">
+            <span>德壽宮: 味成屋・滿足五香豬腳・Liege Waffle 等 5 家</span>
+            <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </button>
           <div id="food-deoksugung">
             <details class="food-item">
               <summary class="food-item-summary">
@@ -973,43 +1197,11 @@
           </div>
         </div>
 
-        <!-- 3. 景福宮/三清洞 -->
-        <div id="spot-gyeongbok" class="spot-card" style="border-left-color: var(--day2);">
-          <span class="day-label" style="background-color: var(--day2-soft); color: var(--day2);">建議 Day2 上午・可彈性</span>
-          <h3 class="spot-title">景福宮・三清洞・平地銀杏與紅楓散策</h3>
-          <div class="friendly-badge slope">
-            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
-            緩坡・碎石路段
-            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.0</span>
-          </div>
-          <div class="alert-warning">
-            <p><strong>爛腳人防雷提示</strong>：景福宮內多為碎石路，步行阻力較大且傷鞋，<strong>請務必讓長輩穿著高防震的慢跑鞋</strong>。建議避開北村韓屋村的陡峭陡坡，專注於平坦的宮內及三清洞石牆路一帶。</p>
-          </div>
-
-          <div class="pill-row">
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>三清洞路邊叫車前往仁寺洞約 10 分鐘（約 5,000 韓元）</span>
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：國立古宮博物館（免門票、有電梯）</span>
-          </div>
-
-          <div class="info-subcard">
-            <div class="info-subcard-title">
-              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：國立古宮博物館
-            </div>
-            <p style="font-size: 14px; margin-bottom: 0;">位於景福宮旁，免門票。館內有直達電梯、大型沙發區與舒適冷暖氣，是極佳的避風歇腳點。</p>
-          </div>
-          <div class="info-subcard" style="border-left-color: var(--primary);">
-            <div class="info-subcard-title" style="color: var(--primary-hover);">
-              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
-              下一站移動
-            </div>
-            <p style="font-size: 14px; margin-bottom: 0;">在三清洞路邊使用 Kakao T 叫計程車前往仁寺洞商圈（車程約 10 分鐘，車資約 5,000 韓元）。</p>
-          </div>
-
-          <h4 class="food-section-title">
-            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
-            本區推薦美食
-          </h4>
+        <div class="food-area" id="food-area-gyeongbok">
+          <button class="food-area-title" onclick="jumpToSpot('spot-gyeongbok')">
+            <span>景福宮・三清洞: 黃生家刀削麵・土俗村參雞湯 等 5 家</span>
+            <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </button>
           <div id="food-gyeongbok">
             <details class="food-item">
               <summary class="food-item-summary">
@@ -1094,41 +1286,11 @@
           </div>
         </div>
 
-        <!-- 4. 仁寺洞 -->
-        <div id="spot-insadong" class="spot-card" style="border-left-color: var(--day2);">
-          <span class="day-label" style="background-color: var(--day2-soft); color: var(--day2);">建議 Day2 下午・可彈性</span>
-          <h3 class="spot-title">仁寺洞・傳統茶院與工藝老街</h3>
-          <div class="friendly-badge slope">
-            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
-            緩坡・環形無階梯
-            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>4.0</span>
-          </div>
-          <p class="area-desc">仁寺洞是首爾著名的傳統文藝街區。整條主街道為平緩的步行區，兩側有古董工藝品店。著名的森吉街（Ssamzigil）大樓為環形無階梯緩坡設計，長輩散步上樓完全不費力。</p>
-
-          <div class="pill-row">
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>叫車返回飯店約 8-10 分鐘（約 6,000 韓元）</span>
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：耕仁美術館傳統茶院</span>
-          </div>
-
-          <div class="info-subcard">
-            <div class="info-subcard-title">
-              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：耕仁美術館傳統茶院
-            </div>
-            <p style="font-size: 14px; margin-bottom: 0;">設於百年韓屋庭園內，有寬敞的木質茶座。可在此一邊悠閒品嚐傳統雙和茶或五味子茶，一邊觀賞秋意盎然的家庭庭園。</p>
-          </div>
-          <div class="info-subcard" style="border-left-color: var(--primary);">
-            <div class="info-subcard-title" style="color: var(--primary-hover);">
-              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
-              下一站移動
-            </div>
-            <p style="font-size: 14px; margin-bottom: 0;">直接使用 Kakao T 呼叫計程車返回新首爾飯店（車程約 8-10 分鐘，車資約 6,000 韓元）。</p>
-          </div>
-
-          <h4 class="food-section-title">
-            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
-            本區推薦美食
-          </h4>
+        <div class="food-area" id="food-area-insadong">
+          <button class="food-area-title" onclick="jumpToSpot('spot-insadong')">
+            <span>仁寺洞: 開城餃子宮・仁寺洞蒜泥包肉 等 5 家</span>
+            <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </button>
           <div id="food-insadong">
             <details class="food-item">
               <summary class="food-item-summary">
@@ -1213,41 +1375,11 @@
           </div>
         </div>
 
-        <!-- 5. 首爾林 -->
-        <div id="spot-seoulforest" class="spot-card" style="border-left-color: var(--day3);">
-          <span class="day-label" style="background-color: var(--day3-soft); color: var(--day3);">建議 Day3 上午・可彈性</span>
-          <h3 class="spot-title">首爾林・金黃銀杏隧道漫步</h3>
-          <div class="friendly-badge flat">
-            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
-            平地
-            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>5.0</span>
-          </div>
-          <p class="area-desc">首爾林是著名的都市森林，十月中旬金黃的銀杏落葉鋪滿步道，極其美麗。全區地勢完全平坦，鋪面平整無階梯，無障礙設施完善，設有大量木質靠背長椅，是本次行程最輕鬆的公園。</p>
-
-          <div class="pill-row">
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>步行 8-10 分鐘或叫車 3 分鐘到聖水洞</span>
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：昆蟲植物園溫室（暖和平坦）</span>
-          </div>
-
-          <div class="info-subcard">
-            <div class="info-subcard-title">
-              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：首爾林昆蟲植物園溫室
-            </div>
-            <p style="font-size: 14px; margin-bottom: 0;">位於公園中心。溫室內暖和且平坦，設有長椅休息區。若秋季戶外風大偏涼，進入溫室內歇腳避風非常舒適。</p>
-          </div>
-          <div class="info-subcard" style="border-left-color: var(--primary);">
-            <div class="info-subcard-title" style="color: var(--primary-hover);">
-              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
-              下一站移動
-            </div>
-            <p style="font-size: 14px; margin-bottom: 0;">首爾林與聖水洞商圈相鄰，平路步行約 8-10 分鐘，或在出口直接使用 Kakao T 叫計程車（車程約 3 分鐘）。</p>
-          </div>
-
-          <h4 class="food-section-title">
-            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
-            本區推薦美食
-          </h4>
+        <div class="food-area" id="food-area-seoulforest">
+          <button class="food-area-title" onclick="jumpToSpot('spot-seoulforest')">
+            <span>首爾林: 奶奶的食譜・大成肋排 等 5 家</span>
+            <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </button>
           <div id="food-seoulforest">
             <details class="food-item">
               <summary class="food-item-summary">
@@ -1332,43 +1464,11 @@
           </div>
         </div>
 
-        <!-- 6. 聖水洞 -->
-        <div id="spot-seongsu" class="spot-card" style="border-left-color: var(--day3);">
-          <span class="day-label" style="background-color: var(--day3-soft); color: var(--day3);">建議 Day3 下午・可彈性</span>
-          <h3 class="spot-title">聖水洞・工業風選物與藝廊咖啡廳</h3>
-          <div class="friendly-badge steps">
-            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
-            部分店家有門檻/窄樓梯
-            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>3.0</span>
-          </div>
-          <div class="alert-warning">
-            <p><strong>爛腳人防雷提示</strong>：聖水洞人行道狹窄，部分由工廠改建的特色小店入口<strong>設有較高的門檻或窄陡樓梯</strong>。建議安排家庭長輩在空間平整開闊的大型藝廊咖啡廳（如大林倉庫）中歇腳喝飲料，年輕成員則在周邊選物店逛街採購。</p>
-          </div>
-
-          <div class="pill-row">
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>大林倉庫叫大型車返回飯店約 20 分鐘</span>
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：大林倉庫挑高沙發區</span>
-          </div>
-
-          <div class="info-subcard">
-            <div class="info-subcard-title">
-              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：大林倉庫 (Daelim Changgo)
-            </div>
-            <p style="font-size: 14px; margin-bottom: 0;">工廠改建的超大型藝廊咖啡廳，內部挑高開闊，設有大量舒適的軟質沙發座位，是長輩在此放鬆等候的絕佳空間。</p>
-          </div>
-          <div class="info-subcard" style="border-left-color: var(--primary);">
-            <div class="info-subcard-title" style="color: var(--primary-hover);">
-              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
-              下一站移動
-            </div>
-            <p style="font-size: 14px; margin-bottom: 0;">直接於大林倉庫門口使用 Kakao T 呼叫大車 (Venti / Jumbo) 直達新首爾飯店休息，車程約 20 分鐘。</p>
-          </div>
-
-          <h4 class="food-section-title">
-            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
-            本區推薦美食
-          </h4>
+        <div class="food-area" id="food-area-seongsu">
+          <button class="food-area-title" onclick="jumpToSpot('spot-seongsu')">
+            <span>聖水洞: 聖水一隻雞・大林倉庫 等 5 家</span>
+            <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </button>
           <div id="food-seongsu">
             <details class="food-item">
               <summary class="food-item-summary">
@@ -1453,44 +1553,11 @@
           </div>
         </div>
 
-        <!-- 7. 首爾車站 -->
-        <div id="spot-seoulstation" class="spot-card" style="border-left-color: var(--day4);">
-          <span class="day-label" style="background-color: var(--day4-soft); color: var(--day4);">建議 Day4 上午・可彈性</span>
-          <h3 class="spot-title">首爾車站・樂天超市採購與老店牛骨湯</h3>
-          <div class="friendly-badge flat">
-            <svg class="foot-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
-            室內平地・無障礙動線
-            <span class="stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>5.0</span>
-          </div>
-          <div class="alert-warning">
-            <p><strong>爛腳人防雷提示</strong>：樂天超市採購人潮眾多，且打包裝箱區需要長時間站立整理。建議安排長輩在二樓的咖啡廳坐下歇腳等候，由年輕隨行成員處理手動封箱與打包事宜。</p>
-          </div>
-          <p class="area-desc">首爾站樂天超市是採購韓國泡麵、海苔、伴手禮零食的一站式首選。全室內平坦且無障礙動線良好，長輩可推著推車作為步行支撐，安全又省力。</p>
-
-          <div class="pill-row">
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 10 16.8 11 19 11v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 6.3V11h2V7.6l1.8-.7"/></svg>叫車返飯店取行李，再接 Klook 商務車前往機場（約 60-70 分鐘）</span>
-            <span class="pill"><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>附近可坐：Lotte Outlets 咖啡廳</span>
-          </div>
-
-          <div class="info-subcard">
-            <div class="info-subcard-title">
-              <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/></svg>
-              鄰近歇腳處：首爾站 Lotte Outlets 咖啡廳
-            </div>
-            <p style="font-size: 14px; margin-bottom: 0;">樂天超市與 Lotte Outlets 相連，各樓層設有多間安靜舒適的咖啡廳與沙發座，方便長輩悠閒喝飲料等候。</p>
-          </div>
-          <div class="info-subcard" style="border-left-color: var(--primary);">
-            <div class="info-subcard-title" style="color: var(--primary-hover);">
-              <svg viewBox="0 0 24 24" style="fill: var(--primary-hover);"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10z"/></svg>
-              下一站移動
-            </div>
-            <p style="font-size: 14px; margin-bottom: 0;">叫車返回飯店拿行李，隨後搭乘預約好的 Klook 大型商務車直接前往仁川機場 T2（車程約 60-70 分鐘）。</p>
-          </div>
-
-          <h4 class="food-section-title">
-            <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
-            本區推薦美食
-          </h4>
+        <div class="food-area" id="food-area-seoulstation">
+          <button class="food-area-title" onclick="jumpToSpot('spot-seoulstation')">
+            <span>首爾車站: 河東館・兔子停 等 5 家</span>
+            <svg class="jump-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </button>
           <div id="food-seoulstation">
             <details class="food-item">
               <summary class="food-item-summary">
@@ -1573,60 +1640,6 @@
               </div>
             </details>
           </div>
-        </div>
-
-      </section>
-
-      <!-- ================= SECTION: 美食 ================= -->
-      <section id="section-food" class="content-section">
-        <h2 class="section-title">
-          <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
-          美食
-        </h2>
-        <div class="section-sub">全站每站 5 家推薦美食已收合於「景點漫遊」各站卡片內，點下方直接跳轉到該站的收合清單。</div>
-
-        <div class="food-index-legend">
-          <span class="food-chip chip-meal">正餐</span>
-          <span class="food-chip chip-snack">小吃</span>
-          <span class="food-chip chip-cafe">咖啡廳</span>
-          <span class="food-chip chip-gift">伴手禮</span>
-        </div>
-
-        <div class="food-index-group">
-          <button class="food-index-btn" onclick="jumpToFoodArea('food-deoksugung')">
-            德壽宮美食<small>味成屋・滿足五香豬腳・Liege Waffle 等 5 家</small>
-            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-          </button>
-        </div>
-        <div class="food-index-group">
-          <button class="food-index-btn" onclick="jumpToFoodArea('food-gyeongbok')">
-            景福宮・三清洞美食<small>黃生家刀削麵・土俗村參雞湯 等 5 家</small>
-            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-          </button>
-        </div>
-        <div class="food-index-group">
-          <button class="food-index-btn" onclick="jumpToFoodArea('food-insadong')">
-            仁寺洞美食<small>開城餃子宮・仁寺洞蒜泥包肉 等 5 家</small>
-            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-          </button>
-        </div>
-        <div class="food-index-group">
-          <button class="food-index-btn" onclick="jumpToFoodArea('food-seoulforest')">
-            首爾林美食<small>奶奶的食譜・大成肋排 等 5 家</small>
-            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-          </button>
-        </div>
-        <div class="food-index-group">
-          <button class="food-index-btn" onclick="jumpToFoodArea('food-seongsu')">
-            聖水洞美食<small>聖水一隻雞・大林倉庫 等 5 家</small>
-            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-          </button>
-        </div>
-        <div class="food-index-group">
-          <button class="food-index-btn" onclick="jumpToFoodArea('food-seoulstation')">
-            首爾車站美食<small>河東館・兔子停 等 5 家</small>
-            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-          </button>
         </div>
       </section>
 
@@ -1831,6 +1844,10 @@
         <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
         緊急撥號
       </button>
+      <button class="bottom-bar-btn" onclick="goBack()" aria-label="回上頁">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        回上頁
+      </button>
       <button class="bottom-bar-btn" onclick="switchSection(null, 'overview')" aria-label="回總覽">
         <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8h-3v9h-4v-6H10v6H6v-9H3z"/></svg>
         回總覽
@@ -1844,9 +1861,33 @@
   </div>
 
   <script>
+    // --- 分頁順序（供 A.3 左右滑動使用） ---
+    const SECTION_ORDER = ['overview', 'preparation', 'airport', 'spots', 'food', 'useful', 'emergency'];
+
+    // --- 瀏覽歷史堆疊（供「回上頁」，記憶體內即可，不需持久化） ---
+    let sectionHistory = [];
+    const SECTION_HISTORY_LIMIT = 30;
+
+    function getCurrentSectionId() {
+      const activeSection = document.querySelector('.content-section.active');
+      return activeSection ? activeSection.id.replace('section-', '') : null;
+    }
+
     // --- 頁面區段切換 (Section Switching) ---
-    function switchSection(event, sectionId) {
+    // opts = { record = true }：是否把切換前的分頁記錄進歷史堆疊（供 goBack 使用）
+    function switchSection(event, sectionId, opts) {
       if (event) event.preventDefault();
+      const record = !opts || opts.record !== false;
+
+      if (record) {
+        const currentId = getCurrentSectionId();
+        if (currentId && currentId !== sectionId) {
+          if (sectionHistory[sectionHistory.length - 1] !== currentId) {
+            sectionHistory.push(currentId);
+            if (sectionHistory.length > SECTION_HISTORY_LIMIT) sectionHistory.shift();
+          }
+        }
+      }
 
       const navLinks = document.querySelectorAll('.nav-link');
       navLinks.forEach(link => link.classList.remove('active'));
@@ -1867,6 +1908,13 @@
       } catch (e) {
         console.error('LocalStorage error:', e);
       }
+    }
+
+    // --- 回上頁：回到「剛才看的那個分頁」（瀏覽歷史 back），非順序上的前一頁 ---
+    function goBack() {
+      if (sectionHistory.length === 0) return;
+      const prev = sectionHistory.pop();
+      switchSection(null, prev, { record: false });
     }
 
     function scrollToActiveNav() {
@@ -1896,10 +1944,10 @@
       scrollToAnchor(spotId);
     }
 
-    // --- 美食索引：切至「景點漫遊」並捲動到指定站點美食清單 ---
-    function jumpToFoodArea(foodAnchorId) {
-      switchSection(null, 'spots');
-      scrollToAnchor(foodAnchorId);
+    // --- 景點卡「本區美食 →」：切至「美食」分頁並捲動到對應展開區塊 ---
+    function jumpToFood(areaId) {
+      switchSection(null, 'food');
+      scrollToAnchor('food-area-' + areaId);
     }
 
     // --- 摺疊詳解卡片：互斥 (僅限行前準備 name="prep-group") 與自動滾動置中 ---
@@ -1933,6 +1981,61 @@
       });
     }
 
+    // --- 左右滑動切換分頁 (touch swipe)，並避讓所有橫向捲動容器 ---
+    function setupSwipeNavigation() {
+      const container = document.querySelector('.app-container');
+      if (!container) return;
+
+      const HORIZONTAL_SCROLL_SELECTOR = '.nav-menu, .anchor-chip-row, .food-index-legend, .food-actions';
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let ignoreSwipe = false;
+
+      function isInsideScrollableRow(target) {
+        if (target.closest && target.closest(HORIZONTAL_SCROLL_SELECTOR)) return true;
+        let el = target;
+        while (el && el !== container && el.nodeType === 1) {
+          const style = window.getComputedStyle(el);
+          if ((style.overflowX === 'auto' || style.overflowX === 'scroll') && el.scrollWidth > el.clientWidth) {
+            return true;
+          }
+          el = el.parentElement;
+        }
+        return false;
+      }
+
+      container.addEventListener('touchstart', (e) => {
+        const touch = e.touches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        ignoreSwipe = isInsideScrollableRow(e.target);
+      }, { passive: true });
+
+      container.addEventListener('touchend', (e) => {
+        if (ignoreSwipe) return;
+        const touch = e.changedTouches[0];
+        const dx = touch.clientX - touchStartX;
+        const dy = touch.clientY - touchStartY;
+
+        if (Math.abs(dx) > 60 && Math.abs(dx) > 2 * Math.abs(dy)) {
+          const currentId = getCurrentSectionId();
+          const currentIndex = SECTION_ORDER.indexOf(currentId);
+          if (currentIndex === -1) return;
+
+          let nextIndex = currentIndex;
+          if (dx < 0) {
+            nextIndex = Math.min(currentIndex + 1, SECTION_ORDER.length - 1);
+          } else {
+            nextIndex = Math.max(currentIndex - 1, 0);
+          }
+
+          if (nextIndex !== currentIndex) {
+            switchSection(null, SECTION_ORDER[nextIndex]);
+          }
+        }
+      }, { passive: true });
+    }
+
     // --- 頁面初始化 ---
     window.addEventListener('DOMContentLoaded', () => {
       let savedSection = 'overview';
@@ -1942,17 +2045,19 @@
         console.error('LocalStorage error:', e);
       }
 
-      switchSection(null, savedSection);
+      switchSection(null, savedSection, { record: false });
 
       setupExclusiveAccordions();
       setupBackToTopButton();
+      setupSwipeNavigation();
     });
 
     // 全域掛載函數防止行內事件失效
     window.switchSection = switchSection;
+    window.goBack = goBack;
     window.scrollToAnchor = scrollToAnchor;
     window.jumpToSpot = jumpToSpot;
-    window.jumpToFoodArea = jumpToFoodArea;
+    window.jumpToFood = jumpToFood;
   </script>
 </body>
 </html>
