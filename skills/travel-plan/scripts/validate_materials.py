@@ -25,6 +25,7 @@ Exit code：
 
 import argparse
 import json
+import re
 import sys
 from datetime import date, datetime
 from urllib.parse import urlparse
@@ -151,10 +152,49 @@ def validate_spots(spots_data, report):
     return spot_ids_by_area
 
 
-def guess_staple(name, signature):
-    """簡易判斷「主食類型」：優先用 signature，否則用店名，取關鍵字模糊比對用的正規化字串。"""
-    text = (signature or name or "").strip()
+# 常見修飾語：出現在招牌菜名裡但不改變主食類型，比對前先剝掉。
+# 例：「元祖人蔘雞湯」與「蔘雞湯」應視為同一種。
+STAPLE_MODIFIERS = (
+    "元祖", "本家", "老字號", "傳統", "手工", "特製", "招牌", "限定", "名物",
+    "人", "韓式", "韓國", "首爾", "宮廷", "土種", "生", "炭火", "石鍋",
+)
+
+
+def normalize_staple(text):
+    """把招牌菜名正規化成可比對的字串：去空白、去標點、剝掉不影響主食類型的修飾語。"""
+    text = re.sub(r"[\s\-_·・（）()\[\]【】、,，.。/／]+", "", (text or "").strip())
+    for m in STAPLE_MODIFIERS:
+        text = text.replace(m, "")
     return text
+
+
+def guess_staple(name, signature):
+    """判斷「主食類型」：優先用 signature，否則用店名，回傳正規化後的比對字串。"""
+    return normalize_staple(signature or name or "")
+
+
+def group_staples(all_staples):
+    """把主食類型分組：正規化後互為包含關係（且長度 >= 2）者視為同一種。
+
+    完全字串比對會讓規則 2 形同虛設——招牌菜名差一個字（「蔘雞湯」vs「人蔘雞湯」）
+    就會被當成兩種，全書出現五次也抓不到。改用包含比對涵蓋這類同義寫法。
+    """
+    groups = []  # [(代表字串, [occurrence, ...])]
+    for staple, area_id, pick_id in all_staples:
+        if len(staple) < 2:
+            continue
+        occurrence = f"{area_id}.{pick_id}"
+        for group in groups:
+            rep = group[0]
+            if staple == rep or staple in rep or rep in staple:
+                # 以較短者當代表，代表的是共同的主食核心字
+                if len(staple) < len(rep):
+                    group[0] = staple
+                group[1].append(occurrence)
+                break
+        else:
+            groups.append([staple, [occurrence]])
+    return groups
 
 
 def validate_food(food_data, spot_ids_by_area, report):
@@ -215,11 +255,8 @@ def validate_food(food_data, spot_ids_by_area, report):
         if len(categories_seen) < MIN_CATEGORY_SPAN:
             report.error(f"area '{area_id}'：category 只橫跨 {len(categories_seen)} 類（{sorted(categories_seen)}），需至少 {MIN_CATEGORY_SPAN} 類")
 
-    # 跨日反重複：同一主食類型全書最多出現 2 次
-    staple_counts = {}
-    for staple, area_id, pick_id in all_staples:
-        staple_counts.setdefault(staple, []).append(f"{area_id}.{pick_id}")
-    for staple, occurrences in staple_counts.items():
+    # 跨日反重複：同一主食類型全書最多出現 2 次（包含比對，見 group_staples）
+    for staple, occurrences in group_staples(all_staples):
         if len(occurrences) > MAX_SAME_STAPLE:
             report.error(
                 f"主食類型 '{staple}' 全書出現 {len(occurrences)} 次（{', '.join(occurrences)}），"
