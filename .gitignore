@@ -1,3 +1,7 @@
-Korean
-travel_config.yml
-web_design_preference.md
+# 舊資產封存後的私有檔案（Phase 0 搬移前既有排除規則，路徑隨搬移調整）
+archive/Korean
+archive/travel_config.yml
+archive/web_design_preference.md
+
+# travel-plan skill：每趟旅程的原始個資與個人化成品，永不進版控（見 skill_update_plan.md §5）
+trips/*/private/
