@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://travel-plan.skill/schemas/trip_context.schema.json",
+  "title": "trip_context",
+  "description": "去識別化後的旅程脈絡檔，進版控。原始個資留在 trips/{trip}/private/，不得出現在此檔案中。詳見 references/privacy.md。",
+  "type": "object",
+  "required": ["version", "destination", "dates"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "schema 版本號"
+    },
+    "destination": {
+      "type": "string",
+      "description": "旅遊目的地（國家或城市），唯一硬停欄位，不可為空字串"
+    },
+    "dates": {
+      "type": "object",
+      "required": ["start", "end"],
+      "additionalProperties": false,
+      "properties": {
+        "start": { "type": "string", "format": "date" },
+        "end": { "type": "string", "format": "date" },
+        "nights": { "type": "integer", "minimum": 0 },
+        "season": { "type": ["string", "null"] }
+      }
+    },
+    "arrival": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "date": { "type": "string", "format": "date" },
+        "time": { "type": "string", "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$" },
+        "airport": { "type": "string" },
+        "terminal": { "type": ["string", "null"] },
+        "carrier": { "type": ["string", "null"] }
+      }
+    },
+    "departure": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "date": { "type": "string", "format": "date" },
+        "time": { "type": "string", "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$" },
+        "airport": { "type": "string" },
+        "terminal": { "type": ["string", "null"] },
+        "carrier": { "type": ["string", "null"] }
+      }
+    },
+    "origin": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "airport": { "type": "string" },
+        "terminal": { "type": ["string", "null"] }
+      }
+    },
+    "stay": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "area": { "type": ["string", "null"], "description": "區域描述，禁止門牌地址" },
+        "nearest_station": { "type": ["string", "null"] },
+        "checkin": { "type": ["string", "null"] }
+      }
+    },
+    "party": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "adults": { "type": "integer", "minimum": 0 },
+        "children": { "type": "integer", "minimum": 0 },
+        "rooms": { "type": "integer", "minimum": 0 },
+        "mobility_notes": { "type": ["string", "null"] }
+      }
+    },
+    "style": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pace": { "type": ["string", "null"] },
+        "interests": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "named_musts": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "使用者指名的必去景點/店家"
+    },
+    "named_undecided": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "使用者猶豫、尚未決定的候選景點/店家"
+    },
+    "derived_constraints": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "agent 推論出的排程限制條件（自然語言），例如紅眼班機、末半天可用時數"
+    },
+    "inferred_fields": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "列出哪些欄位值是推斷而非使用者提供，需在 progress.md 標記待覆核"
+    },
+    "provenance": {
+      "type": "string",
+      "description": "原始資料來源說明，只描述來源位置，不得含實際個資"
+    }
+  }
+}
