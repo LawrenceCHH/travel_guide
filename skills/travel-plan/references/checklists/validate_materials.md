@@ -8,6 +8,7 @@
 1. 打開 `food.json`，逐一列出每個 `area.id`。
 2. 對每個 area，數 `picks[].audience == "tourist"` 的筆數，需 ≥ 3；數 `audience == "local"` 的筆數，需 ≥ 3。
 3. 對每個 area，列出該 area 內出現過的 `category` 去重集合，需 ≥ 3 種不同值。
+   **先排除步驟 7 判定為非法的值**——非法值不計入類別數，否則會與 `validate_materials.py` 得出相反判定。
 4. 任一項不足 → **ERROR**：記錄「area X：tourist N 家（需≥3）」或「area X：category 只橫跨 N 類」。
 
 ## 步驟 2：規則 2 — 跨日反重複，同一主食類型全書最多 2 次

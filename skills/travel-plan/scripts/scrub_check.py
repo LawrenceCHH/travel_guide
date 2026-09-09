@@ -9,7 +9,8 @@
   1. 訂房確認號 / 訂單編號（如 Booking Reference、確認碼）
   2. 訂房人姓名（Name / 姓名 / 訂房人 標籤後的值）
   3. 航班號（2 碼航空公司代碼 + 2~4 碼數字，如 BR225、CI702）
-  4. 飯店/住宿名稱（Hotel / 飯店 / 民宿 標籤後的值）
+  4. 飯店/住宿名稱（Hotel / 飯店 / 民宿 標籤後的值；另有無標籤規則，
+     可抓出訂房確認信裡未帶標籤的 "X Hotel" 與中文「XX飯店」）
   5. 電話號碼（含國際冠碼、市話、手機各種格式）
   6. Email 地址
   7. 護照號碼（Passport No. 標籤後的值）
@@ -59,6 +60,15 @@ GENERIC_PATTERNS = {
     "Email": re.compile(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}"),
     "電話號碼": re.compile(r"(?:\+?\d{1,3}[-\s]?)?(?:\(0\)|0)?\d{1,4}[-\s]?\d{3,4}[-\s]?\d{3,4}"),
     "航班號": re.compile(r"\b[A-Z]{2}\d{2,4}\b"),
+    # 住宿名稱在真實訂房確認信裡幾乎不帶標籤（"reservation with X Hotel"、
+    # "Greetings from X Hotel"、行程表裡直接寫店名），只靠 LABEL_PATTERNS 會整類漏掉。
+    "住宿名稱（無標籤）": re.compile(
+        r"\b(?:[A-Z][A-Za-z'\u2019\-]*\s+){0,4}"
+        r"(?:Hotel|Hostel|Inn|Resort|Residence|Suites|Guesthouse|Guest\s*House|Motel)\b"
+    ),
+    "住宿名稱（中文無標籤）": re.compile(
+        r"[\u4e00-\u9fffA-Za-z0-9]{2,12}(?:大飯店|飯店|酒店|旅館|民宿|會館)"
+    ),
 }
 
 # 短於此長度的 token 容易誤判/雜訊過多，不納入掃描。
