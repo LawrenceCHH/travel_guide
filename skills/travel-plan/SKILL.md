@@ -21,6 +21,7 @@ description: 協助使用者規劃出國自助旅行的完整行前準備與行�
 
 1. **環境能力自檢**，寫入 `progress.md`「環境」欄：
    - 網頁搜尋／抓取？檔案讀寫？子 agent 派發？git？**有沒有真人使用者在線**（被其他 agent／排程呼叫時視為無）？
+   - **子 agent 派發能力要實測，不能只看 binary 在不在**：執行 `python3 scripts/detect_agents.py --self <自己的子agent模型>`（無 Python 走 `references/checklists/detect_agents.md`）。實測遇過 binary 在 PATH 上卻是未安裝的 stub，派工出去會卡在互動式安裝提示。偵測結果與依專長派工見 `references/agent_routing.md`。
    - 程式執行：**實測執行 `python3 --version`（失敗再試 `python --version`）**，不得從宿主類型推斷。
    - **無網頁搜尋 → 這是唯一硬需求，明確告知使用者無法執行並中止。**
    - 各項能力的判定方式與降級路徑見 `references/portability.md`。
@@ -31,7 +32,7 @@ description: 協助使用者規劃出國自助旅行的完整行前準備與行�
 
 4. **產出 `trip_context.json`**，請使用者確認去識別化結果（人工關卡，不可跳過）。格式與去識別化規則見 `references/privacy.md`。
    **無真人使用者時**：關卡只能延後不能取消——照常產出，在 `progress.md` 標「⚠ 尚未經人工確認」，並且**不得 commit**。詳見 `references/portability.md` §無真人使用者。
-5. **只有具備子 agent 派發能力時才問**：要平行還是序列？（見 §3）**此步必須在派任何工之前完成**——派工後即為非互動式，子 agent 沒機會再問使用者，所有需要使用者決定的事必須在此之前一次問完。無子 agent 能力時不問這一題，直接走序列。
+5. **只有第 1 步實測到 `ready` 的 executor 時才問**：要平行還是序列？（見 §3）派給誰依 `references/agent_routing.md` §2 的專長對照表決定，不是隨便挑一個。**此步必須在派任何工之前完成**——派工後即為非互動式，子 agent 沒機會再問使用者，所有需要使用者決定的事必須在此之前一次問完。無子 agent 能力時不問這一題，直接走序列。
 6. **建立 `progress.md`**，開始執行。格式見 `references/progress_protocol.md`。
 
 ## 2. 三種模式與 Wave 依賴（摘要，細節見 `references/workflow.md`）
@@ -81,7 +82,8 @@ Wave 3（依賴 09＋05＋首尾時刻）：10 行程安排（3 方案）
 | 隱私分層與去識別化規則 | `references/privacy.md` |
 | `progress.md` 格式與接手協議 | `references/progress_protocol.md` |
 | 三模式與 Wave 調度細節 | `references/workflow.md` |
-| script 的手動後備 | `references/checklists/validate_materials.md`、`references/checklists/scrub_check.md` |
+| 可呼叫 agent 偵測與依專長派工 | `references/agent_routing.md` |
+| script 的手動後備 | `references/checklists/validate_materials.md`、`references/checklists/scrub_check.md`、`references/checklists/detect_agents.md` |
 | 使用者資訊取得與必抽欄位 | `references/intake.md` |
 | 選填輔助問卷 | `templates/trip_profile.template.md` |
 | 去識別化脈絡檔 schema | `templates/trip_context.schema.json` |

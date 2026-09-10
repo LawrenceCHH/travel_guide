@@ -7,6 +7,7 @@
 ```
 1. 環境能力自檢 → 寫入 progress.md「環境」欄
      網頁搜尋？檔案讀寫？子 agent？git？
+     子 agent → 實測 `python3 scripts/detect_agents.py`，binary 存在 ≠ 可用（見 references/agent_routing.md）
      程式執行 → 實測 `python3 --version`（失敗再試 `python --version`），不從宿主類型推斷
      └ 無網頁搜尋 → 明確告知使用者無法執行並中止
 2. 取得使用者資訊（讀既有檔案 ▸ 引導式提問 ▸ 全預設）
@@ -18,7 +19,7 @@
 
 第 5 步的位置很重要：**必須在派任何工之前**。承襲舊 orchestrator 的教訓——派工後即為非互動式，子 agent 沒機會問使用者，所有需要使用者決定的事必須在此之前一次問完。
 
-詳細的能力自檢方式與降級路徑見 `references/portability.md`；取得使用者資訊的細節見 `templates/trip_profile.template.md`；去識別化細節見 `references/privacy.md`。
+可呼叫 agent 的偵測方式與依專長派工見 `references/agent_routing.md`；詳細的能力自檢方式與降級路徑見 `references/portability.md`；取得使用者資訊的細節見 `templates/trip_profile.template.md`；去識別化細節見 `references/privacy.md`。
 
 ## 三種模式
 

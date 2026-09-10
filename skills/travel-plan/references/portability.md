@@ -51,7 +51,7 @@
 3. script 只做校驗與格式轉換，不做檢索與判斷，因此 agent 手動做也不會漏掉需要判斷的部分。
 
 ### 無子 agent 派發能力
-不在啟動流程第 5 步問「要平行還是序列」，直接視為序列模式，寫入 `progress.md`「環境」欄。
+以 `scripts/detect_agents.py`（或 `references/checklists/detect_agents.md`）實測判定，**不得只用 `command -v` 判斷**——binary 存在可能只是未安裝的 stub。`ready` 數為 0 時，不在啟動流程第 5 步問「要平行還是序列」，直接視為序列模式，寫入 `progress.md`「環境」欄（`broken` 者要一併記下失敗原因）。依專長派工見 `references/agent_routing.md`。
 
 ### 無 git
 不執行任何 `git commit`。改為每完成一個主題，在 `progress.md` 的「變更紀錄」區塊新增一行時間戳記＋摘要（格式見 `references/progress_protocol.md`）。無 git 環境下，`private/` 資料夾仍要遵守隱私分層規則（見 `references/privacy.md`），只是靠人工紀律而非 `.gitignore` 強制。
