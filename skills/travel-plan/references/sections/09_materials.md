@@ -71,6 +71,7 @@ JSON 本身沒有歧義，但 **diff 品質靠約定維持**：
 
 ## 檢索指引與來源要求
 - 全部依 `references/research_rules.md`，一般等級。景點/美食推薦以 `tier: blogger` 近一年實測為主，開放時間/門票金額等規範性資訊優先 `tier: official`/`platform`。
+- **發掘管道依 `research_rules.md` §9 的兩階段流程**：`areas`/`spots` 的候選優先來自「使用者所在國旅人」寫「目的地國」的遊記（§9.1）；`food.picks` 的候選改用目的地國當地人常用的地圖/搜尋服務找，並刻意跨不同分類取樣以避免美食同質化（§9.2，韓國已驗證用 `search.naver.com` 整合搜尋）。找到候選後仍要依 §1/§2 找到可引用的深層文章來源，地圖面板本身不可當 `sources`。
 
 ## 完成判準 checklist
 - [ ] `spots.json`／`food.json` 皆通過 schema 驗證（必填欄位齊全、列舉值合法）
