@@ -59,8 +59,9 @@ JSON 本身沒有歧義，但 **diff 品質靠約定維持**：
 5. 每個 `area` 的 `spots` 中至少 1 個 `rainy_day_ok: true`（供 `10_itinerary.md` 的 Plan B 使用）。
 6. `food.picks[].near_spot` 必須存在於 `spots.json` 的**同一 area** 中（參照完整性）。
 7. 所有列舉欄位（見 §7.1 表）的值必須落在合法值清單內。
+8. **`areas` 必須覆蓋 `trip_context.named_musts` 涉及的全部地理區域**，不得只做最低限度（schema 的 `minItems: 1` 只是格式下限，不是完成標準）。若受限於執行時間無法逐區建檔，**不得靜默省略**：未覆蓋的區域要在 `progress.md` 列出清單與原因，且 `10_itinerary.md` 引用該區域的指名景點時必須明確標註「未依 09 規格建檔，直接沿用使用者草稿原文，未經來源查證與友善度評分」——不可讓成品外觀上看起來與正式建檔的區域一樣完整。
 
-七條規則的機械執行由 `scripts/validate_materials.py` 完成，輸出區分 ERROR（阻斷）/WARN（提醒但不阻斷）；無程式執行環境時走 `references/checklists/validate_materials.md` 的等效手動步驟。
+前七條規則的機械執行由 `scripts/validate_materials.py` 完成，輸出區分 ERROR（阻斷）/WARN（提醒但不阻斷）；第 8 條是覆蓋範圍規則，`validate_materials.py` 不做地理覆蓋判斷，需 agent 自行對照 `trip_context.named_musts` 檢查，或使用 `references/checklists/validate_materials.md` 的等效手動步驟。
 
 ## 必須回答的問題清單
 - 這個大區域要分成哪幾個 `area`（依 §7.1 與 05 的交通樞紐劃分，通常以捷運站/商圈為單位）？
@@ -73,7 +74,8 @@ JSON 本身沒有歧義，但 **diff 品質靠約定維持**：
 
 ## 完成判準 checklist
 - [ ] `spots.json`／`food.json` 皆通過 schema 驗證（必填欄位齊全、列舉值合法）
-- [ ] §7.3 七條硬約束全數通過（或已知違規已標記並知會使用者）
+- [ ] §7.3 八條硬約束全數通過（或已知違規已標記並知會使用者）
+- [ ] `areas` 覆蓋 `trip_context.named_musts` 的全部地理區域，未覆蓋者已在 `progress.md` 列出清單與原因（§7.3 第 8 條）
 - [ ] 輸出符合 §7.2 六條約定（欄位順序、巢狀 ≤3 層、`sources` 單行、2 空格縮排、`ensure_ascii=false`、檔尾換行）
 - [ ] `food.near_spot` 全數可在同 area 的 `spots` 中找到
 
