@@ -146,18 +146,28 @@ skill 的產出沒有任何一份有這種收斂層。
 
 ## 3. 修正計畫
 
-### P0（2026-09-11 定案為簡化版）：飲食限制「有講才篩」，地形/體力不做
+### P0（2026-09-11 二次修正）：飲食限制沿用既有的 `derived_constraints`，不另立專屬欄位
 
-原 P0 把「地形/體力」與「飲食限制」綁成同一個 `party.constraints` 硬約束物件，使用者後來明確拍板縮小範圍：
-**地形/體力不用管**（不建 `terrain`/`rest_spot` 之類的機制）；**飲食限制只在使用者明講時才當硬篩選，沒講就用熱門度**（§9.2 的跨分類取樣已經是預設的「熱門」邏輯，不用另外做）。已依此實作，P1 表格中對應地形的項目（P1-1、P1-3 的地形部分）**不執行**：
+原 P0 把「地形/體力」與「飲食限制」綁成同一個 `party.constraints` 硬約束物件，使用者先拍板縮小範圍
+（**地形/體力不用管**），接著又指出第一版的「簡化版」做法本身還是走偏了：另外新增
+`party.diet_notes` + `food.dietary_tags` + 一條「不得臆測套用」的禁止規則，是**重複造輪子且更死板**——
+`trip_context.derived_constraints` 本來就是為了裝這類「使用者講了什麼、下游就照著用什麼」的自然語言
+限制而設計的欄位（範例：紅眼班機、末半天可用時數），飲食限制沒有理由不能比照辦理，不需要獨立的
+enum 化欄位。而且「不得臆測」防的是一個**從沒發生過的失敗情境**——兩次實跑 agent 都沒有自己亂發明
+飲食限制，屬於沒證據支持的防禦性規則。已撤銷該次改動：
 
 | # | 動作 | 檔案 | 狀態 |
 |---|---|---|---|
-| P0-1 | `trip_context.schema.json` 新增 `party.diet_notes`（自由文字，明講才填，否則 `null`） | `templates/trip_context.schema.json` | ✅ 已做 |
-| P0-2 | `intake.md` 表格新增 `party.diet_notes` 行：有明講才抽，沒有就留空不中斷 | `references/intake.md` | ✅ 已做 |
-| P0-3 | `food.schema.json` 新增 `dietary_tags`（選填，僅 `diet_notes` 非空時才需要填） | `templates/food.schema.json` | ✅ 已做 |
-| P0-4 | `09_materials.md` 加規則：`diet_notes` 非空時為硬篩選；為空時不得臆測套用飲食限制，維持 §9.2 熱門度邏輯；並明寫「不建地形/體力篩選機制」 | `references/sections/09_materials.md` | ✅ 已做 |
+| P0-1 | ~~`trip_context.schema.json` 新增 `party.diet_notes`~~ | `templates/trip_context.schema.json` | ↩️ 已撤銷 |
+| P0-2 | ~~`intake.md` 新增 `party.diet_notes` 抽取行~~ 改為：飲食限制等同其他使用者明講的限制，寫進 `derived_constraints` 即可 | `references/intake.md` | ✅ 已改 |
+| P0-3 | ~~`food.schema.json` 新增 `dietary_tags`~~ | `templates/food.schema.json` | ↩️ 已撤銷 |
+| P0-4 | `09_materials.md` 改為：飲食限制走 `derived_constraints`，沒講就不用主動問也不用臆測，維持 §9.2 熱門度/多樣性方法即可 | `references/sections/09_materials.md` | ✅ 已改 |
 | ~~P0 舊版~~ | ~~`mobility`/`stairs_ok`/`max_walk_min`/`queue_tolerance` 等地形相關欄位~~ | — | ❌ 不做，使用者明確表示不用管 |
+
+**教訓**：遇到「這裡好像缺一個機制」時，先檢查 skill 既有的通用機制（`derived_constraints`／
+`named_musts` 這類自然語言陣列）夠不夠用，不要預設答案是「加一個新 schema 欄位 + 一條禁止規則」。
+§9（教 agent 怎麼用 Naver 面板找候選）是這個 skill 該有的設計方向——**給方法、讓 agent 自由發揮**；
+「不得臆測套用」這種防禦性 prohibition 是反例，只有在真的觀察到失敗情境時才該加，不是先加了再說。
 
 ### P1（部分作廢）：schema 換軸
 
