@@ -73,7 +73,11 @@
         "adults": { "type": "integer", "minimum": 0 },
         "children": { "type": "integer", "minimum": 0 },
         "rooms": { "type": "integer", "minimum": 0 },
-        "mobility_notes": { "type": ["string", "null"] }
+        "mobility_notes": { "type": ["string", "null"] },
+        "diet_notes": {
+          "type": ["string", "null"],
+          "description": "使用者明確提及的飲食限制或偏好（如不吃辣、素食、過敏原、不吃內臟）。只在原始輸入或使用者回覆裡有明講時才填，不得臆測；為 null 時 09 素材庫的美食選材不做特殊篩選，依 research_rules.md §9.2 以熱門度為準。"
+        }
       }
     },
     "style": {

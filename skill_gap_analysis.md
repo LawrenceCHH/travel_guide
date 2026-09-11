@@ -146,22 +146,28 @@ skill 的產出沒有任何一份有這種收斂層。
 
 ## 3. 修正計畫
 
-### P0：把同伴約束變成一等公民（不做這個，其餘都是白工）
+### P0（2026-09-11 定案為簡化版）：飲食限制「有講才篩」，地形/體力不做
 
-| # | 動作 | 檔案 | 驗收標準 |
+原 P0 把「地形/體力」與「飲食限制」綁成同一個 `party.constraints` 硬約束物件，使用者後來明確拍板縮小範圍：
+**地形/體力不用管**（不建 `terrain`/`rest_spot` 之類的機制）；**飲食限制只在使用者明講時才當硬篩選，沒講就用熱門度**（§9.2 的跨分類取樣已經是預設的「熱門」邏輯，不用另外做）。已依此實作，P1 表格中對應地形的項目（P1-1、P1-3 的地形部分）**不執行**：
+
+| # | 動作 | 檔案 | 狀態 |
 |---|---|---|---|
-| P0-1 | `trip_context.schema.json` 新增 `party.constraints` 物件：`mobility`（`easy`/`moderate`/`limited`）、`stairs_ok`、`max_walk_min`、`diet`（可複選：`no_spicy`／`no_organ`／`no_raw`／`soft_texture`／`allergy:*`）、`queue_tolerance` | `templates/trip_context.schema.json` | 欄位存在且 `intake.md` 必抽 |
-| P0-2 | `intake.md` 把同伴約束列入**必抽欄位**，抽不到時不得靜默走預設，須明列為待覆核 | `references/intake.md` | 缺這批欄位時 `progress.md` 出現對應待覆核列 |
-| P0-3 | 所有主題規格加一條：產出必須逐條對照 `party.constraints`，不符者不得列入推薦 | `references/sections/*.md` | 抽查任一成品，每個推薦項可追溯到約束判定 |
+| P0-1 | `trip_context.schema.json` 新增 `party.diet_notes`（自由文字，明講才填，否則 `null`） | `templates/trip_context.schema.json` | ✅ 已做 |
+| P0-2 | `intake.md` 表格新增 `party.diet_notes` 行：有明講才抽，沒有就留空不中斷 | `references/intake.md` | ✅ 已做 |
+| P0-3 | `food.schema.json` 新增 `dietary_tags`（選填，僅 `diet_notes` 非空時才需要填） | `templates/food.schema.json` | ✅ 已做 |
+| P0-4 | `09_materials.md` 加規則：`diet_notes` 非空時為硬篩選；為空時不得臆測套用飲食限制，維持 §9.2 熱門度邏輯；並明寫「不建地形/體力篩選機制」 | `references/sections/09_materials.md` | ✅ 已做 |
+| ~~P0 舊版~~ | ~~`mobility`/`stairs_ok`/`max_walk_min`/`queue_tolerance` 等地形相關欄位~~ | — | ❌ 不做，使用者明確表示不用管 |
 
-### P1：schema 換軸——從「觀光客 vs 當地人」改成「這一家人走不走得動、吃不吃得下」
+### P1（部分作廢）：schema 換軸
 
-| # | 動作 | 檔案 | 驗收標準 |
-|---|---|---|---|
-| P1-1 | `spots.schema.json` 新增 `terrain`（`flat`/`slope`/`steps`/`mixed`）、`terrain_notes`、`rest_spot`（**具名物件**：`name`／`why`／`indoor`／`free`／`has_elevator`／`seating`） | `templates/spots.schema.json` | `rest_spot.why` 為必填，禁止寫「室內」了事 |
-| P1-2 | `food.schema.json` 新增 `dietary_tags`（列舉，對應 P0-1 的 `diet`）、`price_range`（實際數字區間，取代 `price_band` 符號）、`seating`、`queue_risk` ＋ `queue_workaround` | `templates/food.schema.json` | `validate_materials.py` 能依 `party.constraints.diet` 機械篩出不合格項 |
-| P1-3 | 新增 `map_links`（Naver／Kakao／當地主流地圖，依目的地國決定）。**韓國、中國等 Google Maps 不可用的目的地為必填** | 兩份 schema | 每筆素材至少一條當地地圖連結 |
-| P1-4 | `friendliness.score` **廢除**，改為由上述結構化欄位推導 | 兩份 schema ＋ `09_materials.md` | schema 內不再有無法行動的純量評分 |
+原 P1 表格中「地形」相關項目（`spots.schema.json` 的 `terrain`/`rest_spot`，`food.schema.json` 的 `queue_risk`/`queue_workaround`、`seating`）**不執行**，理由同上。仍保留執行的部分：
+
+| # | 動作 | 檔案 | 驗收標準 | 狀態 |
+|---|---|---|---|---|
+| P1-2 | `food.schema.json` 新增 `dietary_tags` | `templates/food.schema.json` | 已做，見 P0-3 | ✅ |
+| P1-3 | 新增 `map_links`（Naver／Kakao／當地主流地圖，依目的地國決定）。**韓國、中國等 Google Maps 不可用的目的地為必填** | 兩份 schema | 每筆素材至少一條當地地圖連結 | ⏳ 未做 |
+| P1-4 | `friendliness.score` **廢除**，改為由上述結構化欄位推導 | 兩份 schema ＋ `09_materials.md` | schema 內不再有無法行動的純量評分 | ⏳ 未做，且需重新評估——地形篩選拿掉後，`friendliness.score` 要廢除改推導什麼，定義要重想 |
 
 ### P2：規模、格式與收斂層
 

@@ -58,6 +58,14 @@
         "signature": { "type": "string", "description": "招牌菜。" },
         "why": { "type": "string", "description": "推薦理由，含為何適合此同伴。" },
         "caution": { "type": "string", "description": "提醒事項，如排隊時間、替代方案，選填。" },
+        "dietary_tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["不辣", "無內臟", "無生食", "素食", "無麩質"]
+          },
+          "description": "選填。只在 trip_context.party.diet_notes 非空時才需要填，用來標示此項目符合哪些限制；diet_notes 為 null 時可留空，不必逐筆臆測飲食禁忌。"
+        },
         "rainy_day_ok": { "type": "boolean", "description": "是否適合作為雨天/公休時的室內歇腳美食選項，選填。" },
         "sources": {
           "type": "array",
