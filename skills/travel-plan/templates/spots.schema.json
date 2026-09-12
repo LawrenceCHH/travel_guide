@@ -37,11 +37,26 @@
         "name": { "type": "string", "description": "區域顯示名稱。" },
         "summary": { "type": "string", "description": "一句話描述這個大區域的性格。" },
         "nearest_station": { "type": "string", "description": "區域代表車站/樞紐，含線路編號。" },
+        "nearby_areas": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/nearby_area" },
+          "description": "選填，非窮舉。只記實際會拿來排半天/整天行程的鄰近大區域，不必列出與所有其他 area 的配對。"
+        },
         "spots": {
           "type": "array",
           "minItems": 1,
           "items": { "$ref": "#/definitions/spot" }
         }
+      }
+    },
+    "nearby_area": {
+      "type": "object",
+      "required": ["area_id", "travel_min", "mode"],
+      "additionalProperties": false,
+      "properties": {
+        "area_id": { "type": "string", "description": "另一個 area 的 id（須存在於同一 areas 陣列中）。" },
+        "travel_min": { "type": "integer", "minimum": 0, "description": "移動時間（分鐘），須可回溯到 05_transport.md 已查證的資料，不得憑空估算。" },
+        "mode": { "type": "string", "description": "移動方式，如「地鐵」「計程車」「步行」。" }
       }
     },
     "spot": {
@@ -82,11 +97,29 @@
         "fee": { "type": "string", "description": "門票/費用說明，選填。" },
         "booking_required": { "type": "boolean", "description": "是否需事先預約/訂位，供 01 的訂位清單引用。" },
         "rainy_day_ok": { "type": "boolean", "description": "是否適合作為雨天/公休/排隊過長時的 Plan B。每個 area 至少要有 1 個 true。" },
+        "best_time_notes": {
+          "type": "string",
+          "description": "選填。只有這個景點是時間敏感型（看日出/日落/潮汐等）、且查資料時剛好看到具體建議時段才填，不必為每個景點特地查一次。例：「日落前後最佳，約17:30-18:30」。"
+        },
+        "nearby_spots": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/nearby_spot" },
+          "description": "選填，非窮舉，單向不要求對稱。只記同一 area 內走路可達、有查到具體分鐘數的其他景點，不必每個景點互相補登。"
+        },
         "sources": {
           "type": "array",
           "minItems": 1,
           "items": { "$ref": "#/definitions/source" }
         }
+      }
+    },
+    "nearby_spot": {
+      "type": "object",
+      "required": ["id", "walk_min"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "description": "同一 area 內另一個景點的 id。" },
+        "walk_min": { "type": "integer", "minimum": 0, "description": "步行分鐘數。" }
       }
     },
     "source": {

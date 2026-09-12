@@ -117,14 +117,26 @@ def validate_spots(spots_data, report):
     if not areas:
         report.error("spots.json：areas 為空")
 
+    all_area_ids = {area.get("id", "<未命名>") for area in areas}
+
     for area in areas:
         area_id = area.get("id", "<未命名>")
-        spot_ids = set()
+        spot_ids = {spot.get("id", "<未命名>") for spot in area.get("spots", [])}
         has_rainy = False
+
+        for nearby in area.get("nearby_areas") or []:
+            ref = nearby.get("area_id")
+            if ref and ref not in all_area_ids:
+                report.error(f"area '{area_id}'.nearby_areas：area_id='{ref}' 不存在（參照完整性，規則 9）")
+
         for spot in area.get("spots", []):
             spot_id = spot.get("id", "<未命名>")
-            spot_ids.add(spot_id)
             ctx = f"spots.{area_id}.{spot_id}"
+
+            for nearby in spot.get("nearby_spots") or []:
+                ref = nearby.get("id")
+                if ref and ref not in spot_ids:
+                    report.error(f"{ctx}.nearby_spots：id='{ref}' 在同一 area 內找不到（參照完整性，規則 9）")
 
             category = spot.get("category")
             if category and category not in SPOT_CATEGORIES:

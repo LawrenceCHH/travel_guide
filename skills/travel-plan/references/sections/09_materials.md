@@ -3,6 +3,8 @@
 ## 目的
 建立**可重組**的景點與美食原始素材，與 `10_itinerary.md` 的「組合成品」分離。改行程不用重查素材，一份素材可組出 3 套不同的行程方案。
 
+**這份素材庫是整個 skill 的核心產出，`10_itinerary.md` 只是其中一種用法（參考草案）。** 使用者拿到 `materials/` 後，可以直接照 `10_itinerary.md` 的建議走，也可以自己以半天為單位重組，或拿去跟其他 agent 討論深化——素材庫本身要能撐起這些不同用法，重點不是把某一套行程排到滴水不漏，而是讓景點/美食資訊本身**最新、正確、彼此的空間關係清楚**（見下方 `nearby_areas`／`nearby_spots`），這樣不管誰來組行程都不會把實際上很遠的地方誤以為很近。
+
 ## 為什麼素材庫與行程安排要分離
 - **成本結構不同**：素材庫是檢索密集型工作（找景點、找美食、驗證來源），行程安排是組合密集型工作（排序、分區、算 buffer）。混在一起會導致每改一次行程順序就要重新檢索一次。
 - **重組彈性**：三套方案（經典必去/深度在地/輕鬆慢遊）需要從同一批素材挑不同子集、給不同權重，若素材與行程綁死在同一份文件，無法在不重查的情況下產生三套差異化方案。
@@ -36,6 +38,9 @@
 - `spots[].booking_required`：是否需事先預約，會被 `01_flight_stay.md` 的訂位清單引用。
 - `spots[].rainy_day_ok`：是否可作為雨天/公休/排隊過長的 Plan B，會被 `10_itinerary.md` 的每半天 Plan B 規則引用。
 - `food[].near_spot` / `walk_min`：定義這家美食「掛在哪個景點旁邊」與步行時間，是 `10_itinerary.md` §層級呈現（區域→景點→旁邊美食）的資料基礎。
+- `areas[].nearby_areas`：記錄大區域之間的距離關係（`area_id`／`travel_min`／`mode`），**避免組行程時把實際上很遠的兩個大區域誤排在同一個半天/整天**。**選填、非窮舉**——只記實際會用到、有查證依據的鄰近關係即可，不必列出跟所有其他 area 的配對；`travel_min` 必須可回溯到 `05_transport.md` 已查證的資料，不得憑空估算。
+- `spots[].nearby_spots`：記錄同一 area 內走路可達的其他景點（`id`／`walk_min`）。**選填、非窮舉、單向**——不要求兩個景點互相登記對方，寫的人挑重要的記即可，不必為了對稱而互相補登。
+- `spots[].best_time_notes`：只有時間敏感型景點（看日出/日落、潮汐等）、且查資料時剛好看到具體建議時段才填，**不必為每個景點特地去查一次有沒有最佳時段**。
 
 ## §7.2 輸出約定（六條，取代原本的「受限 YAML 子集」）
 
@@ -60,8 +65,9 @@ JSON 本身沒有歧義，但 **diff 品質靠約定維持**：
 6. `food.picks[].near_spot` 必須存在於 `spots.json` 的**同一 area** 中（參照完整性）。
 7. 所有列舉欄位（見 §7.1 表）的值必須落在合法值清單內。
 8. **`areas` 必須覆蓋 `trip_context.named_musts` 涉及的全部地理區域**，不得只做最低限度（schema 的 `minItems: 1` 只是格式下限，不是完成標準）。若受限於執行時間無法逐區建檔，**不得靜默省略**：未覆蓋的區域要在 `progress.md` 列出清單與原因，且 `10_itinerary.md` 引用該區域的指名景點時必須明確標註「未依 09 規格建檔，直接沿用使用者草稿原文，未經來源查證與友善度評分」——不可讓成品外觀上看起來與正式建檔的區域一樣完整。
+9. `areas[].nearby_areas[].area_id` 與 `spots[].nearby_spots[].id` 若有填，參照對象必須真實存在（前者存在於同一 `areas` 陣列、後者存在於同一 area 內）——這是唯一的機械檢查，**不檢查也不要求完整性/對稱性**（有沒有填齊、A 記了 B 但 B 沒記 A，都不算違規）。
 
-前七條規則的機械執行由 `scripts/validate_materials.py` 完成，輸出區分 ERROR（阻斷）/WARN（提醒但不阻斷）；第 8 條是覆蓋範圍規則，`validate_materials.py` 不做地理覆蓋判斷，需 agent 自行對照 `trip_context.named_musts` 檢查，或使用 `references/checklists/validate_materials.md` 的等效手動步驟。
+前八條規則的機械執行由 `scripts/validate_materials.py` 完成，輸出區分 ERROR（阻斷）/WARN（提醒但不阻斷）；第 8 條是覆蓋範圍規則，`validate_materials.py` 不做地理覆蓋判斷，需 agent 自行對照 `trip_context.named_musts` 檢查，或使用 `references/checklists/validate_materials.md` 的等效手動步驟。
 
 ## 必須回答的問題清單
 - 這個大區域要分成哪幾個 `area`（依 §7.1 與 05 的交通樞紐劃分，通常以捷運站/商圈為單位）？
@@ -77,16 +83,19 @@ JSON 本身沒有歧義，但 **diff 品質靠約定維持**：
 
 ## 完成判準 checklist
 - [ ] `spots.json`／`food.json` 皆通過 schema 驗證（必填欄位齊全、列舉值合法）
-- [ ] §7.3 八條硬約束全數通過（或已知違規已標記並知會使用者）
+- [ ] §7.3 九條硬約束全數通過（或已知違規已標記並知會使用者）
 - [ ] `areas` 覆蓋 `trip_context.named_musts` 的全部地理區域，未覆蓋者已在 `progress.md` 列出清單與原因（§7.3 第 8 條）
 - [ ] 輸出符合 §7.2 六條約定（欄位順序、巢狀 ≤3 層、`sources` 單行、2 空格縮排、`ensure_ascii=false`、檔尾換行）
 - [ ] `food.near_spot` 全數可在同 area 的 `spots` 中找到
+- [ ] 若有填 `nearby_areas`／`nearby_spots`，參照對象真實存在（不要求填滿、不要求對稱）
 
 ## 常見錯誤
 - 觀光客/當地人各 3 家湊不滿，用重複店家充數。
 - `rainy_day_ok` 全部留 `false`，導致該 area 沒有 Plan B 可選。
 - `near_spot` 填了別的 area 的景點 id，造成參照失敗。
 - 手動編輯 JSON 時重新格式化整檔，導致 diff 大量無意義變動。
+- 把 `nearby_areas`／`nearby_spots` 當成硬性要求，花時間去建完整的兩兩配對距離矩陣——這兩個欄位是選填、非窮舉，只記有查到、會用到的即可。
+- `nearby_areas.travel_min` 自己憑感覺估一個數字，沒有回溯到 `05_transport.md` 的查證資料——這等於把「避免 AI 幻覺距離」的欄位本身做成幻覺。
 
 ## script 呼叫方式（可選加速器）
 
