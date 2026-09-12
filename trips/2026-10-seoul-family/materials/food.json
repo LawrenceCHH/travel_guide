@@ -1,0 +1,554 @@
+{
+  "version": 1,
+  "areas": [
+    {
+      "id": "gyeongbok_bukchon",
+      "picks": [
+        {
+          "id": "f_london_bagel",
+          "name": "倫敦貝果博物館 安國店",
+          "name_local": "런던 베이글 뮤지엄 안국점",
+          "category": "咖啡甜點",
+          "audience": "tourist",
+          "near_spot": "s_bukchon",
+          "walk_min": 5,
+          "price_band": "₩₩",
+          "signature": "無花果奶油乳酪貝果、168種貝果與乳酪組合",
+          "why": "草稿指名的第一天早餐地點，戴安娜王妃畫像與英國國旗裝飾的獨特氛圍，是首爾三大貝果店之一。",
+          "caution": "平日上午仍可能排隊約1小時，外帶隊伍通常較短，建議開店前抵達。",
+          "sources": [
+            {
+              "title": "런던 베이글 뮤지엄 안국점",
+              "site": "다이닝코드",
+              "url": "https://www.diningcode.com/profile.php?rid=xOAPSFIxvqdP",
+              "published": "2026-09-11",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "f_tosokchon",
+          "name": "土俗村蔘雞湯",
+          "name_local": "토속촌삼계탕",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "s_gyeongbokgung",
+          "walk_min": 5,
+          "price_band": "₩₩",
+          "signature": "土俗村蔘雞湯（16,000韓元起）",
+          "why": "首爾三大蔘雞湯名店之一，曾為已故盧武鉉總統愛吃的店，內部空間大排隊不會等太久，適合4人同行。",
+          "caution": "用餐時段仍需排隊15-30分鐘，週末較擁擠。",
+          "sources": [
+            {
+              "title": "2026 토속촌 삼계탕 여행자 리뷰",
+              "site": "트립닷컴 트립 모먼트",
+              "url": "https://kr.trip.com/moments/poi-tosokchon-samgyetang-10560122/",
+              "published": "2026-09-01",
+              "tier": "platform"
+            }
+          ]
+        },
+        {
+          "id": "f_taylor_coffee",
+          "name": "Taylor Coffee 西村景福宮店",
+          "name_local": "테일러커피 서촌 경복궁점",
+          "category": "咖啡甜點",
+          "audience": "tourist",
+          "near_spot": "s_gyeongbokgung",
+          "walk_min": 8,
+          "price_band": "₩₩",
+          "signature": "크림모카、블루지",
+          "why": "面對景福宮石牆與銀杏樹的落地窗景觀咖啡廳，2026年9月新開幕第五家分店，逛完景福宮歇腳兼拍照首選。",
+          "caution": "週末人潮多、通窗景觀位需碰運氣，冬季來訪view效果較弱建議秋季造訪。",
+          "sources": [
+            {
+              "title": "테일러 커피 서촌 경복궁점 방문기: 경복궁 담벼락과 은행나무가 보이는 곳",
+              "site": "호기심 대장 / 즐거운 발견들",
+              "url": "https://hobby.theawesomewaves.com/entry/%ED%85%8C%EC%9D%BC%EB%9F%AC-%EC%BB%A4%ED%94%BC-%EC%84%9C%EC%B4%8C-%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%A0%90-%EB%B0%A9%EB%AC%B8%EA%B8%B0-%EA%B2%BD%EB%B3%B5%EA%B6%81-%EB%8B%B4%EB%B2%BC%EB%9D%BD%EA%B3%BC-%EC%9D%80%ED%96%89%EB%82%98%EB%AC%B4%EA%B0%80-%EB%B3%B4%EC%9D%B4%EB%8A%94-%EA%B3%B3",
+              "published": "2026-03-05",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "f_tongin_market",
+          "name": "通仁市場 便當咖啡廳（油炒年糕）",
+          "name_local": "통인시장 도시락카페（기름떡볶이）",
+          "category": "小吃",
+          "audience": "local",
+          "near_spot": "s_gyeongbokgung",
+          "walk_min": 12,
+          "price_band": "₩",
+          "signature": "엽전（古幣代幣）油炒年糕，2枚엽전約2,000韓元",
+          "why": "西村在地傳統市場，用古幣造型代幣購買各攤小吃的獨特體驗，油炒年糕是不同於湯年糕的乾式做法。",
+          "caution": "도시락카페（便當咖啡廳）樓層11:00-16:00開放，週二公休，建議中午前後造訪。 [待確認：來源發布於 2025-03-08，距今已超過1年，建議出發前重新查證是否仍在營業／內容是否更新]",
+          "sources": [
+            {
+              "title": "[엽전도시락 카페] 통인시장 먹거리 맛집 Best & 통인시장 주차장 Tip",
+              "site": "a4b4.co.kr",
+              "url": "https://www.a4b4.co.kr/78180",
+              "published": "2025-03-08",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "f_vitello_sotti",
+          "name": "Vitello Sotti 西村本店",
+          "name_local": "비텔로소띠 서촌 본점",
+          "category": "正餐",
+          "audience": "local",
+          "near_spot": "s_gyeongbokgung",
+          "walk_min": 10,
+          "price_band": "₩₩₩",
+          "signature": "화덕피자、해산물 오일파스타",
+          "why": "韓屋改建的道地義式餐廳，曾獲那不勒斯披薩韓國錦標賽2、3名，是西村在地人推薦的隱藏版聚餐選擇。",
+          "caution": "價位偏高、義大利麵份量偏少，中午時段接近客滿，建議先用Naver Reservation預約。",
+          "sources": [
+            {
+              "title": "비텔로소띠 - 경복궁역 카페, 디저트 맛집",
+              "site": "다이닝코드",
+              "url": "https://www.diningcode.com/profile.php?rid=NYiZGYlCaQmI",
+              "published": "2026-09-11",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "f_okaz",
+          "name": "Okaz（오카즈）",
+          "name_local": "오카즈",
+          "category": "正餐",
+          "audience": "local",
+          "near_spot": "s_gyeongbokgung",
+          "walk_min": 10,
+          "price_band": "₩₩",
+          "signature": "日式家庭料理下酒菜與清酒配對",
+          "why": "西村巷弄裡的日式居酒屋，店主細心搭配清酒與料理，是編輯精選的在地寧靜好去處，適合晚餐後小酌。",
+          "caution": "座位少，建議晚餐時段提前預約。 [待確認：來源發布於 2025-02-03，距今已超過1年，建議出發前重新查證是否仍在營業／內容是否更新]",
+          "sources": [
+            {
+              "title": "에디터가 추천하는 서촌의 Chill한 공간",
+              "site": "스테이폴리오",
+              "url": "https://www.stayfolio.com/journal/travels/303",
+              "published": "2025-02-03",
+              "tier": "blogger"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "myeongdong_dt",
+      "picks": [
+        {
+          "id": "f_wangbijib",
+          "name": "王妃家 明洞本店",
+          "name_local": "왕비집 본점",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "s_myeongdong",
+          "walk_min": 5,
+          "price_band": "₩₩₩",
+          "signature": "豬肋排／韓牛烤肉套餐",
+          "why": "草稿指名Day1晚餐地點，銅碗盛裝烤肉附5-6樣小菜，外國遊客間知名度高，適合4人聚餐。",
+          "caution": "用餐尖峰時段建議提前預約，午間套餐較划算。",
+          "sources": [
+            {
+              "title": "왕비집 본점",
+              "site": "다이닝코드",
+              "url": "https://www.diningcode.com/profile.php?rid=GliZBNBh127Y",
+              "published": "2026-09-11",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "f_myeongdong_gyoja",
+          "name": "明洞餃子 本店",
+          "name_local": "명동교자 본점",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "s_myeongdong",
+          "walk_min": 3,
+          "price_band": "₩₩",
+          "signature": "칼국수（刀切麵）、만두（水餃）",
+          "why": "1966年創業老店，濃郁雞湯刀切麵是明洞代表美食，菜單簡單但翻桌快、平日午餐不需久候。",
+          "caution": "無自有停車場，建議大眾運輸前往；用餐尖峰仍會排隊。",
+          "sources": [
+            {
+              "title": "명동교자 본점",
+              "site": "다이닝코드",
+              "url": "https://www.diningcode.com/profile.php?rid=L4miF0diqkcW",
+              "published": "2026-09-11",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "f_house_shinsegae_dessert",
+          "name": "House of Shinsegae 甜點沙龍",
+          "name_local": "하우스오브신세계 디저트살롱",
+          "category": "咖啡甜點",
+          "audience": "tourist",
+          "near_spot": "s_shinsegae",
+          "walk_min": 1,
+          "price_band": "₩₩₩",
+          "signature": "時令韓式茶點套餐（11月限定柿子栗子梨主題）",
+          "why": "신세계百貨本店5樓新開幕的傳統茶點現代詮釋空間，入選2025首爾美食週100選，明洞新興韓式甜點地標。",
+          "caution": "熱門時段可能候位，季節限定菜單每月更換需留意是否供應10月當季菜單。",
+          "sources": [
+            {
+              "title": "신세계百, 하우스오브신세계 디저트살롱 '서울 미식 100선' 선정",
+              "site": "청년일보",
+              "url": "https://www.youthdaily.co.kr/news/article.html?no=201383",
+              "published": "2025-11-04",
+              "tier": "platform"
+            }
+          ]
+        },
+        {
+          "id": "f_euljidonkatsu",
+          "name": "乙支豬排 明洞本店",
+          "name_local": "을지돈가스 명동본점",
+          "category": "正餐",
+          "audience": "local",
+          "near_spot": "s_myeongdong",
+          "walk_min": 5,
+          "price_band": "₩₩",
+          "signature": "王豬排（원본/매운맛/카레 三種醬料）",
+          "why": "明洞聖堂附近巷弄裡的老派經典經濟式豬排店，湯與麵包飯可續，是當地上班族的午餐口袋名單。",
+          "caution": "用餐時段人潮多但翻桌快。",
+          "sources": [
+            {
+              "title": "을지돈가스 명동본점",
+              "site": "다이닝코드",
+              "url": "https://www.diningcode.com/profile.php?rid=maY2dlB7NvHP",
+              "published": "2026-09-11",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "f_waglwagl_bakeshop",
+          "name": "哇格哇格烘焙坊",
+          "name_local": "와글와글베이크샵",
+          "category": "伴手禮",
+          "audience": "local",
+          "near_spot": "s_dongdaemun",
+          "walk_min": 7,
+          "price_band": "₩",
+          "signature": "크로와글（可頌貝果融合麵包）、草莓奶油麵包",
+          "why": "國立中央醫療院內、DDP步行約7分鐘的人氣烘焙坊，可頌貝果融合款是話題商品，適合買回住宿當早餐或伴手禮。",
+          "caution": "麵包購買後建議儘快食用，久放酥皮易受潮軟化。",
+          "sources": [
+            {
+              "title": "베이커리 카페<와글와글베이크샵> - 와글와글 스트로베리 크림",
+              "site": "밍키형아",
+              "url": "https://mingky-hyung-a.com/entry/%EB%B2%A0%EC%9D%B4%EC%BB%A4%EB%A6%AC-%EC%B9%B4%ED%8E%98%EC%99%80%EA%B8%80%EC%99%80%EA%B8%80%EB%B2%A0%EC%9D%B4%ED%81%AC%EC%83%B5-%EC%99%80%EA%B8%80%EC%99%80%EA%B8%80-%EC%8A%A4%ED%8A%B8%EB%A1%9C%EB%B2%A0%EB%A6%AC-%ED%81%AC%EB%A6%BC-%EB%8F%99%EB%8C%80%EB%AC%B8%EB%8F%99%EB%8C%80%EB%AC%B8DDP%EC%9D%84%EC%A7%80%EB%A1%9C%EB%8F%99%EB%8C%80%EB%AC%B8%EC%97%AD%EC%82%AC%EB%AC%B8%ED%99%94%EA%B3%B5%EC%9B%90%EC%97%AD",
+              "published": "2026-01-07",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "f_dongmyo_sundaeguk",
+          "name": "東廟古早味順大湯（無正式招牌，部落客暱稱）",
+          "name_local": "동묘 토종순대국집",
+          "category": "小吃",
+          "audience": "local",
+          "near_spot": "s_dongdaemun",
+          "walk_min": 15,
+          "price_band": "₩",
+          "signature": "순대국（7,000韓元）",
+          "why": "東廟站附近數十年老店，價格多年未變，部落客形容「老樣子的懷舊滋味」，是在地人熟悉的深夜食堂型選擇。",
+          "caution": "距離東大門歷史文化公園約15分鐘步行，屬於本區域較外圍的選項，且店名不明確（部落客未寫清楚招牌），建議出發前用地圖搜尋「동묘 순대국」現場確認。",
+          "sources": [
+            {
+              "title": "[한식] 동묘 아주 오래된 어느 토종 순대국집 (7000원)",
+              "site": "루리웹（PC엔진 가꾸싶다~）",
+              "url": "https://bbs.ruliweb.com/hobby/board/300117/read/30701116",
+              "published": "2026-08-28",
+              "tier": "blogger"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "seongsu",
+      "picks": [
+        {
+          "id": "f_somunnan_gamjatang",
+          "name": "傳說中的聖水馬鈴薯排骨湯",
+          "name_local": "소문난성수감자탕",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "s_seoul_forest",
+          "walk_min": 10,
+          "price_band": "₩₩",
+          "signature": "감자탕（馬鈴薯排骨湯，小份約32,000韓元／可分食）",
+          "why": "草稿指名景點，24小時營業的聖水代表性老店，曾上白종원三大天王節目，肉質軟嫩湯頭清爽不辣，適合怕辣的長輩。",
+          "caution": "常態排隊，平日晚間仍可能等候約30分鐘，人多時會被安排到別館用餐。",
+          "sources": [
+            {
+              "title": "2026 소문난 성수 감자탕 여행자 리뷰",
+              "site": "트립닷컴 트립 모먼트",
+              "url": "https://kr.trip.com/moments/poi-somunnan-seongsu-gamjatang-148056785/",
+              "published": "2026-01-01",
+              "tier": "platform"
+            }
+          ]
+        },
+        {
+          "id": "f_monmon_monjayaki",
+          "name": "Monmon 文字燒",
+          "name_local": "몬몬 몬자야끼",
+          "category": "小吃",
+          "audience": "tourist",
+          "near_spot": "s_seongsu_cafe_st",
+          "walk_min": 5,
+          "price_band": "₩₩",
+          "signature": "마르게리따 몬자야끼（瑪格麗特文字燒）",
+          "why": "聖水少見的日式文字燒鐵板料理專門店，多種口味鐵板料理適合4人分食嘗鮮，近期IG熱門打卡店。",
+          "caution": "명란모찌口味偏鹹，建議點餐前先詢問店員鹹度調整。",
+          "sources": [
+            {
+              "title": "성수 맛집 몬몬 몬자야끼 내돈내산 솔직리뷰",
+              "site": "keyzard.cc",
+              "url": "https://keyzard.cc/views/nb/MjQ1bm5va2VlbW1ra29qZmpmZmxo",
+              "published": "2026-09-11",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "f_standard_bread_seongsu",
+          "name": "Standard Bread 聖水",
+          "name_local": "스탠다드브레드 성수",
+          "category": "咖啡甜點",
+          "audience": "tourist",
+          "near_spot": "s_seongsu_cafe_st",
+          "walk_min": 5,
+          "price_band": "₩₩",
+          "signature": "鹽奶油生吐司",
+          "why": "聖水代表性烘焙名店，吐司造型拍照牆與名人加持（Blackpink智秀打卡）使其成為觀光客必訪。",
+          "caution": "熱銷吐司常提早售罄，建議上午造訪。 [待確認：來源發布於 2025-03-12，距今已超過1年，建議出發前重新查證是否仍在營業／內容是否更新]",
+          "sources": [
+            {
+              "title": "셀럽들이 다녀간 성수동 핫플 카페 4",
+              "site": "마리끌레르 코리아",
+              "url": "https://www.marieclairekorea.com/newnew/2025/03/seongsu-cafe/",
+              "published": "2025-03-12",
+              "tier": "platform"
+            }
+          ]
+        },
+        {
+          "id": "f_ipari_library",
+          "name": "IPARI書齋",
+          "name_local": "이파리서재",
+          "category": "咖啡甜點",
+          "audience": "local",
+          "near_spot": "s_seongsu_cafe_st",
+          "walk_min": 6,
+          "price_band": "₩",
+          "signature": "無人自助北카페，簡單飲品",
+          "why": "聖水在地人熟悉的安靜無人北카페，多種座位型態與滿室綠意，適合逛累想安靜歇腳看書的空檔。",
+          "caution": "無人自助運營，飲品選擇較簡單，非正餐選項。",
+          "rainy_day_ok": true,
+          "sources": [
+            {
+              "title": "이파리서재 店家資訊與用戶評論",
+              "site": "당근（당근마켓 동네業者頁）",
+              "url": "https://www.daangn.com/kr/local-profile/%EC%9D%B4%ED%8C%8C%EB%A6%AC%EC%84%9C%EC%9E%AC-rsv2dihdzooo/",
+              "published": "2026-09-11",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "f_mitbord_seoul",
+          "name": "Mitbord Seoul",
+          "name_local": "밋보어 서울",
+          "category": "咖啡甜點",
+          "audience": "local",
+          "near_spot": "s_seoul_forest",
+          "walk_min": 8,
+          "price_band": "₩₩",
+          "signature": "濕潤鬆餅、招牌茶飲",
+          "why": "由서울숲 Edition Denmark showroom改建的丹麥風格早午餐咖啡廳，藝人低調造訪、在地社群口碑推薦。",
+          "caution": "屬早午餐型態，建議安排在上午時段前往。 [待確認：來源發布於 2025-03-12，距今已超過1年，建議出發前重新查證是否仍在營業／內容是否更新]",
+          "sources": [
+            {
+              "title": "셀럽들이 다녀간 성수동 핫플 카페 4",
+              "site": "마리끌레르 코리아",
+              "url": "https://www.marieclairekorea.com/newnew/2025/03/seongsu-cafe/",
+              "published": "2025-03-12",
+              "tier": "platform"
+            }
+          ]
+        },
+        {
+          "id": "f_warmbrown",
+          "name": "Warm Brown",
+          "name_local": "웜브라운",
+          "category": "伴手禮",
+          "audience": "local",
+          "near_spot": "s_seongsu_cafe_st",
+          "walk_min": 7,
+          "price_band": "₩",
+          "signature": "法式甜甜圈貝涅（베녜）、檸檬奶油拿鐵",
+          "why": "古董風裝潢的法式貝涅專門店，經YouTuber介紹後成為在地人排隊私房甜點，適合買幾個當下午茶點心。",
+          "caution": "熱門口味售罄快，建議下午前造訪。 [待確認：來源發布於 2025-03-12，距今已超過1年，建議出發前重新查證是否仍在營業／內容是否更新]",
+          "sources": [
+            {
+              "title": "셀럽들이 다녀간 성수동 핫플 카페 4",
+              "site": "마리끌레르 코리아",
+              "url": "https://www.marieclairekorea.com/newnew/2025/03/seongsu-cafe/",
+              "published": "2025-03-12",
+              "tier": "platform"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "yeongdeungpo",
+      "picks": [
+        {
+          "id": "f_noryangjin_hoe",
+          "name": "鷺梁津水產市場 生魚片中心",
+          "name_local": "노량진수산시장 회센터",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "s_noryangjin_market",
+          "walk_min": 2,
+          "price_band": "₩₩₩",
+          "signature": "帝王蟹、活跳蝦、現點現殺生魚片拼盤",
+          "why": "草稿指名的Day2午餐重頭戲，市場內選購海鮮後直接請2樓餐廳代客料理，是全家共享海鮮大餐的體驗。",
+          "caution": "市場外文標示不足，建議議價前先確認秤重方式與加工費，避免糾紛；地面濕滑注意防滑。",
+          "sources": [
+            {
+              "title": "외국인 관광객으로 붐비는 노량진수산시장, 이게 아쉽다",
+              "site": "오마이뉴스（이혁진）",
+              "url": "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003199459",
+              "published": "2026-01-17",
+              "tier": "platform"
+            }
+          ]
+        },
+        {
+          "id": "f_hyundai_food_hall",
+          "name": "THE HYUNDAI SEOUL 地下美食街（마츠노하나／수티）",
+          "name_local": "더현대서울 지하 식당가",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "s_hyundai_seoul",
+          "walk_min": 1,
+          "price_band": "₩₩",
+          "signature": "일식 텐동（마츠노하나）、烤牛肉양식（수티）",
+          "why": "百貨地下1樓集結多間人氣餐廳，適合逛累直接在同棟解決正餐，選擇多元照顧不同口味的家庭成員。",
+          "caution": "週末各店幾乎都需排隊，建議一到館內先掛號候位再去逛街。",
+          "sources": [
+            {
+              "title": "[2026 서울 쇼핑몰] 더현대 서울 여행 가이드 & 여행 후기",
+              "site": "트립닷컴 트립 모먼트",
+              "url": "https://kr.trip.com/moments/poi-the-hyundai-seoul-133526018/",
+              "published": "2026-09-01",
+              "tier": "platform"
+            }
+          ]
+        },
+        {
+          "id": "f_hangang_ramen",
+          "name": "漢江拉麵（便利商店）",
+          "name_local": "한강라면",
+          "category": "小吃",
+          "audience": "tourist",
+          "near_spot": "s_yeouido_park",
+          "walk_min": 5,
+          "price_band": "₩",
+          "signature": "自助拉麵機泡麵＋生蛋",
+          "why": "首爾人氣文化體驗，在便利商店用自助拉麵機煮泡麵、坐在漢江邊野餐墊上享用，是韓劇經典場景的實際體驗。",
+          "caution": "生蛋需額外購買（約700韓元），平日人潮較少、風景更好。",
+          "sources": [
+            {
+              "title": "여의도 한강공원에서 먹어본 한강라면",
+              "site": "트립닷컴 트립 모먼트（junnywhere）",
+              "url": "https://kr.trip.com/moments/detail/seoul-234-12676370/",
+              "published": "2026-09-11",
+              "tier": "platform"
+            }
+          ]
+        },
+        {
+          "id": "f_yeongheung_jeongyuk",
+          "name": "永興精肉食堂",
+          "name_local": "영흥정육식당",
+          "category": "正餐",
+          "audience": "local",
+          "near_spot": "s_noryangjin_market",
+          "walk_min": 6,
+          "price_band": "₩₩",
+          "signature": "제육 무한리필（豬肉炒肉無限續，午餐限定）",
+          "why": "鷺梁津站步行6分鐘的精肉食堂，午間無限續烤豬肉價格親民，是當地上班族與考生的高性價比選擇。",
+          "caution": "無自有停車場，2樓有團體座位適合聚餐；點餐前確認午餐無限續是否仍供應。",
+          "sources": [
+            {
+              "title": "영흥정육식당",
+              "site": "다이닝코드",
+              "url": "https://www.diningcode.com/profile.php?rid=lucJmBnXp8He",
+              "published": "2026-09-11",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "f_noryangjin_cupbap",
+          "name": "鷺梁津杯飯街",
+          "name_local": "노량진 컵밥거리",
+          "category": "小吃",
+          "audience": "local",
+          "near_spot": "s_noryangjin_market",
+          "walk_min": 8,
+          "price_band": "₩",
+          "signature": "김치볶음밥컵밥（泡菜炒飯杯飯，約4,000-5,000韓元）",
+          "why": "1970年代末因補習班考生聚集而生的平價街頭美食文化發源地，現有23個攤位上百種菜單，是體驗在地庶民飲食文化的好去處。",
+          "caution": "用餐時間攤位周邊座位有限，建議打包帶到附近座位區享用。 [待確認：來源發布於 2025-05-15，距今已超過1年，建議出發前重新查證是否仍在營業／內容是否更新]",
+          "sources": [
+            {
+              "title": "처음먹어보는 노량진 컵밥 리뷰",
+              "site": "에루샤",
+              "url": "https://erulabo.com/464",
+              "published": "2025-05-15",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "f_teddy_beurre_house",
+          "name": "Teddy Beurre House",
+          "name_local": "테디뵈르하우스",
+          "category": "伴手禮",
+          "audience": "local",
+          "near_spot": "s_hyundai_seoul",
+          "walk_min": 1,
+          "price_band": "₩₩",
+          "signature": "可頌（크루아상）系列",
+          "why": "THE HYUNDAI SEOUL地下1樓人氣可頌專門店，適合逛完百貨買幾個帶回住宿當隔天早餐。",
+          "caution": "熱門口味常於下午售罄，建議中午前選購。",
+          "sources": [
+            {
+              "title": "[2026 서울 쇼핑몰] 더현대 서울 여행 가이드 & 여행 후기",
+              "site": "트립닷컴 트립 모먼트",
+              "url": "https://kr.trip.com/moments/poi-the-hyundai-seoul-133526018/",
+              "published": "2026-09-01",
+              "tier": "platform"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

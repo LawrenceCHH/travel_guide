@@ -25,7 +25,7 @@ import sys
 
 SPOT_FIELD_ORDER = [
     "id", "name", "name_local", "category", "audience", "why", "duration_min",
-    "friendliness", "open_hours", "closed_on", "fee", "booking_required",
+    "open_hours", "closed_on", "fee", "booking_required",
     "rainy_day_ok", "sources",
 ]
 AREA_FIELD_ORDER_SPOTS = ["id", "name", "summary", "nearest_station", "spots"]
@@ -39,7 +39,6 @@ AREA_FIELD_ORDER_FOOD = ["id", "picks"]
 ROOT_FIELD_ORDER_FOOD = ["version", "areas"]
 
 SOURCE_FIELD_ORDER = ["title", "site", "url", "published", "tier"]
-FRIENDLINESS_FIELD_ORDER = ["score", "notes"]
 
 
 def reorder(obj, order):
@@ -64,8 +63,6 @@ def normalize_spots(data):
         spots = []
         for spot in area.get("spots", []):
             spot = reorder(spot, SPOT_FIELD_ORDER)
-            if "friendliness" in spot:
-                spot["friendliness"] = reorder(spot["friendliness"], FRIENDLINESS_FIELD_ORDER)
             if "sources" in spot:
                 spot["sources"] = [reorder(s, SOURCE_FIELD_ORDER) for s in spot["sources"]]
             spots.append(spot)
@@ -150,17 +147,21 @@ def render_spots_md(data):
         lines.append("")
         lines.append(f"最近車站：{area.get('nearest_station', '')}")
         lines.append("")
-        lines.append("| 名稱 | 類別 | 客群 | 停留(分) | 友善度 | 開放時間 | 需預約 | 雨天可去 |")
-        lines.append("|---|---|---|---|---|---|---|---|")
+        lines.append("| 名稱 | 類別 | 客群 | 停留(分) | 開放時間 | 需預約 | 雨天可去 |")
+        lines.append("|---|---|---|---|---|---|---|")
         for spot in area.get("spots", []):
-            friendliness = spot.get("friendliness", {})
             lines.append(
                 f"| {spot.get('name', '')} | {spot.get('category', '')} | "
                 f"{'/'.join(spot.get('audience', []))} | {spot.get('duration_min', '')} | "
-                f"{'★' * int(friendliness.get('score', 0))} | {spot.get('open_hours', '')} | "
+                f"{spot.get('open_hours', '')} | "
                 f"{'是' if spot.get('booking_required') else '否'} | "
                 f"{'是' if spot.get('rainy_day_ok') else '否'} |"
             )
+        lines.append("")
+        for spot in area.get("spots", []):
+            why = spot.get("why", "")
+            if why:
+                lines.append(f"- **{spot.get('name', '')}**：{why}")
         lines.append("")
     return "\n".join(lines).rstrip("\n") + "\n"
 

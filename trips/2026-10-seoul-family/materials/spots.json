@@ -1,0 +1,330 @@
+{
+  "version": 1,
+  "destination": "韓國首爾",
+  "last_verified": "2026-09-11",
+  "areas": [
+    {
+      "id": "gyeongbok_bukchon",
+      "name": "景福宮・北村・西村・益善洞",
+      "summary": "宮殿古蹟與韓屋巷弄交織的文青散步核心區，涵蓋草稿指名的景福宮、北村韓屋村、益善洞韓屋村。",
+      "nearest_station": "景福宮站 3號線／安國站 3號線",
+      "spots": [
+        {
+          "id": "s_gyeongbokgung",
+          "name": "景福宮",
+          "name_local": "경복궁",
+          "category": "文化古蹟",
+          "audience": [
+            "tourist_must"
+          ],
+          "why": "朝鮮王朝正宮、首爾最具代表性古蹟，穿韓服可免費入場，守衛交接儀式為必看亮點。",
+          "duration_min": 120,
+          "open_hours": "依季節調整，秋季約 09:00-18:00",
+          "closed_on": "週二",
+          "fee": "成人約 3,000 KRW，穿韓服免費",
+          "booking_required": false,
+          "rainy_day_ok": false,
+          "sources": [
+            {"title": "【2026首爾自由行】5天4夜首爾行程這樣玩！最新必玩亮點＆實戰心得全攻略", "site": "波比看世界", "url": "https://bobbytravel.tw/seoul-travel/", "published": "2026-08-07", "tier": "blogger"}
+          ]
+        },
+        {
+          "id": "s_bukchon",
+          "name": "北村韓屋村",
+          "name_local": "북촌 한옥마을",
+          "category": "文化古蹟",
+          "audience": [
+            "tourist_must"
+          ],
+          "why": "景福宮與昌德宮之間的六百年韓屋聚落，北村八景與展望台是拍照重點。",
+          "duration_min": 90,
+          "open_hours": "10:00-17:00（週一至週六，週日部分巷弄不開放）",
+          "closed_on": "週日部分區間不開放",
+          "fee": "免費",
+          "booking_required": false,
+          "rainy_day_ok": false,
+          "sources": [
+            {"title": "【2026北村韓屋村】北村八景地圖攻略！展望台、美食咖啡廳＆韓服交通彙整", "site": "波比看世界", "url": "https://bobbytravel.tw/bukchon-hanok-village/", "published": "2026-07-17", "tier": "blogger"}
+          ]
+        },
+        {
+          "id": "s_ikseondong",
+          "name": "益善洞韓屋村",
+          "name_local": "익선동 한옥마을",
+          "category": "購物商圈",
+          "audience": [
+            "tourist_must",
+            "local_favorite"
+          ],
+          "why": "百年韓屋改建的餐廳咖啡廳聚落，與北村風格不同、更適合輕鬆逛街拍照，鹽可頌等甜點店密集。",
+          "duration_min": 60,
+          "open_hours": "依店家各異，多數10:00後營業",
+          "closed_on": "無統一公休",
+          "fee": "免費（逛街）",
+          "booking_required": false,
+          "rainy_day_ok": false,
+          "sources": [
+            {"title": "【首爾】益善洞韓屋村：Top10美食咖啡廳推薦！鹽可頌、手撕吐司＆鬼怪場景", "site": "波比看世界", "url": "https://bobbytravel.tw/ikseon-dong/", "published": "2026-07-17", "tier": "blogger"}
+          ]
+        },
+        {
+          "id": "s_gogung_museum",
+          "name": "國立古宮博物館",
+          "name_local": "국립고궁박물관",
+          "category": "室內歇腳",
+          "audience": [
+            "local_favorite"
+          ],
+          "why": "景福宮旁的室內展館，展示朝鮮王室文物，免費開放，是雨天或走累時的最佳室內備案。",
+          "duration_min": 60,
+          "open_hours": "平日/週日 09:30-17:30，週六與每月最後一個週三 09:30-21:00",
+          "closed_on": "1月1日、설날、추석、每月最後一個週一",
+          "fee": "免費",
+          "booking_required": false,
+          "rainy_day_ok": true,
+          "sources": [
+            {"title": "국립고궁박물관 官方網站", "site": "국립고궁박물관", "url": "https://www.gogung.go.kr/gogung/main/main.do", "published": "2026-09-11", "tier": "official"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "myeongdong_dt",
+      "name": "明洞・市廳・德壽宮・東大門",
+      "summary": "市中心商圈與歷史宮牆交界帶，涵蓋草稿的明洞逛街、德壽宮、東大門歷史文化公園，也是本次住宿所在區域。",
+      "nearest_station": "明洞站 4號線／市廳站 1、2號線／東大門歷史文化公園站 2、4、5號線",
+      "spots": [
+        {
+          "id": "s_myeongdong",
+          "name": "明洞",
+          "name_local": "명동",
+          "category": "購物商圈",
+          "audience": [
+            "tourist_must"
+          ],
+          "why": "美妝與潮流服飾購物天堂，街邊小吃攤越夜越熱鬧，換錢所密集匯率佳。",
+          "duration_min": 120,
+          "open_hours": "全天，店家多10:00後營業至22:00",
+          "closed_on": "無",
+          "fee": "免費（逛街）",
+          "booking_required": false,
+          "rainy_day_ok": false,
+          "sources": [
+            {"title": "【2026首爾景點推薦】Top21首爾必去打卡清單！最強景點分區地圖總整理", "site": "波比看世界", "url": "https://bobbytravel.tw/seoul-attractions/", "published": "2026-08-06", "tier": "blogger"}
+          ]
+        },
+        {
+          "id": "s_deoksugung",
+          "name": "德壽宮",
+          "name_local": "덕수궁",
+          "category": "文化古蹟",
+          "audience": [
+            "tourist_must",
+            "local_favorite"
+          ],
+          "why": "韓國公認最美石板路之一，秋季染成漸層色，鄰近市廳，適合安排在回程前的輕量半天行程。",
+          "duration_min": 60,
+          "open_hours": "09:00-21:00（最後入場20:00）",
+          "closed_on": "週一",
+          "fee": "成人約 1,000 KRW",
+          "booking_required": false,
+          "rainy_day_ok": false,
+          "sources": [
+            {"title": "【2026首爾景點推薦】Top21首爾必去打卡清單！最強景點分區地圖總整理", "site": "波比看世界", "url": "https://bobbytravel.tw/seoul-attractions/", "published": "2026-08-06", "tier": "blogger"}
+          ]
+        },
+        {
+          "id": "s_dongdaemun",
+          "name": "東大門歷史文化公園",
+          "name_local": "동대문역사문화공원",
+          "category": "購物商圈",
+          "audience": [
+            "tourist_must"
+          ],
+          "why": "宛如巨型飛碟的DDP建築外觀，是亞洲規模最大服裝批發市場所在地，適合夜間逛街。",
+          "duration_min": 90,
+          "open_hours": "DDP建築全天可外觀，商場依各棟各異，部分至凌晨",
+          "closed_on": "無統一公休",
+          "fee": "免費（DDP外部區域）",
+          "booking_required": false,
+          "rainy_day_ok": false,
+          "sources": [
+            {"title": "【2026首爾景點推薦】Top21首爾必去打卡清單！最強景點分區地圖總整理", "site": "波比看世界", "url": "https://bobbytravel.tw/seoul-attractions/", "published": "2026-08-06", "tier": "blogger"}
+          ]
+        },
+        {
+          "id": "s_shinsegae",
+          "name": "新世界百貨 本店",
+          "name_local": "신세계백화점 본점",
+          "category": "室內歇腳",
+          "audience": [
+            "local_favorite"
+          ],
+          "why": "明洞旁的室內百貨，5樓「하우스오브신세계 디저트살롱」是韓式甜點新地標，雨天或炎熱時的室內備案。",
+          "duration_min": 60,
+          "open_hours": "10:30-20:00",
+          "closed_on": "依百貨公休日公告",
+          "fee": "免費入場",
+          "booking_required": false,
+          "rainy_day_ok": true,
+          "sources": [
+            {"title": "신세계百, 하우스오브신세계 디저트살롱 '서울 미식 100선' 선정", "site": "청년일보", "url": "https://www.youthdaily.co.kr/news/article.html?no=201383", "published": "2025-11-04", "tier": "platform"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "seongsu",
+      "name": "聖水洞・首爾林",
+      "summary": "工業區轉型的文青商圈，倉庫改建咖啡廳與首爾林公園交織，涵蓋草稿指名的首爾林與聖水洞咖啡街。",
+      "nearest_station": "首爾林站 水仁盆唐線／聖水站 2號線",
+      "spots": [
+        {
+          "id": "s_seoul_forest",
+          "name": "首爾林",
+          "name_local": "서울숲",
+          "category": "自然景觀",
+          "audience": [
+            "tourist_must",
+            "local_favorite"
+          ],
+          "why": "佔地35萬坪的大型公園，含文化藝術公園、自然生態林等五大主題區，可近距離觀察梅花鹿，秋季楓葉銀杏景色佳。",
+          "duration_min": 90,
+          "open_hours": "全天開放",
+          "closed_on": "無",
+          "fee": "免費",
+          "booking_required": false,
+          "rainy_day_ok": false,
+          "sources": [
+            {"title": "【2026聖水洞逛街地圖】Top15必買品牌、美食＆咖啡廳！一日遊交通路線攻略", "site": "波比看世界", "url": "https://bobbytravel.tw/seongsu-dong/", "published": "2026-07-12", "tier": "blogger"}
+          ]
+        },
+        {
+          "id": "s_seongsu_cafe_st",
+          "name": "聖水洞咖啡街",
+          "name_local": "성수동 카페거리",
+          "category": "室內歇腳",
+          "audience": [
+            "tourist_must",
+            "local_favorite"
+          ],
+          "why": "廢棄倉庫改建的特色咖啡廳聚落，天上家屋等空間全玻璃採光，是逛累時的室內歇腳好選擇。",
+          "duration_min": 90,
+          "open_hours": "依店家各異，多數10:00-22:00",
+          "closed_on": "無統一公休",
+          "fee": "免費（消費另計）",
+          "booking_required": false,
+          "rainy_day_ok": true,
+          "sources": [
+            {"title": "【2026聖水洞逛街地圖】Top15必買品牌、美食＆咖啡廳！一日遊交通路線攻略", "site": "波比看世界", "url": "https://bobbytravel.tw/seongsu-dong/", "published": "2026-07-12", "tier": "blogger"}
+          ]
+        },
+        {
+          "id": "s_seongsu_warehouse",
+          "name": "聖水洞改建倉庫商圈（大林倉庫周邊）",
+          "name_local": "성수동 창고 개조 상권",
+          "category": "網美打卡",
+          "audience": [
+            "local_favorite"
+          ],
+          "why": "廢棄工廠倉庫改建的品牌概念店與展示空間，韓國年輕人票選人氣已超越弘大、明洞，是韓國「布魯克林」代表區。",
+          "duration_min": 60,
+          "open_hours": "依店家各異",
+          "closed_on": "無統一公休",
+          "fee": "免費（逛街）",
+          "booking_required": false,
+          "rainy_day_ok": false,
+          "sources": [
+            {"title": "【2026聖水洞逛街地圖】Top15必買品牌、美食＆咖啡廳！一日遊交通路線攻略", "site": "波比看世界", "url": "https://bobbytravel.tw/seongsu-dong/", "published": "2026-07-12", "tier": "blogger"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "yeongdeungpo",
+      "name": "汝矣島・永登浦・鷺梁津",
+      "summary": "漢江西岸商辦區與傳統水產市場交會帶，涵蓋草稿指名的鷺梁津水產市場、汝矣島漢江公園、THE HYUNDAI SEOUL、63大廈。",
+      "nearest_station": "汝矣島站 5、9號線／鷺梁津站 1、9號線",
+      "spots": [
+        {
+          "id": "s_yeouido_park",
+          "name": "汝矣島漢江公園",
+          "name_local": "여의도한강공원",
+          "category": "自然景觀",
+          "audience": [
+            "tourist_must",
+            "local_favorite"
+          ],
+          "why": "首爾三大商業區之一的漢江公園，腹地最大、交通最便利，可搭船夜遊漢江或在便利商店煮「漢江拉麵」野餐。",
+          "duration_min": 90,
+          "open_hours": "全天開放，免費",
+          "closed_on": "無",
+          "fee": "免費",
+          "booking_required": false,
+          "rainy_day_ok": false,
+          "sources": [
+            {"title": "여의도한강공원 소개", "site": "서울시 미래한강본부", "url": "https://hangang.seoul.go.kr/www/contents/669.do?mid=473", "published": "2026-09-11", "tier": "official"}
+          ]
+        },
+        {
+          "id": "s_hyundai_seoul",
+          "name": "THE HYUNDAI SEOUL（現代百貨）",
+          "name_local": "더현대 서울",
+          "category": "室內歇腳",
+          "audience": [
+            "tourist_must"
+          ],
+          "why": "以室內空中花園與瀑布聞名的巨型百貨，草稿指名景點，也是雨天/炎熱天的絕佳室內備案，地下1樓與6樓美食街選擇多。",
+          "duration_min": 120,
+          "open_hours": "10:30-20:00（週五六日至20:30）",
+          "closed_on": "依公告",
+          "fee": "免費入場",
+          "booking_required": false,
+          "rainy_day_ok": true,
+          "sources": [
+            {"title": "[2026 서울 쇼핑몰] 더현대 서울 여행 가이드 & 여행 후기", "site": "트립닷컴 트립 모먼트", "url": "https://kr.trip.com/moments/poi-the-hyundai-seoul-133526018/", "published": "2026-09-01", "tier": "platform"}
+          ]
+        },
+        {
+          "id": "s_63building",
+          "name": "63大廈",
+          "name_local": "63빌딩（63스퀘어）",
+          "category": "自然景觀",
+          "audience": [
+            "tourist_must"
+          ],
+          "why": "汝矣島地標，63 Sky Picnic屋頂展望台可俯瞰首爾與漢江夜景，草稿指名「看夜景」項目。",
+          "duration_min": 90,
+          "open_hours": "每日 10:00-22:00（售票至21:30）",
+          "closed_on": "無固定休息日",
+          "fee": "63 Sky Picnic展望台：成人27,000韓元、兒童/長者23,000韓元",
+          "booking_required": false,
+          "rainy_day_ok": true,
+          "sources": [
+            {"title": "63 Sky Picnic 觀景台介紹", "site": "63 Sky Picnic 官方網站", "url": "https://63skypicnic.com/en/main", "published": "2026-09-11", "tier": "official"}
+          ]
+        },
+        {
+          "id": "s_noryangjin_market",
+          "name": "鷺梁津水產市場",
+          "name_local": "노량진수산시장",
+          "category": "購物商圈",
+          "audience": [
+            "tourist_must",
+            "local_favorite"
+          ],
+          "why": "首爾指標性傳統水產市場，可選購海鮮現場請店家代客料理，近年外國遊客同比增加46%，草稿指名的「吃海鮮」項目。",
+          "duration_min": 90,
+          "open_hours": "24小時（餐飲區/代客料理區約至深夜）",
+          "closed_on": "無",
+          "fee": "免費入場（消費另計）",
+          "booking_required": false,
+          "rainy_day_ok": false,
+          "sources": [
+            {"title": "외국인 관광객으로 붐비는 노량진수산시장, 이게 아쉽다", "site": "오마이뉴스（이혁진）", "url": "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003199459", "published": "2026-01-17", "tier": "platform"}
+          ]
+        }
+      ]
+    }
+  ]
+}

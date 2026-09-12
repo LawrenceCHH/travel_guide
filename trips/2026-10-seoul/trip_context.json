@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "destination": "韓國首爾",
+  "dates": {"start": "2026-10-17", "end": "2026-10-21", "nights": 4, "season": "秋"},
+  "arrival":   {"date": "2026-10-17", "time": "05:00", "airport": "ICN", "terminal": "T2", "carrier": "真航空"},
+  "departure": {"date": "2026-10-21", "time": "16:10", "airport": "ICN", "terminal": "T2", "carrier": "大韓航空"},
+  "origin":    {"airport": "TPE", "terminal": "T1"},
+  "stay":      {"area": "市政廳／明洞商圈一帶", "nearest_station": "市政廳站（1號線／2號線）", "checkin": "15:00"},
+  "party":     {"adults": 4, "children": 0, "rooms": 1, "mobility_notes": null},
+  "style":     {"pace": null, "interests": []},
+  "named_musts": ["三清洞", "北村韓屋村", "景福宮", "東大門", "明洞商圈", "鷺梁津水產市場", "大型百貨室內空中花園（瀑布景觀）", "汝矣島漢江夜遊搭船", "南怡島", "小法國村", "鐵路自行車", "首爾林", "聖水洞", "德壽宮"],
+  "named_undecided": ["首爾塔", "弘大"],
+  "derived_constraints": [
+    "Day1（10/17）05:00 抵達仁川機場為紅眼班機清晨落地，住宿 15:00 才能 check-in，中間空窗約 8~10 小時，需安排行李寄放與低強度、可隨時中止的行程，不排需預約準時到場的項目",
+    "Day5（10/21）16:10 起飛，需回推機場報到與退房時間，末半天實際可用時數有限，只排住宿步行圈內輕量活動",
+    "南怡島／小法國村／鐵路自行車草稿註記為『包車1日遊』，屬事先預約項目，需在 01 訂位清單與 09 booking_required 標註",
+    "[待確認：房型與人數疑似不一致] 使用者原始訂房資訊顯示同行 4 位成人但房型僅為可容納 3 人的房型等級，可能為加床、拆分訂房、或原始資料誤植，行程規劃仍以 4 人為準，但建議使用者向訂房業者覆核實際入住安排是否足夠"
+  ],
+  "inferred_fields": ["stay.area", "stay.nearest_station", "stay.checkin"],
+  "provenance": "private/input/（使用者提供之行程草稿與訂房確認資訊，不進版控）"
+}

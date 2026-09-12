@@ -32,7 +32,7 @@
 | 出發/回程時刻與機場航廈 | 推斷該航線常見班次，標記待覆核（影響首尾 buffer，見 `references/sections/10_itinerary.md`） |
 | 航空公司 | 推斷該航線主流航司，標記待覆核（影響行李規範，見 `references/sections/02_immigration.md`） |
 | 住宿區位 | 推斷該目的地常見住宿區，標記待覆核（影響景點分區，見 `references/sections/09_materials.md`） |
-| 成員結構 | 預設「一般成人旅客」，仍產友善度評分但不做特殊加權 |
+| 成員結構 | 預設「一般成人旅客」，不做特殊加權 |
 | 旅行風格、指名景點、美食偏好、預算、電信商、來源偏好 | 全部走「留空即預設」，不中斷；有明講的限制或偏好（如飲食限制）比照紅眼班機一類的例子，寫成一句 `derived_constraints`，不必另開專屬欄位 |
 
 **所有推斷來的值都要寫進 `trip_context.json` 的 `inferred_fields`**，並同步到 `progress.md` 的「待覆核的推斷值」。使用者一旦更正，回頭改 `trip_context.json` 並記錄於「決策紀錄」。

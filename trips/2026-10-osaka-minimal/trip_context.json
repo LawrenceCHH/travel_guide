@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "destination": "日本大阪",
+  "dates": {"start": "2026-10-14", "end": "2026-10-16", "nights": 2, "season": "秋"},
+  "arrival":   {"date": "2026-10-14", "time": "10:00", "airport": "KIX", "terminal": "T1", "carrier": null},
+  "departure": {"date": "2026-10-16", "time": "18:00", "airport": "KIX", "terminal": "T1", "carrier": null},
+  "origin":    {"airport": "TPE", "terminal": null},
+  "stay":      {"area": "難波／心齋橋一帶", "nearest_station": "難波站（南海電鐵／地下鐵御堂筋線）", "checkin": "15:00"},
+  "party":     {"adults": 1, "children": 0, "rooms": 1, "mobility_notes": null},
+  "style":     {"pace": null, "interests": []},
+  "named_musts": [],
+  "named_undecided": [],
+  "derived_constraints": [],
+  "inferred_fields": [
+    "dates.start/end（使用者只說「10月中、3天2夜」，推斷為 2026-10-14～2026-10-16；日期為示意用推斷值，非使用者確認的實際日期）",
+    "arrival/departure 時刻（使用者未提供班機資訊，推斷為台北-大阪常見航班時段的上午到、傍晚離的示意值，非真實時刻）",
+    "arrival/departure.airport（未提供，推斷為大阪主要國際機場關西機場 KIX，非大阪（伊丹）機場 ITM——因 ITM 目前無國際定期航線）",
+    "arrival/departure.carrier（未提供，留 null，不臆測特定航空公司）",
+    "stay.area/nearest_station（未提供，推斷為第一次到訪大阪最常見的住宿商圈難波／心齋橋，交通樞紐，適合初次規劃）",
+    "stay.checkin（未提供，推斷日系飯店常見 15:00 標準入住時間）",
+    "party（未提供同行人數，預設 1 位成人）"
+  ],
+  "provenance": "使用者僅口頭提供「我想去大阪玩 3 天 2 夜，10 月中」，未提供任何檔案。依 references/intake.md 第 2 條（沒有檔案→引導式提問），已備妥一批 3~5 題的引導式提問（見 progress.md 決策紀錄），但本次測試模擬使用者未再回覆／不想多給資訊，依第 3 條（什麼都不想給）走全部預設推斷，僅保留目的地與使用者明講的天數/月份區間。"
+}

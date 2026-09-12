@@ -34,6 +34,7 @@
 任何不在上表清單內的值視為不合法（由 `validate_materials.py`/其 checklist 後備檢查，見 §7.3 第 7 條）。
 
 欄位語意補充：
+- `spots[].why`：**不打分數，用具體敘述取代**。要寫出這個景點實際上為什麼好玩、有什麼特色場景或體驗（例如「整點守衛交接儀式陣仗大」「夜景可俯瞰整座城市」），讓讀者自己判斷熱不熱門、值不值得排進去，避免「值得一去」這類空泛套語。
 - `spots[].id` / `food[].id`：英數與底線組成的短代碼，供跨檔參照（`food.near_spot` → `spots.id`）。
 - `spots[].booking_required`：是否需事先預約，會被 `01_flight_stay.md` 的訂位清單引用。
 - `spots[].rainy_day_ok`：是否可作為雨天/公休/排隊過長的 Plan B，會被 `10_itinerary.md` 的每半天 Plan B 規則引用。
@@ -64,7 +65,7 @@ JSON 本身沒有歧義，但 **diff 品質靠約定維持**：
 5. 每個 `area` 的 `spots` 中至少 1 個 `rainy_day_ok: true`（供 `10_itinerary.md` 的 Plan B 使用）。
 6. `food.picks[].near_spot` 必須存在於 `spots.json` 的**同一 area** 中（參照完整性）。
 7. 所有列舉欄位（見 §7.1 表）的值必須落在合法值清單內。
-8. **`areas` 必須覆蓋 `trip_context.named_musts` 涉及的全部地理區域**，不得只做最低限度（schema 的 `minItems: 1` 只是格式下限，不是完成標準）。若受限於執行時間無法逐區建檔，**不得靜默省略**：未覆蓋的區域要在 `progress.md` 列出清單與原因，且 `10_itinerary.md` 引用該區域的指名景點時必須明確標註「未依 09 規格建檔，直接沿用使用者草稿原文，未經來源查證與友善度評分」——不可讓成品外觀上看起來與正式建檔的區域一樣完整。
+8. **`areas` 必須覆蓋 `trip_context.named_musts` 涉及的全部地理區域**，不得只做最低限度（schema 的 `minItems: 1` 只是格式下限，不是完成標準）。若受限於執行時間無法逐區建檔，**不得靜默省略**：未覆蓋的區域要在 `progress.md` 列出清單與原因，且 `10_itinerary.md` 引用該區域的指名景點時必須明確標註「未依 09 規格建檔，直接沿用使用者草稿原文，未經來源查證」——不可讓成品外觀上看起來與正式建檔的區域一樣完整。
 9. `areas[].nearby_areas[].area_id` 與 `spots[].nearby_spots[].id` 若有填，參照對象必須真實存在（前者存在於同一 `areas` 陣列、後者存在於同一 area 內）——這是唯一的機械檢查，**不檢查也不要求完整性/對稱性**（有沒有填齊、A 記了 B 但 B 沒記 A，都不算違規）。
 
 前八條規則的機械執行由 `scripts/validate_materials.py` 完成，輸出區分 ERROR（阻斷）/WARN（提醒但不阻斷）；第 8 條是覆蓋範圍規則，`validate_materials.py` 不做地理覆蓋判斷，需 agent 自行對照 `trip_context.named_musts` 檢查，或使用 `references/checklists/validate_materials.md` 的等效手動步驟。

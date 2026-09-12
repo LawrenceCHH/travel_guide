@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "destination": "日本大阪",
+  "last_verified": "2026-09-12",
+  "areas": [
+    {
+      "id": "namba_dotonbori",
+      "name": "難波・道頓堀",
+      "summary": "大阪最具代表性的鬧區與美食激戰區，鄰近本次推斷住宿區位，適合抵達/離境日安排低強度步行行程。",
+      "nearest_station": "難波站（南海電鐵／地下鐵御堂筋線・四つ橋線・千日前線）",
+      "spots": [
+        {
+          "id": "glico_sign",
+          "name": "道頓堀格力高看板",
+          "category": "地標景點",
+          "audience": [
+            "tourist_must"
+          ],
+          "why": "大阪最知名地標之一，1935年設立至今第六代看板，日落後至凌晨0時點燈，免費參觀，是道頓堀拍照必訪點。",
+          "duration_min": 20,
+          "open_hours": "24小時開放（看板點燈時間為日落30分鐘後至凌晨0時）",
+          "closed_on": null,
+          "fee": "免費",
+          "booking_required": false,
+          "rainy_day_ok": true,
+          "sources": [
+            {"title": "道頓堀グリコサイン", "site": "大阪市官方（中央區）", "url": "https://www.city.osaka.lg.jp/chuo/page/0000645831.html", "published": "[待確認：頁面未見明確發布/更新日期]", "tier": "official"}
+          ]
+        }
+      ]
+    }
+  ]
+}

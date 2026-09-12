@@ -1,0 +1,1207 @@
+{
+  "version": 1,
+  "areas": [
+    {
+      "id": "gwanghwamun",
+      "picks": [
+        {
+          "id": "jungbaek_agaeng",
+          "name": "정백어가 광화문 피맛골본점",
+          "name_local": "정백어가 광화문 피맛골본점",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "gwanghwamun_night_bus",
+          "walk_min": 8,
+          "price_band": "₩₩",
+          "signature": "황토 화덕 생선구이 정식（炭窯烤魚定食）",
+          "why": "光化門與鐘閣站中間、피맛골巷弄裡的炭窯烤魚專賣店，皮酥肉嫩且無腥味，適合想吃清爽韓式正餐的旅客，且地下停車場可用、交通方便。",
+          "caution": "用餐尖峰時段（平日傍晚）較多上班族客群，建議避開18:30前後人潮。",
+          "sources": [
+            {
+              "title": "종로 맛집 한식 화덕 생선구이 맛난 정백어가 광화문 피맛골 본점 - 맑은날의 즐거운 맛집이야기（Naver Blog）",
+              "site": "맑은날의 즐거운 맛집이야기",
+              "url": "https://m.blog.naver.com/aimhigh222/224389262939",
+              "published": "2026-08-25",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "oreno_yaki_jongno",
+          "name": "오레노 야끼 종로점",
+          "name_local": "오레노 야끼 종로점",
+          "category": "正餐",
+          "audience": "local",
+          "near_spot": "gwanghwamun_night_bus",
+          "walk_min": 15,
+          "price_band": "₩₩",
+          "signature": "오코노미야끼・야끼소바 2인 프리미엄 세트（大阪燒・炒麵套餐）",
+          "why": "鐘路上班族熟客愛去的日式大阪燒與炒麵專門店，份量紮實，是當地人聚餐愛用的晚餐選擇。",
+          "caution": "熱門用餐時段常見排隊，建議避開週末晚間尖峰。",
+          "sources": [
+            {
+              "title": "종로 맛집 오레노야끼 종로점 방문 후기｜2인 프리미엄 세트ㅣ야끼소바 맛집 - Naver Blog（choish3259）",
+              "site": "choish3259",
+              "url": "https://m.blog.naver.com/choish3259/224403475328",
+              "published": "2026-09-07",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "katsu_shoshin_jonggak",
+          "name": "카츠쇼신 종각역센트로폴리스점",
+          "name_local": "카츠쇼신 종각역센트로폴리스점",
+          "category": "小吃",
+          "audience": "local",
+          "near_spot": "gwanghwamun_night_bus",
+          "walk_min": 12,
+          "price_band": "₩₩",
+          "signature": "특로스카츠（厚切炸豬排）",
+          "why": "鐘閣站地下商城裡當地人常排隊的日式豬排店，午餐時段有優惠套餐，適合想吃份量足又快速的一餐。",
+          "caution": "用餐尖峰（11:00-13:00、18:00-20:30）常見排隊，建議錯峰前往。",
+          "sources": [
+            {
+              "title": "종각맛집 카츠쇼신 종각역센트로폴리스점 주말데이트맛집 - Naver Blog（bbu_log）",
+              "site": "bbu_log",
+              "url": "https://m.blog.naver.com/bbu_log/224381832148",
+              "published": "2026-08-18",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "otc_coffee_ikseon",
+          "name": "오티씨커피 익선",
+          "name_local": "오티씨커피 익선",
+          "category": "咖啡甜點",
+          "audience": "tourist",
+          "near_spot": "gwanghwamun_night_bus",
+          "walk_min": 20,
+          "price_band": "₩₩",
+          "signature": "現炸奶油起司丘拉斯（츄러스）＋手沖咖啡",
+          "why": "益善洞韓屋巷弄裡的人氣咖啡廳，坐擁韓屋屋簷景致，是遊客拍照打卡與下午茶歇腳的熱門選擇。",
+          "caution": "距離集合點步行約20分鐘較遠，建議安排在往鐘路方向散步的途中順遊，或轉搭地鐵至鐘路3街站再步行。",
+          "sources": [
+            {
+              "title": "익선동 카페 오티씨커피 익선 | 한옥뷰 보며 먹는 갓 튀긴 츄러스 - Naver Blog（haenstory）",
+              "site": "haenstory",
+              "url": "https://m.blog.naver.com/haenstory/224394214667",
+              "published": "2026-09-02",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "gobongdang_euljiro",
+          "name": "고봉당 을지로점",
+          "name_local": "고봉당 을지로점",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "deoksugung",
+          "walk_min": 15,
+          "price_band": "₩₩₩",
+          "signature": "돌판 등갈비찜＋인절미 떡구이（鐵板燉排骨＋烤年糕）",
+          "why": "乙支路懷舊風韓食餐廳，鐵板燉排骨搭配炭烤年糕，復古氛圍加上道地熱炒口味，適合想體驗在地懷舊韓食的旅客。",
+          "rainy_day_ok": true,
+          "sources": [
+            {
+              "title": "[을지로3가] 돌판 등갈비찜에 인절미 떡구이, 바막까지! 레트로 감성 \"고봉당 을지로점\" - Naver Blog（bonbongw）",
+              "site": "bonbongw",
+              "url": "https://m.blog.naver.com/bonbongw/224384835852",
+              "published": "2026-08-31",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "rizero_seoul_rooftop",
+          "name": "리제로 서울",
+          "name_local": "리제로 서울",
+          "category": "咖啡甜點",
+          "audience": "local",
+          "near_spot": "sema_deoksugung",
+          "walk_min": 20,
+          "price_band": "₩₩",
+          "signature": "루프탑 시그니처 음료（招牌特調飲品）",
+          "why": "鐘路上罕見的大型露天屋頂咖啡廳，可遠眺市區天際線，是在地人推薦拍照與放鬆的口袋名單。",
+          "caution": "位置較靠近景福宮站，距德壽宮步行稍遠，建議安排在往景福宮方向移動的路上順遊。",
+          "sources": [
+            {
+              "title": "종로 대형 루프탑 카페 | 리제로 서울 | 경복궁역 카페 - Naver Blog（ahnjy0122）",
+              "site": "ahnjy0122",
+              "url": "https://m.blog.naver.com/ahnjy0122/224312745151",
+              "published": "2026-06-13",
+              "tier": "blogger"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gyeongbok_bukchon",
+      "picks": [
+        {
+          "id": "bukchon_dodam",
+          "name": "북촌도담",
+          "name_local": "북촌도담",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "bukchon_hanok",
+          "walk_min": 5,
+          "price_band": "₩₩",
+          "signature": "북촌도담 한상차림（韓式家常定食）",
+          "why": "北村巷弄裡的家常韓食定食店，小菜多樣、份量均衡，適合逛完北村韓屋村後的正餐選擇。",
+          "sources": [
+            {
+              "title": "[오점뭐?] 북촌도담 - Naver Blog（880410s2）",
+              "site": "880410s2",
+              "url": "https://m.blog.naver.com/880410s2/224400104127",
+              "published": "2026-09-03",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "cafe_sudal_samcheong",
+          "name": "카페 수달",
+          "name_local": "카페 수달",
+          "category": "咖啡甜點",
+          "audience": "tourist",
+          "near_spot": "bukchon_hanok",
+          "walk_min": 10,
+          "price_band": "₩₩",
+          "signature": "수달 시그니처 라떼＋手作甜點",
+          "why": "三清洞人氣咖啡廳，可愛的水獺主題裝潢好拍照，常與周邊美食店串成半日散步路線，觀光客造訪率高。",
+          "sources": [
+            {
+              "title": "삼청동맛집 봉탁항아리바비큐부터 카페수달, 안국역맛집 잭잭버거까지 :: 조카 휴가 나온 날 삼청동 완벽 코스 - Naver Blog（0102010）",
+              "site": "0102010",
+              "url": "https://m.blog.naver.com/0102010/224381971719",
+              "published": "2026-08-18",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "ssalssal_social_seoul",
+          "name": "쌀쌀소셜서울",
+          "name_local": "쌀쌀소셜서울",
+          "category": "伴手禮",
+          "audience": "tourist",
+          "near_spot": "gyeongbokgung",
+          "walk_min": 15,
+          "price_band": "₩₩₩",
+          "signature": "글루텐프리 쌀빵 선물세트（米製無麩質烘焙禮盒）",
+          "why": "仁寺洞的米製無麩質烘焙坊，禮盒包裝精緻適合當伴手禮，也提供有麩質過敏或飲食限制同伴可安心享用的甜點選項。",
+          "caution": "位於仁寺洞，距景福宮步行約15分鐘，可安排在往安國站移動的路上順遊。",
+          "sources": [
+            {
+              "title": "[인사동 카페 글루텐프리/추석 선물 세트 추천] '쌀쌀소셜서울'에 간 홍순이 - Naver Blog（ugogirl96）",
+              "site": "ugogirl96",
+              "url": "https://m.blog.naver.com/ugogirl96/224396986131",
+              "published": "2026-09-04",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "moksukjeong_samcheong",
+          "name": "목석정",
+          "name_local": "목석정",
+          "category": "正餐",
+          "audience": "local",
+          "near_spot": "bukchon_hanok",
+          "walk_min": 12,
+          "price_band": "₩₩₩",
+          "signature": "맡김차림 한정식（主廚無菜單韓定食）",
+          "why": "三清洞在地人推薦的高質感韓定食餐廳，設有包廂座位，適合想安靜享用晚餐的家庭聚會。",
+          "caution": "屬中高價位無菜單料理，建議事先電話或線上訂位。",
+          "sources": [
+            {
+              "title": "삼청동 한정식 맛집 목석정 프라이빗 룸 저녁 맡김차림 후기 - Naver Blog（88picachoo）",
+              "site": "88picachoo",
+              "url": "https://m.blog.naver.com/88picachoo/224403475823",
+              "published": "2026-09-07",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "pyeongang_yul_teahouse",
+          "name": "편강 율 플래그십&티하우스",
+          "name_local": "편강 율 플래그십&티하우스",
+          "category": "咖啡甜點",
+          "audience": "local",
+          "near_spot": "bukchon_hanok",
+          "walk_min": 6,
+          "price_band": "₩₩",
+          "signature": "한방차＋생강정과（韓方茶與薑糖點心）",
+          "why": "北村巷弄裡的韓方茶館，主打生薑漢方茶飲與傳統點心，是在地人推薦、想喝點不同於一般咖啡的選擇。",
+          "sources": [
+            {
+              "title": "2026 카페 경험: 북촌 한방 찻집 편강 율 티하우스 - Naver Blog（by0427）",
+              "site": "by0427",
+              "url": "https://m.blog.naver.com/by0427/224389581302",
+              "published": "2026-08-25",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "postones_samcheong",
+          "name": "포스톤즈 삼청점",
+          "name_local": "포스톤즈 삼청점",
+          "category": "咖啡甜點",
+          "audience": "local",
+          "near_spot": "mmca_seoul",
+          "walk_min": 8,
+          "price_band": "₩₩",
+          "signature": "포스톤즈 시그니처 디저트＋咖啡",
+          "why": "三清洞在地人常去的咖啡廳，鄰近國立現代美術館，適合看展後歇腳小憩。",
+          "sources": [
+            {
+              "title": "포스톤즈 삼청점부터 불꽃축제까지, 꽉 찬 하루 일상 후기 - Naver Blog（designinsu）",
+              "site": "designinsu",
+              "url": "https://m.blog.naver.com/designinsu/224404446326",
+              "published": "2026-09-08",
+              "tier": "blogger"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ikseondong",
+      "picks": [
+        {
+          "id": "ik_sohayeomjeon",
+          "name": "소하염전（鹽可頌專門店）",
+          "name_local": "소하염전",
+          "category": "小吃",
+          "audience": "tourist",
+          "near_spot": "ikseondong_hanok",
+          "walk_min": 3,
+          "price_band": "₩",
+          "signature": "鹽可頌（소금빵）",
+          "why": "益善洞爆紅排隊名店，鹹甜奶油可頌是遊客必買的招牌伴手禮。",
+          "caution": "假日常排隊超過40分鐘，建議平日或開店前往。",
+          "sources": [
+            {
+              "title": "2026益善洞散策-把假日留在這裡一天吧！數家特色美食、咖啡店必須收藏 - 大妹食旅日常",
+              "site": "大妹食旅日常",
+              "url": "https://damei17.com/ikseon-dong/",
+              "published": "2026-01-07",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "ik_damsot",
+          "name": "담솥（釜飯專門店）",
+          "name_local": "담솥",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "ikseondong_hanok",
+          "walk_min": 4,
+          "price_band": "₩₩",
+          "signature": "石鍋釜飯",
+          "why": "益善洞人氣韓式釜飯店，份量足、適合多人共食，是遊記中常見的推薦正餐選擇。",
+          "sources": [
+            {
+              "title": "2026益善洞散策-把假日留在這裡一天吧！數家特色美食、咖啡店必須收藏 - 大妹食旅日常",
+              "site": "大妹食旅日常",
+              "url": "https://damei17.com/ikseon-dong/",
+              "published": "2026-01-07",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "ik_miltoast",
+          "name": "밀토스드 MIL Toast House",
+          "name_local": "밀토스드",
+          "category": "小吃",
+          "audience": "tourist",
+          "near_spot": "ikseondong_hanok",
+          "walk_min": 2,
+          "price_band": "₩",
+          "signature": "蒸籠吐司",
+          "why": "特色蒸籠吐司網美店，外型吸睛，適合逛街途中的下午茶點心。",
+          "sources": [
+            {
+              "title": "2026益善洞散策-把假日留在這裡一天吧！數家特色美食、咖啡店必須收藏 - 大妹食旅日常",
+              "site": "大妹食旅日常",
+              "url": "https://damei17.com/ikseon-dong/",
+              "published": "2026-01-07",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "ik_gounddon",
+          "name": "고운돈 益善店",
+          "name_local": "고운돈 익선점",
+          "category": "正餐",
+          "audience": "local",
+          "near_spot": "ikseondong_hanok",
+          "walk_min": 5,
+          "price_band": "₩₩₩",
+          "signature": "종로 야장 삼겹살（露天五花肉烤肉）",
+          "why": "在地人常去的道地烤肉店，露天座位氣氛佳，Naver在地評論與收藏數皆高。",
+          "caution": "熱門時段建議先電話或Naver預約。",
+          "sources": [
+            {
+              "title": "종로 야장 삼겹살 내돈내산 고운돈 예약 후기 - 몽땅이의 여행일기",
+              "site": "몽땅이의 여행일기（Naver Blog）",
+              "url": "https://blog.naver.com/46wendy/224386459264",
+              "published": "2026-08-22",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "ik_seoulcoffee",
+          "name": "서울커피 益善本店",
+          "name_local": "서울커피 익선본점",
+          "category": "咖啡甜點",
+          "audience": "local",
+          "near_spot": "ikseondong_hanok",
+          "walk_min": 4,
+          "price_band": "₩",
+          "signature": "쫀득식빵（Q彈奶油吐司）",
+          "why": "在地人熟悉的隱藏系咖啡廳，比起網紅店更安靜，適合當地人日常光顧。",
+          "sources": [
+            {
+              "title": "[서울커피 익선본점] 익선동 카페 쫀득식빵 솔직후기",
+              "site": "bombome33（Naver Blog）",
+              "url": "https://blog.naver.com/bombome33/224390821941",
+              "published": "2026-08-29",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "ik_dongbaek",
+          "name": "東白洋菓店 益善店",
+          "name_local": "동백양과점 익선점",
+          "category": "咖啡甜點",
+          "audience": "local",
+          "near_spot": "ikseondong_hanok",
+          "walk_min": 3,
+          "price_band": "₩₩",
+          "signature": "딸기 모찌 수플레（草莓麻糬舒芙蕾）",
+          "why": "在地美食部落客推薦的舒芙蕾甜點店，開化期風格空間，較少觀光客知曉。",
+          "sources": [
+            {
+              "title": "익선동 수플레 맛집 동백양과점 | 개화기 감성 가득한 딸기 모찌 수플레 내돈내산 후기",
+              "site": "day_log_and（Naver Blog）",
+              "url": "https://blog.naver.com/day_log_and/224403963000",
+              "published": "2026-09-07",
+              "tier": "blogger"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dongdaemun",
+      "picks": [
+        {
+          "id": "dd_gomango",
+          "name": "고망고 DDP店",
+          "name_local": "고망고 DDP점",
+          "category": "咖啡甜點",
+          "audience": "tourist",
+          "near_spot": "ddp_hall",
+          "walk_min": 3,
+          "price_band": "₩₩",
+          "signature": "망고빙수（芒果雪花冰）",
+          "why": "DDP旁人氣芒果雪花冰店，是遊記中常見的觀光客消暑推薦，親子同遊也合適。",
+          "sources": [
+            {
+              "title": "동대문역사공원 ddp맛집 카페추천 모모야 고망고 아기랑 서울실내",
+              "site": "cdsh123（Naver Blog）",
+              "url": "https://blog.naver.com/cdsh123/224369090399",
+              "published": "2026-08-06",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "dd_waggle",
+          "name": "와글와글베이크샵 東大門店",
+          "name_local": "와글와글베이크샵 동대문점",
+          "category": "伴手禮",
+          "audience": "tourist",
+          "near_spot": "ddp_hall",
+          "walk_min": 5,
+          "price_band": "₩₩",
+          "signature": "크로와글（可頌吐司）",
+          "why": "東大門歷史文化公園站旁人氣麵包坊，環境舒適適合外帶麵包當作伴手禮。",
+          "sources": [
+            {
+              "title": "동대문역사문화공원역 카페 와글와글베이크샵 분위기 좋은 DDP 빵집",
+              "site": "inkyungidd（Naver Blog）",
+              "url": "https://blog.naver.com/inkyungidd/224396601856",
+              "published": "2026-09-02",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "dd_kkakttukdwaeji",
+          "name": "깍뚝돼지 東大門本店",
+          "name_local": "깍뚝돼지 동대문본점",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "ddp_hall",
+          "walk_min": 6,
+          "price_band": "₩₩₩",
+          "signature": "금돼지세트（招牌烤五花套餐）",
+          "why": "DDP周邊觀光客常去的烤肉名店，套餐化菜單對第一次點餐的遊客友善。",
+          "sources": [
+            {
+              "title": "동대문 디디피 맛집 추천 깍뚝돼지 후회없는 금돼지세트 후기",
+              "site": "1suhyeon（Naver Blog）",
+              "url": "https://blog.naver.com/1suhyeon/224263055786",
+              "published": "2026-04-23",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "dd_sundaegojip",
+          "name": "순대고집 東廟站店",
+          "name_local": "순대고집 동묘역점",
+          "category": "小吃",
+          "audience": "local",
+          "near_spot": "ddp_park",
+          "walk_min": 15,
+          "price_band": "₩",
+          "signature": "순대（韓式糯米血腸）",
+          "why": "東廟跳蚤市場在地人排隊的小吃攤，價格親民、道地不觀光化。",
+          "caution": "位於東廟站附近，離DDP步行約15分鐘，建議搭配東廟古著市集安排同一時段。",
+          "sources": [
+            {
+              "title": "동묘앞 동묘시장 맛집 순대고집 동묘점 내돈내산 후기",
+              "site": "hjnet（Naver Blog）",
+              "url": "https://blog.naver.com/hjnet/224342610468",
+              "published": "2026-07-10",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "dd_ilwolmyeon",
+          "name": "일월의제면소 興仁之門店",
+          "name_local": "일월의제면소 흥인지문",
+          "category": "正餐",
+          "audience": "local",
+          "near_spot": "ddp_park",
+          "walk_min": 5,
+          "price_band": "₩₩",
+          "signature": "自家製麵烏龍麵",
+          "why": "在地人推薦的自製麵烏龍麵店，落地窗正對興仁之門城樓景觀。",
+          "sources": [
+            {
+              "title": "동대문 우동 일월의제면소, 쫄깃한 자가제면 우동과 통창으로 보이는 흥인지문",
+              "site": "dawon_hj（Naver Blog）",
+              "url": "https://blog.naver.com/dawon_hj/224399148707",
+              "published": "2026-09-03",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "dd_cheongdominari",
+          "name": "청도미나리식당 東大門店",
+          "name_local": "청도미나리식당 동대문점",
+          "category": "正餐",
+          "audience": "local",
+          "near_spot": "ddp_hall",
+          "walk_min": 8,
+          "price_band": "₩₩",
+          "signature": "미나리 삼겹살 샤브샤브（水芹菜五花肉涮涮鍋）",
+          "why": "在地人熟門熟路的水芹菜涮涮鍋店，口味清爽適合搭配大量蔬菜同食。",
+          "sources": [
+            {
+              "title": "서울 DDP 동대문역 미나리 샤브샤브 맛집 내돈내산 후기<청도미나리식당>",
+              "site": "eunvely0913（Naver Blog）",
+              "url": "https://blog.naver.com/eunvely0913/224382480965",
+              "published": "2026-08-18",
+              "tier": "blogger"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "myeongdong",
+      "picks": [
+        {
+          "id": "md_euljirodonkatsu",
+          "name": "을지돈가스 明洞本店",
+          "name_local": "을지돈가스 명동본점",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "myeongdong_street",
+          "walk_min": 5,
+          "price_band": "₩₩",
+          "signature": "元祖豬排飯",
+          "why": "明洞排隊超過一甲子的老字號豬排店，是觀光客遊記中常見的必吃經典。",
+          "sources": [
+            {
+              "title": "명동 을지돈가스 방문 후기, 돈가스와 떡볶이의 정석",
+              "site": "sonnyhay（Naver Blog）",
+              "url": "https://blog.naver.com/sonnyhay/224408141392",
+              "published": "2026-09-10",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "md_yoyogurt",
+          "name": "유요거트 明洞本店",
+          "name_local": "유요거트 명동본점",
+          "category": "咖啡甜點",
+          "audience": "tourist",
+          "near_spot": "myeongdong_street",
+          "walk_min": 3,
+          "price_band": "₩",
+          "signature": "그릭요거트（希臘優格）",
+          "why": "明洞人氣打卡優格冰品店，是觀光客逛街途中常排隊的甜點選擇。",
+          "sources": [
+            {
+              "title": "[명동 카페] 유요거트 메뉴 추천! 양쯔간루 요과정과 그릭요거트 후기",
+              "site": "sblue9510（Naver Blog）",
+              "url": "https://blog.naver.com/sblue9510/224364647736",
+              "published": "2026-08-01",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "md_shinsegaedessert",
+          "name": "House of Shinsegae 甜點沙龍",
+          "name_local": "하우스 오브 신세계 디저트살롱",
+          "category": "伴手禮",
+          "audience": "tourist",
+          "near_spot": "myeongdong_lotte",
+          "walk_min": 8,
+          "price_band": "₩₩₩",
+          "signature": "복숭아빙수（水蜜桃雪花冰，季節限定）",
+          "why": "新世界百貨限定甜點沙龍，觀光客必排隊的季節限定雪花冰與精緻伴手禮盒。",
+          "caution": "水蜜桃雪花冰為季節限定商品，出發前建議先確認是否在供應期間。",
+          "sources": [
+            {
+              "title": "하우스 오브 신세계 디저트살롱 복숭아빙수 후기 / 천룡인이 먹는 복숭아빙수",
+              "site": "yello9892（Naver Blog）",
+              "url": "https://blog.naver.com/yello9892/224392326194",
+              "published": "2026-08-27",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "md_cheonsagopchang",
+          "name": "天使腸子 明洞店",
+          "name_local": "천사곱창 명동점",
+          "category": "小吃",
+          "audience": "local",
+          "near_spot": "myeongdong_street",
+          "walk_min": 6,
+          "price_band": "₩₩",
+          "signature": "야장 곱창（路邊烤腸）",
+          "why": "在地人下班後小酌的烤腸路邊攤，明洞鬧區中少見的在地日常風景。",
+          "sources": [
+            {
+              "title": "[명동] 천사곱창 명동점 : 명동 한복판에 즐기는 야장 곱창",
+              "site": "yuna__c（Naver Blog）",
+              "url": "https://blog.naver.com/yuna__c/224400875119",
+              "published": "2026-09-04",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "md_geureuk",
+          "name": "그륵 明洞",
+          "name_local": "그륵 명동",
+          "category": "正餐",
+          "audience": "local",
+          "near_spot": "myeongdong_street",
+          "walk_min": 7,
+          "price_band": "₩₩",
+          "signature": "家常韓式定食",
+          "why": "在地人推薦的巷弄家常菜餐廳，遠離主要觀光街道，價格與份量對在地人友善。",
+          "sources": [
+            {
+              "title": "명동 그륵/고뿔소",
+              "site": "vvulso（Naver Blog）",
+              "url": "https://blog.naver.com/vvulso/224381468638",
+              "published": "2026-08-25",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "md_gabaedo",
+          "name": "가배도 明洞",
+          "name_local": "가배도 명동",
+          "category": "咖啡甜點",
+          "audience": "local",
+          "near_spot": "myeongdong_street",
+          "walk_min": 4,
+          "price_band": "₩",
+          "signature": "手沖咖啡",
+          "why": "在地人獨自放鬆的安靜咖啡廳，適合逛街逛累後找個角落坐下休息。",
+          "sources": [
+            {
+              "title": "혼자 놀기 명동 2편 | 분좋카 가배도,혼밥 장소",
+              "site": "yoonseul_013（Naver Blog）",
+              "url": "https://blog.naver.com/yoonseul_013/224400479873",
+              "published": "2026-09-04",
+              "tier": "blogger"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "yeouido",
+      "picks": [
+        {
+          "id": "teddybeurre_hyundai",
+          "name": "테디뵈르하우스 더현대서울점",
+          "name_local": "테디뵈르하우스 더현대서울점",
+          "category": "咖啡甜點",
+          "audience": "tourist",
+          "near_spot": "the_hyundai_seoul",
+          "walk_min": 0,
+          "price_band": "₩₩",
+          "signature": "크루아상（可頌）、에그타르트（蛋塔）",
+          "why": "位於現代百貨B1、五guys旁，被稱首爾三大可頌名店之一，泰迪熊裝潢好拍，逛街累了順路歇腳打包伴手禮都方便。",
+          "caution": "假日常見排隊，建議開店後或平日前往。",
+          "sources": [
+            {
+              "title": "테디뵈르하우스 더현대서울점 | 빵 맛있는 더현대 디저트 맛집",
+              "site": "Little Daily Things",
+              "url": "https://blog.naver.com/42charity/224392795996",
+              "published": "2026-08-28",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "targa_yeouido",
+          "name": "트라가 여의도점",
+          "name_local": "트라가 여의도점",
+          "category": "伴手禮",
+          "audience": "tourist",
+          "near_spot": "the_hyundai_seoul",
+          "walk_min": 8,
+          "price_band": "₩₩₩",
+          "signature": "西班牙風味烘焙點心、可搭配咖啡",
+          "why": "以西班牙旅行為概念的餐酒烘焙館，適合逛完現代百貨後轉場聚餐，也可外帶烘焙點心當伴手禮。",
+          "caution": "位於신영증권本店地下1樓，入口電梯需從大樓地下通道進入，稍難找。",
+          "sources": [
+            {
+              "title": "여의도맛집ㅣ스페인여행온듯한 스페인 음식점 트라가 여의도점 메뉴 후기",
+              "site": "루체",
+              "url": "https://blog.naver.com/ahdwl123/224405712950",
+              "published": "2026-09-09",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "godeungeo_bansang",
+          "name": "화덕으로간고등어반상 여의도점",
+          "name_local": "화덕으로간고등어반상 여의도점",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "the_hyundai_seoul",
+          "walk_min": 7,
+          "price_band": "₩₩",
+          "signature": "500度火爐烤鯖魚定食、임연수구이定食",
+          "why": "新開幕的烤魚定食專門店，用500度以上火爐現烤鯖魚，配自助小菜吧，鄰近現代百貨，適合逛街前後正餐。",
+          "sources": [
+            {
+              "title": "여의도 한식 맛집 화덕으로간고등어반상 여의도점, 500도 화덕 생선구이 정식 후기",
+              "site": "냥이",
+              "url": "https://blog.naver.com/25yhwith/224363952983",
+              "published": "2026-07-31",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "uara_yeouido",
+          "name": "우아라 여의도점",
+          "name_local": "우아라 여의도점",
+          "category": "正餐",
+          "audience": "local",
+          "near_spot": "the_hyundai_seoul",
+          "walk_min": 15,
+          "price_band": "₩₩₩₩",
+          "signature": "韓牛歐마카세套餐、多道料理搭配烤肉",
+          "why": "全包廂式韓牛套餐餐廳，是여의도上班族與情侶聚餐的口袋名單，晚間氣氛安靜適合較正式的一餐。",
+          "caution": "建議提前訂位，平假日皆有午晚休息時段。",
+          "sources": [
+            {
+              "title": "우아라 여의도점 | 여의도 맛집 한우 오마카세 룸식당 디너 B 코스요리 데이트 추천",
+              "site": "두쿵",
+              "url": "https://blog.naver.com/830mm/224388109514",
+              "published": "2026-08-24",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "golsu_yeouido",
+          "name": "골수 여의도점",
+          "name_local": "골수 여의도점",
+          "category": "正餐",
+          "audience": "local",
+          "near_spot": "the_hyundai_seoul",
+          "walk_min": 12,
+          "price_band": "₩₩",
+          "signature": "뼈수육전골（骨頭湯鍋）、수제비（麵疙瘩）沙里免費加",
+          "why": "在地上班族愛去的骨頭湯專門店，口味清爽不死鹹，最後加수제비收尾份量十足，適合怕辣同伴。",
+          "caution": "平日中午11:50前較不用等，假日仍會排隊。",
+          "sources": [
+            {
+              "title": "여의도 골수 뼈수육전골 후기 | 원센티널 담백한 뼈 전문점, 수제비 마무리가 별미",
+              "site": "41og4",
+              "url": "https://blog.naver.com/41og4/224383396890",
+              "published": "2026-08-24",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "mikele_coffee",
+          "name": "미켈레커피 여의도점",
+          "name_local": "미켈레커피 여의도점",
+          "category": "咖啡甜點",
+          "audience": "local",
+          "near_spot": "yeouido_hangang_park",
+          "walk_min": 15,
+          "price_band": "₩",
+          "signature": "手沖咖啡、말차바스크치즈케이크（抹茶巴斯克起司蛋糕）",
+          "why": "國會議事堂站旁社區型咖啡店，在地人常來的手沖咖啡與甜點口袋名單，環境安靜適合公園散步後歇腳。",
+          "sources": [
+            {
+              "title": "[카페] 미켈레커피 여의도점(여의도공원 카페 추천, 국회의사당역 카페 추천, 핸드드립커피 맛집)",
+              "site": "먼지",
+              "url": "https://blog.naver.com/dust_do__it/224391706674",
+              "published": "2026-09-06",
+              "tier": "blogger"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "noryangjin",
+      "picks": [
+        {
+          "id": "sohn_captain_sashimi",
+          "name": "손선장 횟회",
+          "name_local": "노량진수산시장 손선장 횟집",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "noryangjin_market",
+          "walk_min": 0,
+          "price_band": "₩₩₩",
+          "signature": "帝王蟹、長腳蟹、生魚片現點現料理",
+          "why": "就在市場南3門內的活魚攤，觀光客與部落客常提到的比價選擇之一，可現場秤重議價後直接上樓代客料理，適合作為當地海鮮正餐。",
+          "caution": "購買前務必檢查蟹腳是否完整，並確認秤重與代客料理費用是否已包含。",
+          "sources": [
+            {
+              "title": "노량진 수산시장 어느 횟집으로 가야할까? | 친구들과 다녀온 [노량진수산시장 손선장 횟집] 솔직후기",
+              "site": "체공주",
+              "url": "https://blog.naver.com/akxh719/224399817505",
+              "published": "2026-09-03",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "adam_chicken",
+          "name": "아담치킨 노량진점",
+          "name_local": "아담치킨 노량진점",
+          "category": "小吃",
+          "audience": "tourist",
+          "near_spot": "noryangjin_market",
+          "walk_min": 10,
+          "price_band": "₩₩",
+          "signature": "통닭다리살炸雞、칠리스치즈스틱",
+          "why": "逛完市場後順路可帶走的炸雞名店，外皮酥脆、雞腿肉扎實，也是遊客宵夜熱門選擇，方便打包回飯店享用。",
+          "sources": [
+            {
+              "title": "노량진 치킨 포장｜아담치킨｜통닭다리살, 칠리스치즈스틱｜야식추천",
+              "site": "취준하는 먹잘알",
+              "url": "https://blog.naver.com/bin_recordlab/224382231198",
+              "published": "2026-08-18",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "seul_taco",
+          "name": "세울타코 파히타",
+          "name_local": "세울타코 파히타",
+          "category": "小吃",
+          "audience": "tourist",
+          "near_spot": "noryangjin_market",
+          "walk_min": 10,
+          "price_band": "₩",
+          "signature": "墨西哥法士達塔可（파히타）",
+          "why": "以自動出餐機分量的墨西哥風味塔可，異國口味在市場周邊算新鮮選擇，適合想換口味或怕海鮮腥味的同伴。",
+          "sources": [
+            {
+              "title": "노량진맛집 세울타코 파히타, 로봇이 정량으로 담아주는 색다른 한 끼",
+              "site": "이다",
+              "url": "https://blog.naver.com/0416harang/224377937111",
+              "published": "2026-08-13",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "igaewon_gukbap",
+          "name": "이가원국밥",
+          "name_local": "이가원국밥",
+          "category": "正餐",
+          "audience": "local",
+          "near_spot": "noryangjin_market",
+          "walk_min": 12,
+          "price_band": "₩",
+          "signature": "소고기국밥（牛肉湯飯）",
+          "why": "노량진고시촌在地人常吃的平價牛肉湯飯店，從午餐到宵夜都營業，適合想吃簡單暖胃韓食、預算有限的一餐。",
+          "sources": [
+            {
+              "title": "노량진 밥집 이가원국밥 - 점심부터 술집까지 좋은 소고기국밥 맛본 후기",
+              "site": "경제토대왕",
+              "url": "https://blog.naver.com/dysaghwls/224407652190",
+              "published": "2026-09-10",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "anas_bakery",
+          "name": "아나스카페앤베이커리",
+          "name_local": "아나스카페앤베이커리",
+          "category": "咖啡甜點",
+          "audience": "local",
+          "near_spot": "noryangjin_market",
+          "walk_min": 15,
+          "price_band": "₩",
+          "signature": "소금빵（鹽可頌）",
+          "why": "位在노량진고시촌讀書街區的社區烘焙咖啡店，在地學生與上班族熟客多，鹽可頌現烤香酥，適合早上或午後歇腳。",
+          "sources": [
+            {
+              "title": "[노량진] 공부하는 동네에서 찾은 소금빵 맛집 \"아나스카페앤베이커리\" 솔직 후기(메뉴 추천)",
+              "site": "바꾸다",
+              "url": "https://blog.naver.com/change_02/224385723026",
+              "published": "2026-08-21",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "noryangjin_jumak",
+          "name": "노량진 주막",
+          "name_local": "노량진 주막",
+          "category": "小吃",
+          "audience": "local",
+          "near_spot": "noryangjin_market",
+          "walk_min": 18,
+          "price_band": "₩₩",
+          "signature": "煎餅（전）、韓式馬格利酒（막걸리）",
+          "why": "傳統韓式酒館氛圍的小吃店，在地人下班後小酌吃煎餅配馬格利酒的口袋名單，適合想體驗在地小酒館文化的同伴。",
+          "caution": "供應酒類，行程若安排在此用餐需留意隔日行程時間。",
+          "sources": [
+            {
+              "title": "[동작구/노량진 맛집] 비오는날 전 과 막걸리 한잔 전남친 내돈내산 방문후기",
+              "site": "jjvely",
+              "url": "https://blog.naver.com/jjinvel_y/224325529214",
+              "published": "2026-06-24",
+              "tier": "blogger"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "seongsu",
+      "picks": [
+        {
+          "id": "somunnan_gamjatang",
+          "name": "祖傳三代馬鈴薯排骨湯",
+          "name_local": "소문난성수감자탕",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "daelim_changgo",
+          "walk_min": 10,
+          "price_band": "₩₩",
+          "signature": "감자탕（馬鈴薯排骨湯，排骨燉到入口即化）",
+          "why": "白鐘元《三大天王》認證名店，24小時營業、翻桌快，是聖水洞排隊指標美食，適合安排在正餐時段。",
+          "caution": "用餐尖峰仍需排隊，24小時營業可考慮避開中午/晚間高峰改早午餐或宵夜時段前往。",
+          "sources": [
+            {
+              "title": "首爾美食｜聖水洞祖傳三代馬鈴薯排骨湯：24小時營業、白鐘元推薦必吃名店！ - 呆呆齡愛玩樂",
+              "site": "呆呆齡愛玩樂",
+              "url": "https://rowing2005.pixnet.net/blog/posts/9577722848",
+              "published": "2026-01-17",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "cafe_onion_seongsu",
+          "name": "Cafe Onion聖水店",
+          "name_local": "카페 어니언 성수점",
+          "category": "咖啡甜點",
+          "audience": "tourist",
+          "near_spot": "daelim_changgo",
+          "walk_min": 5,
+          "price_band": "₩₩",
+          "signature": "판도르（潘朵拉麵包）",
+          "why": "廢棄工廠改建的網美咖啡廳，聖水洞最具代表性的咖啡連鎖起點店，適合逛完大林倉庫後歇腳。",
+          "caution": "假日排隊時間長，可考慮平日上午前往。",
+          "sources": [
+            {
+              "title": "【2026聖水洞逛街地圖】Top15必買品牌、美食＆咖啡廳！一日遊交通路線攻略 - 波比看世界",
+              "site": "波比看世界",
+              "url": "https://bobbytravel.tw/seongsu-dong/",
+              "published": "2026-07-12",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "natural_island_salt_bread",
+          "name": "自然島鹽麵包",
+          "name_local": "자연도 소금빵",
+          "category": "伴手禮",
+          "audience": "tourist",
+          "near_spot": "seongsu_yeonbang",
+          "walk_min": 5,
+          "price_band": "₩",
+          "signature": "天然鹽可頌（一天出爐六次）",
+          "why": "專賣鹽可頌的人氣烘焙店，可現場吃也適合買回飯店當隔天早餐或伴手禮。",
+          "sources": [
+            {
+              "title": "【2026聖水洞逛街地圖】Top15必買品牌、美食＆咖啡廳！一日遊交通路線攻略 - 波比看世界",
+              "site": "波比看世界",
+              "url": "https://bobbytravel.tw/seongsu-dong/",
+              "published": "2026-07-12",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "doga_seongsu",
+          "name": "道家聖水本店",
+          "name_local": "도가 성수본점",
+          "category": "小吃",
+          "audience": "local",
+          "near_spot": "daelim_changgo",
+          "walk_min": 8,
+          "price_band": "₩",
+          "signature": "순대국밥（米血雜湯飯）",
+          "why": "Naver在地搜尋高評分店家，上班族常吃的家常순대국밥，適合一人或多人單點快速用餐，價格親民。",
+          "sources": [
+            {
+              "title": "도가 성수본점 성수동 국밥, 성수 혼밥과 직장인 점심으로 좋은 순대국밥",
+              "site": "alwaysbehappy8493（Naver Blog）",
+              "url": "https://m.blog.naver.com/alwaysbehappy8493/224401282044",
+              "published": "2026-09-04",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "kotaco_seongsu",
+          "name": "코타코 聖水店",
+          "name_local": "코타코 성수",
+          "category": "小吃",
+          "audience": "local",
+          "near_spot": "seongsu_yeonbang",
+          "walk_min": 7,
+          "price_band": "₩₩",
+          "signature": "韓式타코（塔可）",
+          "why": "聖水洞新開的韓式塔可店，Naver在地美食面板「新開幕」分類竄紅，口味清爽不辣、老少咸宜。",
+          "sources": [
+            {
+              "title": "성수동 새로 생긴 타코 맛집 \"코타코 성수\" 다녀온 후기",
+              "site": "abcd3953（Naver Blog）",
+              "url": "https://m.blog.naver.com/abcd3953/224382169874",
+              "published": "2026-08-18",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "turtle_hip_seongsu",
+          "name": "터틀힙聖水",
+          "name_local": "터틀힙 성수",
+          "category": "咖啡甜點",
+          "audience": "local",
+          "near_spot": "seoul_forest",
+          "walk_min": 10,
+          "price_band": "₩₩",
+          "signature": "造型蛋糕（種類多樣）",
+          "why": "Naver在地評論高分的蛋糕專賣店，適合首爾林散步後買塊蛋糕配咖啡歇腳，當地人買生日蛋糕常來這裡。",
+          "sources": [
+            {
+              "title": "터틀힙ㅣ케이크 종류 다양하고 예쁜 성수 케이크 맛집",
+              "site": "15mkim（Naver Blog）",
+              "url": "https://m.blog.naver.com/15mkim/224400634626",
+              "published": "2026-09-04",
+              "tier": "blogger"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "namiseom",
+      "picks": [
+        {
+          "id": "yeonga_jip",
+          "name": "戀歌之家",
+          "name_local": "연가네",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "nami_island",
+          "walk_min": 5,
+          "price_band": "₩₩",
+          "signature": "懷舊鐵盒便當（泡菜、荷包蛋、火腿）",
+          "why": "《冬季戀歌》男女主角常用餐地點，島上用餐選擇有限時的定番之選，適合韓劇迷。",
+          "sources": [
+            {
+              "title": "【2026南怡島一日遊】冬季戀歌場景！滑索預約、門票交通＆必吃美食全攻略 - 波比看世界",
+              "site": "波比看世界",
+              "url": "https://bobbytravel.tw/nami-island/",
+              "published": "2026-07-17",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "yeonga_cafe",
+          "name": "戀歌咖啡",
+          "name_local": "연가카페",
+          "category": "咖啡甜點",
+          "audience": "tourist",
+          "near_spot": "nami_island",
+          "walk_min": 5,
+          "price_band": "₩",
+          "signature": "雪人造型糖餅（호떡，2,000 KRW／個）",
+          "why": "位於水杉道入口，外皮酥脆、內餡肉桂糖漿，是南怡島散步途中的經典小點心。",
+          "sources": [
+            {
+              "title": "【2026南怡島一日遊】冬季戀歌場景！滑索預約、門票交通＆必吃美食全攻略 - 波比看世界",
+              "site": "波比看世界",
+              "url": "https://bobbytravel.tw/nami-island/",
+              "published": "2026-07-17",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "kko_kko_dakgalbi",
+          "name": "KKO KKO春川鐵板雞",
+          "name_local": "꼬꼬춘천닭갈비",
+          "category": "正餐",
+          "audience": "tourist",
+          "near_spot": "nami_island",
+          "walk_min": 3,
+          "price_band": "₩₩",
+          "signature": "春川鐵板雞（닭갈비，附小菜吃到飽）",
+          "why": "位於南怡島加平端碼頭旁，進出島前後都方便順路用餐，雞肉嫩、年糕好吃，小菜可自助續加。",
+          "sources": [
+            {
+              "title": "【2026南怡島一日遊】冬季戀歌場景！滑索預約、門票交通＆必吃美食全攻略 - 波比看世界",
+              "site": "波比看世界",
+              "url": "https://bobbytravel.tw/nami-island/",
+              "published": "2026-07-17",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "chuncheon_wonjo_dakgalbi",
+          "name": "春川元祖炭火雞排",
+          "name_local": "춘천원조숯불닭갈비",
+          "category": "正餐",
+          "audience": "local",
+          "near_spot": "gangchon_railbike",
+          "walk_min": 15,
+          "price_band": "₩₩",
+          "signature": "숯불닭갈비（炭火雞排）",
+          "why": "作者三年來每年夏天造訪春川、吃過大量닭갈비後仍推薦的在地名店，鄰近南春川站與江村地區，適合包車行程中順路安排。",
+          "caution": "位於南春川站附近，需搭配包車或計程車接駁前往，非南怡島碼頭步行範圍。",
+          "sources": [
+            {
+              "title": "남춘천역 맛집 추천 춘천원조숯불닭갈비 | 경춘선 타고 가는 숯불 닭갈비 맛집 (내돈내산)",
+              "site": "1ovol（Naver Blog）",
+              "url": "https://m.blog.naver.com/1ovol/224376815594",
+              "published": "2026-08-12",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "gapyeong_makguksu",
+          "name": "加平站蕎麥涼麵",
+          "name_local": "가평역막국수",
+          "category": "小吃",
+          "audience": "local",
+          "near_spot": "french_village",
+          "walk_min": 15,
+          "price_band": "₩",
+          "signature": "막국수（蕎麥涼麵）配메밀전병/돈가스",
+          "why": "加平地區在地招牌小吃막국수（蕎麥涼麵），口味清爽消暑，鄰近加平站，可安排在往返小法國村途中。",
+          "caution": "位於加平站周邊，需搭配包車接駁前往，非小法國村園區內。",
+          "sources": [
+            {
+              "title": "가평역맛집 시원하고 고소한 막국수가 일품인 가평역막국수 추천 (메밀전병/,돈가스 조합)",
+              "site": "csongy（Naver Blog）",
+              "url": "https://m.blog.naver.com/csongy/224384216632",
+              "published": "2026-08-20",
+              "tier": "blogger"
+            }
+          ]
+        },
+        {
+          "id": "gapyeong_goldentree",
+          "name": "加平金樹河景咖啡",
+          "name_local": "가평 골든트리",
+          "category": "咖啡甜點",
+          "audience": "local",
+          "near_spot": "gangchon_railbike",
+          "walk_min": 15,
+          "price_band": "₩₩",
+          "signature": "北漢江河景座位",
+          "why": "加平近郊大型河景咖啡廳，適合鐵路自行車行程結束後坐下來欣賞北漢江景色、稍作休息。",
+          "caution": "位於加平近郊，需搭配包車接駁前往。",
+          "sources": [
+            {
+              "title": "근교 뷰맛집 대형 카페 추천! 가평 골든트리 #리버뷰카페 #뷰예쁜근교카페 #근교대형카페 #가평카페추천 #북한강뷰카페",
+              "site": "980619helen（Naver Blog）",
+              "url": "https://m.blog.naver.com/980619helen/224400658346",
+              "published": "2026-09-04",
+              "tier": "blogger"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

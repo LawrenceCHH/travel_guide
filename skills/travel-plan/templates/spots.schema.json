@@ -63,7 +63,7 @@
       "type": "object",
       "required": [
         "id", "name", "category", "audience", "why", "duration_min",
-        "friendliness", "open_hours", "booking_required", "rainy_day_ok", "sources"
+        "open_hours", "booking_required", "rainy_day_ok", "sources"
       ],
       "additionalProperties": false,
       "properties": {
@@ -81,17 +81,8 @@
           "items": { "type": "string", "enum": ["tourist_must", "local_favorite"] },
           "description": "可並列，例如同時是觀光客必去也是當地人推薦。"
         },
-        "why": { "type": "string", "description": "推薦理由，一到兩句。" },
+        "why": { "type": "string", "description": "具體描述這個景點實際上為什麼好玩、有什麼特色、值不值得排進行程，讓讀者自己判斷要不要去，不打分數。避免空泛套語（如「值得一去」），要寫出具體場景或體驗。" },
         "duration_min": { "type": "integer", "minimum": 1, "description": "建議停留分鐘數。" },
-        "friendliness": {
-          "type": "object",
-          "required": ["score", "notes"],
-          "additionalProperties": false,
-          "properties": {
-            "score": { "type": "integer", "minimum": 1, "maximum": 5, "description": "同伴友善度評分，滿分 5 星。" },
-            "notes": { "type": "string", "description": "友善特徵或雷區說明。" }
-          }
-        },
         "open_hours": { "type": "string", "description": "營業/開放時間，如 09:00-18:00。" },
         "closed_on": { "type": "string", "description": "公休日，選填。" },
         "fee": { "type": "string", "description": "門票/費用說明，選填。" },
@@ -161,9 +152,8 @@
               "name_local": "경복궁",
               "category": "文化古蹟",
               "audience": ["tourist_must"],
-              "why": "朝鮮王朝正宮，規模最大、最具代表性的古蹟。",
+              "why": "朝鮮王朝正宮，規模最大、最具代表性的古蹟，整點守衛交接儀式（守門將交代式）陣仗大、很多人專程卡點拍照；正殿後方的香遠亭蓮池是熱門拍照角度。石板路長、部分區域無遮蔽，夏季注意防曬。",
               "duration_min": 120,
-              "friendliness": { "score": 4, "notes": "石板路長、部分區域無遮蔽，夏季注意防曬。" },
               "open_hours": "09:00-18:00",
               "closed_on": "週二",
               "fee": "成人 3000 KRW",

@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "destination": "韓國首爾",
+  "last_verified": "2026-09-09",
+  "areas": [
+    {
+      "id": "myeongdong",
+      "name": "市政廳・明洞商圈",
+      "summary": "住宿所在區域，購物與換匯機能齊全，適合抵達日／離境日輕量安排。",
+      "nearest_station": "市政廳站（1號線／2號線）",
+      "spots": [
+        {
+          "id": "myeongdong_cathedral",
+          "name": "明洞聖堂",
+          "name_local": "명동성당",
+          "category": "文化古蹟",
+          "audience": [
+            "tourist_must"
+          ],
+          "why": "首爾地標級哥德式教堂，明洞逛街途中順遊的免費景點。",
+          "duration_min": 40,
+          "open_hours": "06:00-21:00（彌撒時間不對外開放參觀）",
+          "closed_on": "",
+          "fee": "免費",
+          "booking_required": false,
+          "rainy_day_ok": false,
+          "sources": [
+            {"title": "【首爾】2026明洞逛街地圖精華！韓國明洞美食必吃必買、景點換錢所彙整", "site": "波比看世界", "url": "https://bobbytravel.tw/myeongdong/", "published": "2026-07-11", "tier": "blogger"}
+          ]
+        },
+        {
+          "id": "myeongdong_shopping",
+          "name": "明洞逛街商圈",
+          "name_local": "명동거리",
+          "category": "購物商圈",
+          "audience": [
+            "tourist_must"
+          ],
+          "why": "美妝、服飾、街邊小吃密集的核心逛街區，機場快線與住宿皆步行可達。",
+          "duration_min": 120,
+          "open_hours": "店家多為 10:30-22:00",
+          "closed_on": "",
+          "fee": "免費（逛街）",
+          "booking_required": false,
+          "rainy_day_ok": false,
+          "sources": [
+            {"title": "【首爾】2026明洞逛街地圖精華！韓國明洞美食必吃必買、景點換錢所彙整", "site": "波比看世界", "url": "https://bobbytravel.tw/myeongdong/", "published": "2026-07-11", "tier": "blogger"}
+          ]
+        },
+        {
+          "id": "lotte_dept_main",
+          "name": "樂天百貨本店周邊室內商場",
+          "name_local": "롯데백화점 본점",
+          "category": "室內歇腳",
+          "audience": [
+            "tourist_must",
+            "local_favorite"
+          ],
+          "why": "室內空間大、有美食街與洗手間，適合下雨天或抵達當日行李寄放後的低強度歇腳點。",
+          "duration_min": 90,
+          "open_hours": "10:30-20:00",
+          "closed_on": "不定期公休（依月曆）",
+          "fee": "免費入場",
+          "booking_required": false,
+          "rainy_day_ok": true,
+          "sources": [
+            {"title": "【首爾】2026明洞逛街地圖精華！韓國明洞美食必吃必買、景點換錢所彙整", "site": "波比看世界", "url": "https://bobbytravel.tw/myeongdong/", "published": "2026-07-11", "tier": "blogger"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gyeongbok",
+      "name": "景福宮・三清洞・北村",
+      "summary": "宮殿古蹟與韓屋巷弄交織的文青散步區，草稿指名必去。",
+      "nearest_station": "景福宮站（3號線）／安國站（3號線）",
+      "spots": [
+        {
+          "id": "gyeongbokgung",
+          "name": "景福宮",
+          "name_local": "경복궁",
+          "category": "文化古蹟",
+          "audience": [
+            "tourist_must"
+          ],
+          "why": "朝鮮王朝正宮，規模最大、最具代表性的古蹟，草稿明確指名必去。",
+          "duration_min": 120,
+          "open_hours": "09:00-18:00（依季節調整，6-8月延長至18:30）",
+          "closed_on": "每週二",
+          "fee": "成人 3,000 KRW",
+          "booking_required": false,
+          "rainy_day_ok": false,
+          "sources": [
+            {"title": "경복궁 - VISITKOREA 官方景點介紹", "site": "韓國觀光公社 VisitKorea", "url": "https://english.visitkorea.or.kr/svc/whereToGo/locIntrdn/rgnContentsView.do?vcontsId=108422", "published": "2026-09-09", "tier": "official"}
+          ]
+        },
+        {
+          "id": "bukchon_hanok",
+          "name": "北村韓屋村",
+          "name_local": "북촌 한옥마을",
+          "category": "文化古蹟",
+          "audience": [
+            "tourist_must",
+            "local_favorite"
+          ],
+          "why": "六百年歷史傳統韓屋街區，北村八景為熱門取景點，草稿明確指名必去。",
+          "duration_min": 90,
+          "open_hours": "全天開放（戶外街區）",
+          "closed_on": "",
+          "fee": "免費",
+          "booking_required": false,
+          "rainy_day_ok": false,
+          "sources": [
+            {"title": "【2026北村韓屋村】北村八景地圖攻略！展望台、美食咖啡廳＆韓服交通彙整", "site": "波比看世界", "url": "https://bobbytravel.tw/bukchon-hanok-village/", "published": "2026-07-17", "tier": "blogger"}
+          ]
+        },
+        {
+          "id": "gogung_museum",
+          "name": "國立古宮博物館",
+          "name_local": "국립고궁박물관",
+          "category": "文化古蹟",
+          "audience": [
+            "local_favorite"
+          ],
+          "why": "景福宮旁室內免費博物館，收藏朝鮮王室文物，適合作為雨天或體力有限時的替代方案。",
+          "duration_min": 60,
+          "open_hours": "10:00-18:00",
+          "closed_on": "元旦、春節、中秋",
+          "fee": "免費",
+          "booking_required": false,
+          "rainy_day_ok": true,
+          "sources": [
+            {"title": "首爾∥韓國首爾國立古宮博物館景福宮旁的免費景點!來1場韓國的歷史文化之旅", "site": "你今天「微笑」了嗎？(Vivi)", "url": "https://smilevivi.com/gogung/", "published": "2024-12-17", "tier": "blogger"}
+          ]
+        },
+        {
+          "id": "samcheong_street",
+          "name": "三清洞街",
+          "name_local": "삼청동길",
+          "category": "購物商圈",
+          "audience": [
+            "local_favorite"
+          ],
+          "why": "北村與景福宮之間的文青散步街，咖啡廳與特色小店密集，當地人與觀光客都愛逛。",
+          "duration_min": 90,
+          "open_hours": "店家多為 11:00-21:00",
+          "closed_on": "",
+          "fee": "免費（逛街）",
+          "booking_required": false,
+          "rainy_day_ok": false,
+          "sources": [
+            {"title": "《首爾旅行》三清洞散策 @ 傳統韓屋,鬼怪拍攝地,特色商店,美食,茶屋,咖啡廳", "site": "樂活的大方", "url": "https://www.bigfang.tw/blog/post/samcheong-dong-walker", "published": "2024-11-11", "tier": "blogger"}
+          ]
+        }
+      ]
+    }
+  ]
+}
