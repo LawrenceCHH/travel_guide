@@ -109,7 +109,7 @@
     },
     "provenance": {
       "type": "string",
-      "description": "原始資料來源說明，只描述來源位置，不得含實際個資"
+      "description": "原始資料來源說明，只描述來源位置與（若草稿含多版本）版本選用理由，不得含實際個資，見 references/intake.md §草稿含多個版本時的處理"
     }
   }
 }

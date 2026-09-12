@@ -47,11 +47,11 @@
     "一日包車行程屬必須事先預約項目"
   ],
   "inferred_fields": ["stay.area", "stay.nearest_station"],
-  "provenance": "private/input/（使用者提供，不進版控）"
+  "provenance": "private/input/（使用者提供，不進版控）。草稿內含 new／old 兩版行程，採用 new 版（表格式，含日期戳記）；old 版（條列式，標題明確寫 old）未採用，見 references/intake.md §草稿含多個版本時的處理"
 }
 ```
 
-`derived_constraints` 是刻意保留的自然語言欄位——它裝的是**推論結果**（例如紅眼班機該怎麼排），不是個資，而且下游主題最需要的就是這幾句。`inferred_fields` 列出哪些值是推斷來的，直接餵給 `progress.md` 的「待覆核的推斷值」區塊。
+`derived_constraints` 是刻意保留的自然語言欄位——它裝的是**推論結果**（例如紅眼班機該怎麼排），不是個資，而且下游主題最需要的就是這幾句。`inferred_fields` 列出哪些值是推斷來的，直接餵給 `progress.md` 的「待覆核的推斷值」區塊。`provenance` 除了來源位置，草稿含多版本時也把「用了哪一版、為什麼」的白話說明寫在這裡，讓使用者事後看得懂，細則見 `references/intake.md`。
 
 ## 執行機制（五點）
 
