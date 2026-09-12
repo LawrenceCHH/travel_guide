@@ -5,7 +5,7 @@ description: 協助自由行旅客快速掌握目的地國家最新、正確、�
 
 # travel-plan
 
-引導使用者從任意輸入（既有草稿、片段資訊、或完全空白）產出一趟旅程的完整行前準備。**核心產出是 `materials/`**——最新、正確、彼此距離關係清楚的景點/美食素材庫；`plan/10_itinerary.md` 的 3 套行程安排只是示範用法的參考草案，不是最終定案，使用者可以直接採用、自己以半天為單位重組，或拿去跟其他 agent 討論深化。**任何環境都必須能完整跑完**——skill 啟動時先自檢環境能力，依能力優雅降級，不因缺少 git、子 agent 或程式執行而中斷。
+引導使用者從任意輸入（既有草稿、片段資訊、或完全空白）產出一趟旅程的完整行前準備。**核心產出是 `materials/`**——最新、正確、彼此距離關係清楚的景點/美食素材庫；`plan/10_itinerary.md` 的 1 套客製＋2 套部落客實走行程（合計 3 篇，來源與查證要求不同，非地位對等的三選一，細則見 `references/sections/10_itinerary.md` 規則 5）只是示範用法的參考草案，不是最終定案，使用者可以直接採用、自己以半天為單位重組，或拿去跟其他 agent 討論深化。**任何環境都必須能完整跑完**——skill 啟動時先自檢環境能力，依能力優雅降級，不因缺少 git、子 agent 或程式執行而中斷。
 
 > 本檔只放流程與路由，主題規格一律按需讀取 `references/`，不在此重複內容。**本 skill 資料夾自我完備**，執行時不需要、也不得依賴資料夾外的任何檔案。
 
@@ -49,7 +49,7 @@ Wave 依賴（詳見 `references/workflow.md` §依賴分析）：
 前置：00 通用知識裁剪 ｜ 01 行程資訊整理（主 agent 自己做）
 Wave 1（可完全平行）：02 03 04 05 06 07 08 11
 Wave 2（依賴 05＋01 的住宿區位）：09 素材庫
-Wave 3（依賴 09＋05＋首尾時刻）：10 行程安排（3 方案）
+Wave 3（依賴 09＋05＋首尾時刻）：10 行程安排（1 套客製＋2 套部落客實走）
 ```
 
 跨主題呼應檢查（推薦 App 是否呼應交通/支付、行程接駁是否與交通章節一致、素材庫店家是否被行程實際用到）由主 agent 在收斂時執行，方法見 `references/workflow.md`。
@@ -70,7 +70,7 @@ Wave 3（依賴 09＋05＋首尾時刻）：10 行程安排（3 方案）
 | 07 | 免稅與退稅 | `references/sections/07_tax_refund.md` | `plan/07_tax_refund.md` |
 | 08 | 當地習慣 | `references/sections/08_local_customs.md` | `plan/08_local_customs.md` |
 | 09 | 素材庫 | `references/sections/09_materials.md` + `templates/spots.schema.json` / `food.schema.json` | `materials/spots.json` / `materials/food.json` |
-| 10 | 行程安排（3 方案） | `references/sections/10_itinerary.md` | `plan/10_itinerary.md` |
+| 10 | 行程安排（1 套客製＋2 套部落客實走，地位不對等） | `references/sections/10_itinerary.md` | `plan/10_itinerary.md` |
 | 11 | 緊急應變 | `references/sections/11_emergency.md` | `plan/11_emergency.md` |
 
 其餘共用檔：
